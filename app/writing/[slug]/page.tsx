@@ -35,7 +35,7 @@ export default async function WritingDetailPage({
     <main className="mx-auto max-w-[760px] px-6 py-7 sm:px-8 sm:py-9">
       <Nav />
       <article className="py-10">
-        <h1 className="mb-3 text-[38px] font-bold leading-tight tracking-[-0.5px] text-white">
+        <h1 className="mb-3 text-[38px] font-bold leading-tight tracking-[-0.5px] text-[var(--color-fg)]">
           {post.meta.title}
         </h1>
         <div className="mb-10 font-mono text-[12px] text-[var(--color-faint)]">

@@ -10,7 +10,7 @@ export function WritingItem({ post }: { post: WritingMeta }) {
       <span className="font-mono text-[12px] text-[var(--color-faint)]">
         {post.date}
       </span>
-      <span className="text-[15px] text-[#ddd] group-hover:text-white">
+      <span className="text-[15px] text-[var(--color-fg)] transition-colors group-hover:text-[var(--color-accent)]">
         {post.title}
       </span>
     </Link>

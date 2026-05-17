@@ -2,8 +2,8 @@ import type { Product } from "@/lib/types";
 
 export function ProductCard({ product }: { product: Product }) {
   const inner = (
-    <div className="group rounded-lg border border-[var(--color-card-border)] bg-[var(--color-card)] p-6 px-[22px] transition-colors hover:border-[var(--color-card-border-hover)]">
-      <h3 className="mb-2 text-[17px] font-semibold tracking-[-0.2px] text-white">
+    <div className="group rounded-lg border border-[var(--color-card-border)] bg-[var(--color-card)] p-6 px-[22px] shadow-[0_1px_2px_rgba(28,25,23,0.04)] transition-all hover:border-[var(--color-card-border-hover)] hover:shadow-[0_2px_8px_rgba(28,25,23,0.06)]">
+      <h3 className="mb-2 text-[17px] font-semibold tracking-[-0.2px] text-[var(--color-fg)]">
         {product.name}
       </h3>
       <p className="mb-[14px] text-[14px] leading-relaxed text-[var(--color-muted)]">
@@ -13,7 +13,7 @@ export function ProductCard({ product }: { product: Product }) {
         {product.tags.map((t) => (
           <li
             key={t}
-            className="rounded bg-[var(--color-border)] px-[8px] py-[3px] font-mono text-[11px] text-[#aaa]"
+            className="rounded bg-[var(--color-bg)] px-[8px] py-[3px] font-mono text-[11px] text-[var(--color-muted)]"
           >
             {t}
           </li>

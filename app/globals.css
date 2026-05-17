@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand */
-  --color-bg: #0c0c0f;
-  --color-fg: #ececef;
-  --color-muted: #8e8e96;
-  --color-faint: #5b5b63;
-  --color-accent: #fb923c;
+  /* Brand — warm light theme */
+  --color-bg: #fafaf8;
+  --color-fg: #1c1917;
+  --color-muted: #78716c;
+  --color-faint: #a8a29e;
+  --color-accent: #ea580c;
 
   /* Surfaces */
-  --color-card: #16161b;
-  --color-border: #1f1f25;
-  --color-border-strong: #2d2d35;
-  --color-card-border: #25252c;
-  --color-card-border-hover: #3a3a44;
+  --color-card: #ffffff;
+  --color-border: #e7e5e4;
+  --color-border-strong: #d6d3d1;
+  --color-card-border: #e7e5e4;
+  --color-card-border-hover: #a8a29e;
 
   /* Typography */
   --font-sans: var(--font-geist-sans), -apple-system, "PingFang SC", sans-serif;
@@ -21,7 +21,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -34,5 +34,5 @@ body {
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: #ffffff;
 }
