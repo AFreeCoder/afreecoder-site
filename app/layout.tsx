@@ -4,7 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://afreecoder.com"),
+  metadataBase: new URL("https://afreecoder.dev"),
   title: {
     default: "AFreeCoder",
     template: "%s · AFreeCoder",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "AFreeCoder",
     description:
       "Independent developer · AI · 投资理财. Observing. Building. Iterating.",
-    url: "https://afreecoder.com",
+    url: "https://afreecoder.dev",
     siteName: "AFreeCoder",
     locale: "zh_CN",
     type: "website",

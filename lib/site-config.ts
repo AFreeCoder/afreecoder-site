@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "AFreeCoder",
-  domain: "https://afreecoder.com",
+  domain: "https://afreecoder.dev",
   description:
     "Independent developer · AI · 投资理财. Observing. Building. Iterating.",
   slogan: ["// Observing", "// Building", "// Iterating"] as const,
