@@ -26,23 +26,23 @@ export function Hero({ aboutSummary, aboutHref = "/about" }: Props) {
             }}
           />
         </div>
-        <h1 className="mb-[10px] text-[24px] font-bold leading-tight tracking-[-0.5px] text-white">
+        <h1 className="mb-[10px] text-[26px] font-bold leading-tight tracking-[-0.5px] text-white">
           {siteConfig.name}
         </h1>
-        <div className="mb-3 space-y-[2px] font-mono text-[11px] leading-[1.4] text-[var(--color-accent)]">
+        <div className="mb-3 space-y-[2px] font-mono text-[12px] leading-[1.4] text-[var(--color-accent)]">
           {siteConfig.slogan.map((line) => (
             <div key={line}>{line}</div>
           ))}
         </div>
-        <p className="mb-[18px] text-[12px] leading-[1.5] text-[var(--color-muted)]">
+        <p className="mb-[18px] text-[13px] leading-[1.55] text-[var(--color-muted)]">
           {siteConfig.intro}
         </p>
-        <ul className="flex flex-wrap gap-[5px]">
+        <ul className="flex flex-wrap gap-[6px]">
           {siteConfig.socials.map((s) => (
             <li key={s.label}>
               <a
                 href={s.href}
-                className="inline-block rounded-full border border-[var(--color-border-strong)] px-[10px] py-1 text-[10px] text-[#aaa] transition-colors hover:text-white"
+                className="inline-block rounded-full border border-[var(--color-border-strong)] px-[11px] py-[5px] text-[11px] text-[#aaa] transition-colors hover:text-white"
                 target={s.href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
               >
@@ -55,15 +55,15 @@ export function Hero({ aboutSummary, aboutHref = "/about" }: Props) {
 
       {/* RIGHT: about summary */}
       <div className="pt-1">
-        <div className="mb-[18px] font-mono text-[10px] uppercase tracking-[2px] text-[var(--color-faint)]">
+        <div className="mb-[18px] font-mono text-[11px] uppercase tracking-[2px] text-[var(--color-faint)]">
           — ABOUT
         </div>
-        <div className="max-w-[720px] space-y-[14px] text-[15px] leading-[1.85] text-[#d4d4d4]">
+        <div className="max-w-[720px] space-y-[14px] text-[16px] leading-[1.85] text-[#d4d4d4]">
           {aboutSummary}
         </div>
         <a
           href={aboutHref}
-          className="mt-4 inline-block font-mono text-[12px] text-[var(--color-accent)] hover:underline"
+          className="mt-4 inline-block font-mono text-[13px] text-[var(--color-accent)] hover:underline"
         >
           → 更多关于我
         </a>

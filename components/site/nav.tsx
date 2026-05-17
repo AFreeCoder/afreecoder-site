@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export function Nav() {
   return (
-    <nav className="flex items-center justify-between border-b border-[var(--color-border)] pb-5 text-[13px]">
+    <nav className="flex items-center justify-between border-b border-[var(--color-border)] pb-5 text-[14px]">
       <Link
         href="/"
         className="font-semibold tracking-[0.5px] text-white"

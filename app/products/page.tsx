@@ -16,10 +16,10 @@ export default function ProductsPage() {
     <main className="mx-auto max-w-[960px] px-6 py-7 sm:px-8 sm:py-9">
       <Nav />
       <header className="py-10">
-        <h1 className="text-[32px] font-bold tracking-[-0.5px] text-white">
+        <h1 className="text-[36px] font-bold tracking-[-0.5px] text-white">
           Products
         </h1>
-        <p className="mt-2 text-[14px] text-[var(--color-muted)]">
+        <p className="mt-2 text-[15px] text-[var(--color-muted)]">
           {active.length} active · {archived.length} archived
         </p>
       </header>
@@ -34,7 +34,7 @@ export default function ProductsPage() {
 
       {archived.length > 0 && (
         <section className="mb-12">
-          <h2 className="mb-[18px] font-mono text-[12px] uppercase tracking-[2px] text-[var(--color-faint)]">
+          <h2 className="mb-[18px] font-mono text-[13px] uppercase tracking-[2px] text-[var(--color-faint)]">
             Archived
           </h2>
           <div className="grid grid-cols-1 gap-[14px] md:grid-cols-2 opacity-70">

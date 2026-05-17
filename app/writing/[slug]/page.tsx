@@ -35,15 +35,15 @@ export default async function WritingDetailPage({
     <main className="mx-auto max-w-[760px] px-6 py-7 sm:px-8 sm:py-9">
       <Nav />
       <article className="py-10">
-        <h1 className="mb-3 text-[34px] font-bold leading-tight tracking-[-0.5px] text-white">
+        <h1 className="mb-3 text-[38px] font-bold leading-tight tracking-[-0.5px] text-white">
           {post.meta.title}
         </h1>
-        <div className="mb-10 font-mono text-[11px] text-[var(--color-faint)]">
+        <div className="mb-10 font-mono text-[12px] text-[var(--color-faint)]">
           {post.meta.date} · {post.meta.readingTime} min read
         </div>
         <Mdx source={post.body} />
         {post.meta.platforms && post.meta.platforms.length > 0 && (
-          <div className="mt-12 border-t border-[var(--color-border)] pt-6 text-[13px] text-[var(--color-muted)]">
+          <div className="mt-12 border-t border-[var(--color-border)] pt-6 text-[14px] text-[var(--color-muted)]">
             本文同步发布于 {post.meta.platforms.join(" / ")}
             {post.meta.original_url && (
               <>
@@ -63,7 +63,7 @@ export default async function WritingDetailPage({
         <div className="mt-10">
           <Link
             href="/writing"
-            className="font-mono text-[12px] text-[var(--color-accent)] hover:underline"
+            className="font-mono text-[13px] text-[var(--color-accent)] hover:underline"
           >
             ← 返回 Writing
           </Link>
