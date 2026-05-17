@@ -1,0 +1,285 @@
+<style>
+  .preview {
+    background: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: -apple-system, "SF Pro Display", "PingFang SC", sans-serif;
+    color: #e5e5e5;
+    margin: 12px 0;
+  }
+  .pv-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 4px 24px 4px;
+    border-bottom: 1px solid #1a1a1a;
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+  .pv-nav .brand { color: #fff; font-weight: 600; letter-spacing: 0.5px; }
+  .pv-nav .menu { color: #888; }
+  .pv-nav .menu span { margin-left: 18px; }
+  .pv-nav .menu span:hover { color: #fff; }
+
+  /* Hero: 非对称双栏 55/45 */
+  .pv-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 48px;
+    padding: 24px 4px 56px;
+    align-items: start;
+  }
+  .pv-hero-left .avatar {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    border: 1px solid #3a3a3a;
+    margin-bottom: 22px;
+    position: relative;
+  }
+  .pv-hero-left .avatar::after {
+    content: '';
+    position: absolute; inset: -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(251,146,60,0.18), transparent 60%);
+    z-index: -1;
+  }
+  .pv-hero-left .name {
+    font-size: 42px; font-weight: 700; color: #fff;
+    letter-spacing: -1px; line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .pv-hero-left .slogan {
+    font-family: ui-monospace, "SF Mono", monospace;
+    font-size: 13px; color: #fb923c;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  .pv-hero-left .intro-line {
+    font-size: 14px; color: #888;
+    margin-bottom: 20px;
+  }
+  .pv-hero-left .socials span {
+    display: inline-block;
+    padding: 5px 11px;
+    border: 1px solid #2a2a2a;
+    border-radius: 999px;
+    font-size: 11px;
+    color: #aaa;
+    margin-right: 6px;
+  }
+
+  .pv-hero-right {
+    padding-top: 8px;
+  }
+  .pv-hero-right .label {
+    font-family: ui-monospace, monospace;
+    font-size: 10px; color: #555;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .pv-hero-right .about-text {
+    font-size: 14px; line-height: 1.7; color: #ccc;
+  }
+  .pv-hero-right .about-text p { margin-bottom: 10px; }
+  .pv-hero-right .more {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 12px; color: #fb923c;
+    font-family: ui-monospace, monospace;
+  }
+
+  /* 段落分割 */
+  .pv-section-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 18px;
+    padding-top: 24px;
+    border-top: 1px solid #1a1a1a;
+  }
+  .pv-section-head .title {
+    font-size: 22px; color: #fff; font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+  .pv-section-head .meta {
+    font-family: ui-monospace, monospace;
+    font-size: 11px; color: #666;
+  }
+
+  /* Products 一行 */
+  .pv-products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 48px;
+  }
+  .pv-product {
+    background: #111;
+    border: 1px solid #1f1f1f;
+    border-radius: 6px;
+    padding: 14px;
+    position: relative;
+  }
+  .pv-product .p-status {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    position: absolute; top: 14px; right: 14px;
+    box-shadow: 0 0 6px rgba(74,222,128,0.5);
+  }
+  .pv-product.archived .p-status { background: #555; box-shadow: none; }
+  .pv-product .p-name { font-size: 13px; color: #fff; margin-bottom: 6px; font-weight: 600; }
+  .pv-product .p-desc { font-size: 11px; color: #888; line-height: 1.5; margin-bottom: 10px; }
+  .pv-product .p-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .pv-product .p-tag {
+    font-family: ui-monospace, monospace;
+    font-size: 9px;
+    padding: 2px 6px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    color: #888;
+  }
+
+  /* Writing 列表 */
+  .pv-writing-list {
+    margin-bottom: 16px;
+  }
+  .pv-write {
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #161616;
+    align-items: center;
+  }
+  .pv-write .w-date {
+    font-family: ui-monospace, monospace;
+    font-size: 11px; color: #555;
+  }
+  .pv-write .w-title { color: #ddd; font-size: 14px; }
+  .pv-write .w-from {
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    border: 1px solid #2a2a2a;
+    border-radius: 3px;
+    color: #888;
+  }
+
+  .pv-footer {
+    margin-top: 32px;
+    padding-top: 18px;
+    border-top: 1px solid #1a1a1a;
+    font-size: 11px; color: #555;
+    display: flex; justify-content: space-between;
+    font-family: ui-monospace, monospace;
+  }
+
+  .note { color: #888; font-size: 13px; margin-top: 18px; }
+  .note strong { color: #fb923c; }
+</style>
+
+<h2>A + B 合并版（带一些"破规矩"的视觉细节）</h2>
+<p class="subtitle">结构按你要求；视觉上做了几处不那么规矩的处理 — 看看方向对不对</p>
+
+<div class="preview">
+
+  <!-- Nav -->
+  <div class="pv-nav">
+    <span class="brand">AFreeCoder</span>
+    <span class="menu">
+      <span>About</span><span>Products</span><span>Writing</span>
+    </span>
+  </div>
+
+  <!-- Hero: 左 头像/slogan/简介  |  右 About -->
+  <div class="pv-hero">
+    <div class="pv-hero-left">
+      <div class="avatar"></div>
+      <div class="name">AFreeCoder</div>
+      <div class="slogan">// Observing · Building · Iterating</div>
+      <div class="intro-line">Independent developer · AI · 投资理财</div>
+      <div class="socials">
+        <span>GitHub</span><span>X</span><span>公众号</span><span>Email</span>
+      </div>
+    </div>
+    <div class="pv-hero-right">
+      <div class="label">— ABOUT</div>
+      <div class="about-text">
+        <p>独立开发者，关注 AI 工具、自动化和投资理财。
+           过去几年构建过 N 个产品和工具，现在更关注如何用 AI
+           系统性地放大个人杠杆。</p>
+        <p>这里是我的产品、文章和长期记录的地方。</p>
+      </div>
+      <a class="more">→ 详细介绍</a>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <div class="pv-section-head">
+    <span class="title">Products</span>
+    <span class="meta">4 active · all →</span>
+  </div>
+  <div class="pv-products">
+    <div class="pv-product">
+      <div class="p-status"></div>
+      <div class="p-name">API Pool</div>
+      <div class="p-desc">AI 接口聚合服务</div>
+      <div class="p-tags"><span class="p-tag">SaaS</span><span class="p-tag">AI</span></div>
+    </div>
+    <div class="pv-product">
+      <div class="p-status"></div>
+      <div class="p-name">Index Watch</div>
+      <div class="p-desc">指数基金估值监控</div>
+      <div class="p-tags"><span class="p-tag">Finance</span></div>
+    </div>
+    <div class="pv-product">
+      <div class="p-status"></div>
+      <div class="p-name">Prompt Lab</div>
+      <div class="p-desc">Prompt 测试工具</div>
+      <div class="p-tags"><span class="p-tag">AI</span><span class="p-tag">Tool</span></div>
+    </div>
+    <div class="pv-product archived">
+      <div class="p-status"></div>
+      <div class="p-name">Some Old Project</div>
+      <div class="p-desc">早期作品</div>
+      <div class="p-tags"><span class="p-tag">Archive</span></div>
+    </div>
+  </div>
+
+  <!-- Writing -->
+  <div class="pv-section-head">
+    <span class="title">Writing</span>
+    <span class="meta">all posts →</span>
+  </div>
+  <div class="pv-writing-list">
+    <div class="pv-write">
+      <span class="w-date">2026-05-12</span>
+      <span class="w-title">AI 时代的独立开发者，到底在做什么</span>
+      <span class="w-from">公众号</span>
+    </div>
+    <div class="pv-write">
+      <span class="w-date">2026-04-28</span>
+      <span class="w-title">指数基金估值的几个常见误区</span>
+      <span class="w-from">知乎</span>
+    </div>
+    <div class="pv-write">
+      <span class="w-date">2026-04-15</span>
+      <span class="w-title">用 Claude Agent SDK 搭一个个人助手</span>
+      <span class="w-from">公众号</span>
+    </div>
+    <div class="pv-write">
+      <span class="w-date">2026-04-02</span>
+      <span class="w-title">关于"持续输出"的几条反思</span>
+      <span class="w-from">知乎</span>
+    </div>
+  </div>
+
+  <div class="pv-footer">
+    <span>© 2026 AFreeCoder</span>
+    <span>RSS · Sitemap</span>
+  </div>
+
+</div>
+
+<p class="note"><strong>注意几个"破规矩"的细节：</strong>① Hero 非对称 1.2:1（不是 50:50） ② 名字超大字号 + 紧字距 ③ Slogan 用 mono 字体 + 单一橙色点缀 ④ 产品卡片右上角运营状态绿点 + 微微光晕 ⑤ Writing 日期用 mono 灰色 + 平台来源 tag ⑥ 板块之间用细分割线而不是大色块 — 这些是 idoubi.ai 那类站做"既克制又有设计感"的常见手法。</p>
+
+<p class="subtitle" style="margin-top: 18px;">如果方向对：我们继续往下定细节。<br/>如果还是觉得不对：告诉我"规矩"具体指什么 — 是太对称？太多文字？颜色太单调？还是布局太"网格"？</p>

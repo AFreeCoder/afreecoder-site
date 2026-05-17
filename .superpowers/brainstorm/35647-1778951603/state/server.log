@@ -1,0 +1,6 @@
+{"type":"server-started","port":63476,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:63476","screen_dir":"/Users/afreecoder/project/personal_website/.superpowers/brainstorm/35647-1778951603/content","state_dir":"/Users/afreecoder/project/personal_website/.superpowers/brainstorm/35647-1778951603/state"}
+{"type":"screen-added","file":"/Users/afreecoder/project/personal_website/.superpowers/brainstorm/35647-1778951603/content/homepage-structure.html"}
+{"type":"screen-added","file":"/Users/afreecoder/project/personal_website/.superpowers/brainstorm/35647-1778951603/content/homepage-ab-merged.html"}
+{"type":"screen-added","file":"/Users/afreecoder/project/personal_website/.superpowers/brainstorm/35647-1778951603/content/homepage-v3.html"}
+{"type":"screen-added","file":"/Users/afreecoder/project/personal_website/.superpowers/brainstorm/35647-1778951603/content/waiting.html"}
+{"type":"server-stopped","reason":"idle timeout"}
