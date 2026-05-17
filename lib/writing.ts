@@ -15,14 +15,18 @@ async function readWriting(file: string): Promise<{ meta: WritingMeta; body: str
   const filePath = path.join(WRITING_DIR, file);
   const raw = await fs.readFile(filePath, "utf-8");
   const { data, content } = matter(raw);
-  const fm = data as WritingFrontmatter & { date: unknown };
   // gray-matter parses unquoted YAML dates as Date objects; normalize to YYYY-MM-DD string
-  if (fm.date instanceof Date) {
-    fm.date = fm.date.toISOString().slice(0, 10);
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const rawDate: any = (data as any).date;
+  const dateStr: string =
+    rawDate instanceof Date ? rawDate.toISOString().slice(0, 10) : String(rawDate);
+  const fm: WritingFrontmatter = {
+    ...(data as WritingFrontmatter),
+    date: dateStr,
+  };
   const rt = readingTime(content);
   const meta: WritingMeta = {
-    ...(fm as WritingFrontmatter),
+    ...fm,
     readingTime: Math.max(1, Math.round(rt.minutes)),
   };
   return { meta, body: content };
