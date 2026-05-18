@@ -30,10 +30,25 @@ describe("getAllWriting", () => {
     }
   });
 
-  it("keeps restored Markdown files visible under content/writing", async () => {
+  it("keeps restored Markdown source files under content/writing", async () => {
     const posts = await getAllWriting();
     expect(existsSync("content/writing/invest-practice-26.md")).toBe(true);
     expect(posts.length).toBeGreaterThanOrEqual(60);
+  });
+
+  it("keeps article bodies out of the generated content module", () => {
+    const index = readFileSync("content/writing-posts.ts", "utf8");
+
+    expect(index).not.toContain('"body":');
+    expect(index).not.toContain('"source_file":');
+    expect(index).not.toContain("/Users/afreecoder");
+    expect(index).not.toContain('"bodyPath":');
+    expect(index).toContain('"bodyFile": "invest-practice-26.md"');
+    expect(existsSync("content/writing/invest-practice-26.md")).toBe(true);
+    expect(existsSync("public/content/writing/invest-practice-26.md")).toBe(false);
+
+    const loader = readFileSync("lib/writing.ts", "utf8");
+    expect(loader).toContain('join(process.cwd(), "content", "writing", post.bodyFile)');
   });
 });
 
@@ -61,7 +76,10 @@ describe("getWritingBySlug", () => {
 
 describe("restored Markdown files", () => {
   it("includes frontmatter and Markdown syntax in the local article file", () => {
-    const source = readFileSync("content/writing/invest-practice-26.md", "utf8");
+    const source = readFileSync(
+      "content/writing/invest-practice-26.md",
+      "utf8",
+    );
     expect(source).toContain("---\n");
     expect(source).toContain("title: 财务自由实证#26——高层火灾如何逃生？");
     expect(source).toContain("## 1、实证进展");
@@ -76,7 +94,10 @@ describe("restored Markdown files", () => {
     const posts = await getAllWriting();
 
     for (const post of posts) {
-      const source = readFileSync(`content/writing/${post.slug}.md`, "utf8");
+      const source = readFileSync(
+        `content/writing/${post.slug}.md`,
+        "utf8",
+      );
       expect(source).not.toContain("公众号二维码");
       expect(source).not.toContain("gongzhonghaopic");
       expect(source).not.toContain("赞/在看");

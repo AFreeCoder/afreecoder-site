@@ -26,3 +26,10 @@ describe("avatar assets", () => {
     expect(hero).not.toContain("object-cover");
   });
 });
+
+describe("social image assets", () => {
+  it("does not expose a dedicated Open Graph image route", () => {
+    expect(existsSync("app/opengraph-image.png")).toBe(false);
+    expect(existsSync("app/opengraph-image.tsx")).toBe(false);
+  });
+});

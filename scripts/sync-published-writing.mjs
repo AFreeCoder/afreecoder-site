@@ -1,5 +1,6 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import readingTime from "reading-time";
 import {
   existsSync,
   mkdirSync,
@@ -18,6 +19,7 @@ const localPublishedDir =
   "/Users/afreecoder/Nutstore Files/工作空间/我的笔记/40_outbox/published";
 const siteOrigin = "https://afreecoder.cn";
 const markdownDir = "content/writing";
+const legacyPublicMarkdownDir = "public/content/writing";
 const outputFile = "content/writing-posts.ts";
 
 function ensureRepo() {
@@ -428,6 +430,7 @@ function parsePosts(xml) {
       if (localPost) stats.local += 1;
       else stats.fallback += 1;
       const summary = plainText(body).slice(0, 140);
+      const minutes = Math.max(1, Math.round(readingTime(body).minutes));
 
       return {
         title: entry.title,
@@ -437,6 +440,8 @@ function parsePosts(xml) {
         original_url: entry.original_url,
         platforms: localPost?.data.platform ? [localPost.data.platform] : ["AFreeCoder.github.io"],
         bodyFormat: "markdown",
+        readingTime: minutes,
+        bodyFile: `${entry.slug}.md`,
         body,
         source_file: localPost ? join(localPublishedDir, localPost.file) : undefined,
       };
@@ -468,6 +473,7 @@ function frontmatter(post) {
 }
 
 function writeMarkdownFiles(posts) {
+  rmSync(legacyPublicMarkdownDir, { recursive: true, force: true });
   mkdirSync(markdownDir, { recursive: true });
   for (const file of readdirSync(markdownDir)) {
     if (file.endsWith(".md")) rmSync(join(markdownDir, file));
@@ -476,6 +482,13 @@ function writeMarkdownFiles(posts) {
   for (const post of posts) {
     writeFileSync(join(markdownDir, `${post.slug}.md`), `${frontmatter(post)}${post.body}\n`);
   }
+}
+
+function runtimePost(post) {
+  const result = { ...post };
+  delete result.body;
+  delete result.source_file;
+  return result;
 }
 
 ensureRepo();
@@ -495,14 +508,15 @@ writeMarkdownFiles(posts);
 const output = `import type { WritingFrontmatter } from "@/lib/types";
 
 export type WritingSource = WritingFrontmatter & {
-  body: string;
+  bodyFile: \`\${string}.md\`;
+  readingTime: number;
 };
 
 // Generated from ${repoUrl} (${revision})
 // Source file: local-search.xml
 // Restored Markdown files: content/writing/*.md
 // Run \`pnpm sync:writing\` after refreshing the GitHub Pages repository.
-export const writingPosts: WritingSource[] = ${JSON.stringify(posts, null, 2)};
+export const writingPosts: WritingSource[] = ${JSON.stringify(posts.map(runtimePost), null, 2)};
 `;
 
 writeFileSync(outputFile, output);

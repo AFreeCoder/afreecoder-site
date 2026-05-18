@@ -8,6 +8,8 @@ import { getAllWriting, getWritingBySlug } from "@/lib/writing";
 
 type Params = { slug: string };
 
+export const dynamicParams = false;
+
 export async function generateStaticParams(): Promise<Params[]> {
   const all = await getAllWriting();
   return all.map((p) => ({ slug: p.slug }));
