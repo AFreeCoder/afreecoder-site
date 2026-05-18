@@ -49,6 +49,9 @@ pnpm deploy
 Cloudflare Workers 运行时不能依赖 Node.js 文件系统读取本地 Markdown，也不适合在请求期编译 MDX。当前站点把 About 和 Writing 内容作为 Markdown 字符串随应用一起打包：
 
 - About：`content/about.ts`
-- Writing：`content/writing-posts.ts`
+- Writing 原文：`content/writing/*.md`
+- Writing 运行时索引：`content/writing-posts.ts`
 
-新增文章时，在 `content/writing-posts.ts` 里追加一条 `writingPosts` 记录；正文按当前渲染器支持的 Markdown 子集写在 `body` 字符串里。
+历史文章通过 `pnpm sync:writing` 生成：脚本以本地笔记库 `40_outbox/published` 里的 Markdown 为正文源，再用 `AFreeCoder/AFreeCoder.github.io` 的 `local-search.xml` 对齐历史 slug、发布日期、原文 URL 和 OSS 图片链接。能匹配到本地 Markdown 的文章会保留本地正文，只替换图片地址；匹配不到的旧文章会从 GitHub Pages HTML 兜底还原为 Markdown。
+
+修改源笔记或重新对齐图片后，运行 `pnpm sync:writing` 重新生成 `content/writing/*.md` 和 `content/writing-posts.ts`。不要直接手改 `content/writing-posts.ts`，它会被脚本覆盖。

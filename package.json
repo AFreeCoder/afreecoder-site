@@ -11,6 +11,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
+    "sync:writing": "node scripts/sync-published-writing.mjs",
     "preview": "pnpm run build:cloudflare && opennextjs-cloudflare preview",
     "deploy": "pnpm run build:cloudflare && opennextjs-cloudflare deploy",
     "upload": "pnpm run build:cloudflare && opennextjs-cloudflare upload",

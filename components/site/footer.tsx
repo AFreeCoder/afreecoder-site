@@ -7,7 +7,7 @@ export function Footer() {
       <span>
         <a href="/rss.xml" className="hover:text-[var(--color-fg)]">RSS</a>
         {" · "}
-        <a href="/sitemap.xml" className="hover:text-[var(--color-fg)]">Sitemap</a>
+        <a href="/sitemap.xml" className="hover:text-[var(--color-fg)]">站点地图</a>
       </span>
     </footer>
   );

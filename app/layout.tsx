@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     template: "%s · AFreeCoder",
   },
   description:
-    "Independent developer · AI · 投资理财. Observing. Building. Iterating.",
+    "A-Free-Coder，一个追求自由的 Coder。记录自由职业、AI、产品和写作。",
   openGraph: {
     title: "AFreeCoder",
     description:
-      "Independent developer · AI · 投资理财. Observing. Building. Iterating.",
+      "A-Free-Coder，一个追求自由的 Coder。记录自由职业、AI、产品和写作。",
     url: "https://afreecoder.dev",
     siteName: "AFreeCoder",
     locale: "zh_CN",

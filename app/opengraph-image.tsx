@@ -15,19 +15,19 @@ export default function OG() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "flex-start",
-          background: "#0a0a0a",
+          background: "#fbfaf7",
           padding: "80px",
           fontFamily: "monospace",
         }}
       >
-        <div style={{ fontSize: 72, fontWeight: 700, color: "#fff" }}>
+        <div style={{ fontSize: 72, fontWeight: 700, color: "#1c1917" }}>
           AFreeCoder
         </div>
-        <div style={{ marginTop: 24, color: "#fb923c", fontSize: 28 }}>
-          {"// Observing · Building · Iterating"}
+        <div style={{ marginTop: 24, color: "#c2410c", fontSize: 30 }}>
+          {"// A-Free-Coder · Freedom Trace"}
         </div>
-        <div style={{ marginTop: 24, color: "#888", fontSize: 22 }}>
-          Independent Developer / AI / Finance
+        <div style={{ marginTop: 24, color: "#625a55", fontSize: 24 }}>
+          追求自由的 Coder / AI / 独立产品 / 写作
         </div>
       </div>
     ),

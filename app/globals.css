@@ -2,18 +2,20 @@
 
 @theme {
   /* Brand — warm light theme */
-  --color-bg: #fafaf8;
+  --color-bg: #fbfaf7;
   --color-fg: #1c1917;
-  --color-muted: #78716c;
-  --color-faint: #a8a29e;
-  --color-accent: #ea580c;
+  --color-muted: #625a55;
+  --color-faint: #78716c;
+  --color-accent: #c2410c;
+  --color-accent-soft: #fff7ed;
+  --color-mark-grid: #e7e0d8;
 
   /* Surfaces */
-  --color-card: #ffffff;
-  --color-border: #e7e5e4;
-  --color-border-strong: #d6d3d1;
-  --color-card-border: #e7e5e4;
-  --color-card-border-hover: #a8a29e;
+  --color-card: #fffdfb;
+  --color-border: #e8e1d8;
+  --color-border-strong: #d6cec4;
+  --color-card-border: #e8e1d8;
+  --color-card-border-hover: #c8b7a8;
 
   /* Typography */
   --font-sans: var(--font-geist-sans), -apple-system, "PingFang SC", sans-serif;

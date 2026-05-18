@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Nav } from "@/components/site/nav";
 import { Footer } from "@/components/site/footer";
+import { ArticleColumn, PageShell } from "@/components/site/page-shell";
 import { Mdx } from "@/lib/mdx";
 import { getAllWriting, getWritingBySlug } from "@/lib/writing";
 
@@ -32,44 +33,26 @@ export default async function WritingDetailPage({
   if (!post) notFound();
 
   return (
-    <main className="mx-auto max-w-[760px] px-6 py-7 sm:px-8 sm:py-9">
+    <PageShell>
       <Nav />
-      <article className="py-10">
+      <ArticleColumn className="py-10">
         <h1 className="mb-3 text-[38px] font-bold leading-tight tracking-[-0.5px] text-[var(--color-fg)]">
           {post.meta.title}
         </h1>
         <div className="mb-10 font-mono text-[12px] text-[var(--color-faint)]">
-          {post.meta.date} · {post.meta.readingTime} min read
+          {post.meta.date} · {post.meta.readingTime} 分钟阅读
         </div>
         <Mdx source={post.body} />
-        {post.meta.platforms && post.meta.platforms.length > 0 && (
-          <div className="mt-12 border-t border-[var(--color-border)] pt-6 text-[14px] text-[var(--color-muted)]">
-            本文同步发布于 {post.meta.platforms.join(" / ")}
-            {post.meta.original_url && (
-              <>
-                {" · "}
-                <a
-                  href={post.meta.original_url}
-                  className="text-[var(--color-accent)] hover:underline"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  原文
-                </a>
-              </>
-            )}
-          </div>
-        )}
         <div className="mt-10">
           <Link
             href="/writing"
             className="font-mono text-[13px] text-[var(--color-accent)] hover:underline"
           >
-            ← 返回 Writing
+            ← 返回文章列表
           </Link>
         </div>
-      </article>
+      </ArticleColumn>
       <Footer />
-    </main>
+    </PageShell>
   );
 }
