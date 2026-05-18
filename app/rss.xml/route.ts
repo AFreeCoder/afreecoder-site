@@ -1,6 +1,8 @@
 import { siteConfig } from "@/lib/site-config";
 import { getAllWriting } from "@/lib/writing";
 
+export const dynamic = "force-static";
+
 function escapeXml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
@@ -38,6 +40,6 @@ export async function GET() {
 </rss>`;
 
   return new Response(xml, {
-    headers: { "Content-Type": "application/xml" },
+    headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
   });
 }

@@ -6,10 +6,8 @@ export const siteConfig = {
   slogan: ["// Observing", "// Building", "// Iterating"] as const,
   intro: "Independent Developer / AI · 投资理财",
   socials: [
-    { label: "GitHub", href: "https://github.com/<your-handle>" },
-    { label: "X", href: "https://x.com/<your-handle>" },
-    { label: "公众号", href: "#" },
-    { label: "Email", href: "mailto:hello@afreecoder.com" },
+    { label: "GitHub", href: "https://github.com/AFreeCoder" },
+    { label: "Email", href: "mailto:hello@afreecoder.dev" },
   ],
   nav: [
     { label: "About", href: "/about" },

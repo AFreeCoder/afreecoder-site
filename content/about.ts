@@ -1,4 +1,4 @@
-# AFreeCoder
+export const aboutMdx = String.raw`# AFreeCoder
 
 独立开发者。目前主要关注 AI 工具开发、自动化系统、长期投资理财。
 
@@ -12,7 +12,7 @@
 
 - 前端：Next.js · React · TypeScript · Tailwind
 - 后端 / Agent：Node · Python · LLM Tooling
-- 部署：Vercel · Cloudflare · DigitalOcean
+- 部署：Cloudflare · Vercel · DigitalOcean
 
 ## 价值观
 
@@ -22,6 +22,5 @@
 
 ## 联系
 
-- GitHub: [github.com/your-handle](https://github.com/your-handle)
-- X: [x.com/your-handle](https://x.com/your-handle)
-- Email: hello@afreecoder.com
+- GitHub: [github.com/AFreeCoder](https://github.com/AFreeCoder)
+- Email: hello@afreecoder.dev`;

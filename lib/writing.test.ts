@@ -26,7 +26,7 @@ describe("getWritingBySlug", () => {
     const post = await getWritingBySlug("hello-world");
     expect(post).not.toBeNull();
     expect(post!.meta.title).toBe("Hello, World");
-    expect(post!.body).toContain("Hello, World");
+    expect(post!.body).toContain("个人站点的第一篇文章");
   });
 
   it("returns null for unknown slug", async () => {
