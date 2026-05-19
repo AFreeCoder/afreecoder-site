@@ -14,6 +14,7 @@ export function ThemeSwitcher() {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState<ThemeId>(DEFAULT_THEME);
   const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   // 挂载后从 <html data-theme> 同步当前值（防闪脚本已设置）
   useEffect(() => {
@@ -49,11 +50,13 @@ export function ThemeSwitcher() {
     }
     setCurrent(id);
     setOpen(false);
+    buttonRef.current?.focus();
   }
 
   return (
     <div ref={containerRef} className="relative">
       <button
+        ref={buttonRef}
         type="button"
         aria-label="切换主题"
         aria-haspopup="menu"
@@ -94,7 +97,14 @@ export function ThemeSwitcher() {
                 key={t.id}
                 role="menuitem"
                 aria-current={active}
+                tabIndex={0}
                 onClick={() => choose(t.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    choose(t.id);
+                  }
+                }}
                 className={`flex cursor-pointer items-center gap-2.5 rounded-md px-2.5 py-2 transition-colors ${
                   active
                     ? "bg-[var(--color-accent-soft)] text-[var(--color-accent)]"
