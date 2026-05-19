@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Source_Serif_4 } from "next/font/google";
+import { ThemeInit } from "./theme-init";
 import "./globals.css";
+
+const SourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  variable: "--font-source-serif",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://afreecoder.dev"),
@@ -30,9 +38,13 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      data-theme="sand"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${SourceSerif.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <ThemeInit />
+        {children}
+      </body>
     </html>
   );
 }
