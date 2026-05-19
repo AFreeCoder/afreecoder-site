@@ -94,8 +94,20 @@ describe("design tokens · 6 themes", () => {
     expect(contrastRatio(getHexToken(block, "color-fg"), bg)).toBeGreaterThanOrEqual(7);
   });
 
-  it("声明 color-scheme 分组规则", () => {
-    expect(css).toMatch(/html\[data-theme="ink"\][\s\S]*?\bcolor-scheme:\s*dark/);
-    expect(css).toMatch(/html\[data-theme="sand"\][\s\S]*?\bcolor-scheme:\s*light/);
+  const THEME_SCHEMES: Record<(typeof THEME_IDS)[number], "light" | "dark"> = {
+    sand: "light",
+    mist: "light",
+    editorial: "light",
+    ink: "dark",
+    moss: "dark",
+    terminal: "dark",
+  };
+
+  it.each(THEME_IDS)("%s 主题声明对应的 color-scheme", (id) => {
+    const scheme = THEME_SCHEMES[id];
+    const re = new RegExp(
+      `html\\[data-theme="${id}"\\][^}]*\\bcolor-scheme:\\s*${scheme}`,
+    );
+    expect(css).toMatch(re);
   });
 });
