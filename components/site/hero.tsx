@@ -11,7 +11,7 @@ export function Hero({ aboutSummary, aboutHref = "/about" }: Props) {
     <section className="grid grid-cols-1 gap-12 py-4 pb-14 md:grid-cols-[1fr_3fr]">
       {/* LEFT: identity */}
       <div className="pt-1">
-        <div className="relative mb-4 h-[104px] w-[116px] overflow-hidden rounded-[24px] border border-[var(--color-border-strong)] bg-[#fffdfa] shadow-[0_12px_30px_rgba(28,25,23,0.08)]">
+        <div className="relative mb-4 h-[104px] w-[116px] overflow-hidden rounded-[24px] border border-[var(--color-border-strong)] bg-[var(--color-card)] shadow-[var(--shadow-soft-hover)]">
           <Image
             src="/avatar.png"
             alt="AFreeCoder 头像"
