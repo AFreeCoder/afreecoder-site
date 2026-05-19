@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { ThemeSwitcher } from "./theme-switcher";
 
 export function Nav() {
   return (
@@ -10,18 +11,23 @@ export function Nav() {
       >
         {siteConfig.name}
       </Link>
-      <ul className="flex w-full flex-wrap items-center gap-x-5 gap-y-2 text-[var(--color-muted)] sm:w-auto">
-        {siteConfig.nav.map((item) => (
-          <li key={item.href}>
-            <Link
-              href={item.href}
-              className="transition-colors hover:text-[var(--color-fg)]"
-            >
-              {item.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="flex w-full flex-wrap items-center justify-between gap-x-5 gap-y-2 sm:w-auto sm:justify-end">
+        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[var(--color-muted)]">
+          {siteConfig.nav.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="transition-colors hover:text-[var(--color-fg)]"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="ml-2 flex items-center">
+          <ThemeSwitcher />
+        </div>
+      </div>
     </nav>
   );
 }
