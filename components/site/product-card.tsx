@@ -7,7 +7,7 @@ const statusLabels: Record<Product["status"], string> = {
 
 export function ProductCard({ product }: { product: Product }) {
   const inner = (
-    <div className="group relative min-h-[210px] overflow-hidden rounded-lg border border-[var(--color-card-border)] bg-[var(--color-card)] p-6 px-[22px] shadow-[0_1px_2px_rgba(28,25,23,0.04)] transition-all hover:border-[var(--color-card-border-hover)] hover:shadow-[0_10px_24px_rgba(28,25,23,0.07)]">
+    <div className="group relative min-h-[210px] overflow-hidden rounded-lg border border-[var(--color-card-border)] bg-[var(--color-card)] p-6 px-[22px] shadow-[var(--shadow-soft)] transition-all hover:border-[var(--color-card-border-hover)] hover:shadow-[var(--shadow-soft-hover)]">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div className="font-mono text-[11px] leading-[1.45] text-[var(--color-faint)]">
           {product.phase}
