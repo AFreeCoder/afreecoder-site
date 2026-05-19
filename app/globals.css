@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
+/* sand 主题作为 @theme 默认值；切换器不主动设置 data-theme="sand" 时也走这里。 */
 @theme {
-  /* Brand — warm light theme */
+  /* Brand — Warm Sand (default) */
   --color-bg: #fbfaf7;
   --color-fg: #1c1917;
   --color-muted: #625a55;
   --color-faint: #78716c;
   --color-accent: #c2410c;
   --color-accent-soft: #fff7ed;
-  --color-mark-grid: #e7e0d8;
 
   /* Surfaces */
   --color-card: #fffdfb;
@@ -17,14 +17,122 @@
   --color-card-border: #e8e1d8;
   --color-card-border-hover: #c8b7a8;
 
+  /* Shadows */
+  --shadow-soft: 0 1px 2px rgba(28, 25, 23, 0.04);
+  --shadow-soft-hover: 0 10px 24px rgba(28, 25, 23, 0.07);
+
   /* Typography */
   --font-sans: var(--font-geist-sans), -apple-system, "PingFang SC", sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+  --font-serif: var(--font-source-serif), Georgia, "Noto Serif SC", serif;
 }
 
-html {
-  color-scheme: light;
+/* —— 主题覆盖 —— */
+
+[data-theme="ink"] {
+  --color-bg: #0c0c0f;
+  --color-fg: #ececef;
+  --color-muted: #8e8e96;
+  --color-faint: #797981;
+  --color-accent: #fb923c;
+  --color-accent-soft: #3a1f0a;
+  --color-card: #16161b;
+  --color-border: #25252c;
+  --color-border-strong: #3a3a44;
+  --color-card-border: #25252c;
+  --color-card-border-hover: #4a4a55;
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-soft-hover: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
+
+[data-theme="mist"] {
+  --color-bg: #eef2f6;
+  --color-fg: #0f172a;
+  --color-muted: #475569;
+  --color-faint: #606f84;
+  --color-accent: #1e40af;
+  --color-accent-soft: #eff6ff;
+  --color-card: #ffffff;
+  --color-border: #d8dee6;
+  --color-border-strong: #b8c2cf;
+  --color-card-border: #d8dee6;
+  --color-card-border-hover: #94a3b8;
+  --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-soft-hover: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="moss"] {
+  --color-bg: #0f1611;
+  --color-fg: #e8e1d3;
+  --color-muted: #8a9285;
+  --color-faint: #788076;
+  --color-accent: #d4a574;
+  --color-accent-soft: #2a2018;
+  --color-card: #1a2520;
+  --color-border: #2a3a32;
+  --color-border-strong: #3d5044;
+  --color-card-border: #2a3a32;
+  --color-card-border-hover: #556657;
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-soft-hover: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="editorial"] {
+  --color-bg: #f5efe6;
+  --color-fg: #1a1410;
+  --color-muted: #5c544a;
+  --color-faint: #766b5d;
+  --color-accent: #9b2c2c;
+  --color-accent-soft: #fef2f2;
+  --color-card: #ffffff;
+  --color-border: #e0d8cc;
+  --color-border-strong: #c9bfae;
+  --color-card-border: #e0d8cc;
+  --color-card-border-hover: #a89a82;
+  --shadow-soft: 0 1px 2px rgba(26, 20, 16, 0.05);
+  --shadow-soft-hover: 0 10px 24px rgba(26, 20, 16, 0.08);
+}
+
+[data-theme="terminal"] {
+  --color-bg: #0a0e0a;
+  --color-fg: #c9d1c9;
+  --color-muted: #6e7a6e;
+  --color-faint: #727d72;
+  --color-accent: #7ee787;
+  --color-accent-soft: #0f2515;
+  --color-card: #11161a;
+  --color-border: #1f2a22;
+  --color-border-strong: #324032;
+  --color-card-border: #1f2a22;
+  --color-card-border-hover: #4a5c4a;
+  --shadow-soft: 0 0 0 1px rgba(126, 231, 135, 0.05);
+  --shadow-soft-hover: 0 0 12px rgba(126, 231, 135, 0.15);
+}
+
+/* —— color-scheme：影响原生滚动条 / autofill 颜色 —— */
+
+html[data-theme="sand"] { color-scheme: light; }
+html[data-theme="mist"] { color-scheme: light; }
+html[data-theme="editorial"] { color-scheme: light; }
+html:not([data-theme]) { color-scheme: light; }
+html[data-theme="ink"] { color-scheme: dark; }
+html[data-theme="moss"] { color-scheme: dark; }
+html[data-theme="terminal"] { color-scheme: dark; }
+
+/* —— 字体差异：报刊衬线标题 / 终端全 mono —— */
+
+[data-theme="editorial"] h1,
+[data-theme="editorial"] h2,
+[data-theme="editorial"] h3,
+[data-theme="editorial"] h4 {
+  font-family: var(--font-serif);
+}
+
+[data-theme="terminal"] body {
+  font-family: var(--font-mono);
+}
+
+/* —— 全局基础 —— */
 
 body {
   background: var(--color-bg);
