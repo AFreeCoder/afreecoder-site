@@ -44,3 +44,6 @@ cloudflare-env.d.ts
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# superpowers brainstorming companion (visual mockups, session state)
+.superpowers/
