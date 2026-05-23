@@ -4,7 +4,7 @@ import type { Product } from "@/lib/types";
 import { annualDecoration } from "@/content/decorations/annual";
 import { fillTemplate } from "@/lib/site-stats";
 import { Masthead } from "./masthead";
-import { Frontispiece } from "./frontispiece";
+import { PageHead } from "./page-head";
 import { Colophon } from "./colophon";
 import { ChapterHead } from "./chapter-head";
 import { ProductEntry } from "./product-entry";
@@ -18,31 +18,28 @@ export function ProductsPage({ theme, products, stats }: Props) {
 
   return (
     <>
-      <Masthead theme={theme} decoration={d} stats={stats} active="products" />
-      <Frontispiece
-        roman={d.frontispieceProducts.roman}
-        title={fillTemplate(d.frontispieceProducts.title, stats)}
-        caption={fillTemplate(d.frontispieceProducts.caption, stats)}
+      <Masthead theme={theme} decoration={d} active="products" />
+      <PageHead
+        num={d.pageHeads.products.num}
+        title={fillTemplate(d.pageHeads.products.title, stats)}
+        caption={d.pageHeads.products.caption}
       />
-      <div className="annual-layout">
-        <div />
-        <div className="annual-content">
+      <main className="annual-shell annual-section">
+        <section>
+          <ChapterHead num="在线运行" title="RUNNING" />
+          <div className="annual-ledger">
+            {active.map((p) => <ProductEntry key={p.name} product={p} />)}
+          </div>
+        </section>
+        {archived.length > 0 && (
           <section>
-            <ChapterHead num="— 在线运行" title="RUNNING" />
-            <div className="annual-ledger">
-              {active.map((p, i) => <ProductEntry key={p.name} product={p} index={i} />)}
+            <ChapterHead num="已归档" title="ARCHIVED" />
+            <div className="annual-ledger" style={{ opacity: 0.7 }}>
+              {archived.map((p) => <ProductEntry key={p.name} product={p} />)}
             </div>
           </section>
-          {archived.length > 0 && (
-            <section className="annual-archived">
-              <ChapterHead num="— 已归档" title="ARCHIVED" />
-              <div className="annual-ledger">
-                {archived.map((p, i) => <ProductEntry key={p.name} product={p} index={i} />)}
-              </div>
-            </section>
-          )}
-        </div>
-      </div>
+        )}
+      </main>
       <Colophon decoration={d} stats={stats} />
     </>
   );

@@ -61,13 +61,15 @@ const posts = [
 
 describe("Annual.HomePage", () => {
   it("renders masthead nav labels from decoration", () => {
-    const { getByText } = render(
+    const { container } = render(
       <HomePage theme="annual" stats={stats} products={products} posts={posts} />,
     );
-    expect(getByText("索引")).toBeTruthy();
-    expect(getByText("关于")).toBeTruthy();
-    expect(getByText("在线")).toBeTruthy();
-    expect(getByText("实证")).toBeTruthy();
+    // nav labels 出现在 masthead 的 <a> 文本中
+    const text = container.textContent ?? "";
+    expect(text).toContain("索引");
+    expect(text).toContain("关于");
+    expect(text).toContain("在线");
+    expect(text).toContain("实证");
   });
 
   it("renders product data", () => {
@@ -98,11 +100,19 @@ describe("Annual.HomePage", () => {
     expect(text).not.toContain("{{");
   });
 
-  it("masthead vol uses stats.volRoman", () => {
+  it("masthead shows brand A·F·C", () => {
     const { container } = render(
       <HomePage theme="annual" stats={stats} products={products} posts={posts} />,
     );
     const text = container.textContent ?? "";
-    expect(text).toContain("Vol. VIII");
+    expect(text).toContain("A·F·C");
+  });
+
+  it("page-head shows chapter number I (home is volume one)", () => {
+    const { container } = render(
+      <HomePage theme="annual" stats={stats} products={products} posts={posts} />,
+    );
+    const text = container.textContent ?? "";
+    expect(text).toContain("I · 索引");
   });
 });

@@ -2,9 +2,9 @@ import type { ThemeId } from "@/lib/themes";
 import type { Stats } from "@/lib/site-stats";
 import type { WritingMeta } from "@/lib/types";
 import { annualDecoration } from "@/content/decorations/annual";
-import { fillTemplate, toRoman } from "@/lib/site-stats";
+import { fillTemplate } from "@/lib/site-stats";
 import { Masthead } from "./masthead";
-import { Frontispiece } from "./frontispiece";
+import { PageHead } from "./page-head";
 import { Colophon } from "./colophon";
 import { ChapterHead } from "./chapter-head";
 import { TocRow } from "./toc-row";
@@ -28,31 +28,25 @@ export function WritingListPage({ theme, posts, stats }: Props) {
 
   return (
     <>
-      <Masthead theme={theme} decoration={d} stats={stats} active="writing" />
-      <Frontispiece
-        roman={d.frontispieceWriting.roman}
-        title={fillTemplate(d.frontispieceWriting.title, stats)}
-        caption={fillTemplate(d.frontispieceWriting.caption, stats)}
+      <Masthead theme={theme} decoration={d} active="writing" />
+      <PageHead
+        num={d.pageHeads.writing.num}
+        title={fillTemplate(d.pageHeads.writing.title, stats)}
+        caption={d.pageHeads.writing.caption}
       />
-      <div className="annual-layout">
-        <div />
-        <div className="annual-content">
-          {years.map((year) => {
-            const yearPosts = grouped.get(year)!;
-            return (
-              <section key={year}>
-                <ChapterHead
-                  num={`Vol. ${toRoman(year - stats.sinceYear + 1)} · ${year}`}
-                  title={`${year} · ${yearPosts.length} 篇`}
-                />
-                <div className="annual-toc">
-                  {yearPosts.map((p, i) => <TocRow key={p.slug} post={p} index={i} />)}
-                </div>
-              </section>
-            );
-          })}
-        </div>
-      </div>
+      <main className="annual-shell annual-section">
+        {years.map((year) => {
+          const yearPosts = grouped.get(year)!;
+          return (
+            <section key={year}>
+              <ChapterHead num={String(year)} title={`${yearPosts.length} 篇`} />
+              <div className="annual-toc">
+                {yearPosts.map((p) => <TocRow key={p.slug} post={p} />)}
+              </div>
+            </section>
+          );
+        })}
+      </main>
       <Colophon decoration={d} stats={stats} />
     </>
   );

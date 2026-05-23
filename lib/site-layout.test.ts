@@ -45,7 +45,7 @@ describe("site layout · themed dispatch", () => {
   });
 
   it("Annual decoration carries Chinese nav labels for the masthead", () => {
-    const source = readFileSync("content/decorations/annual.ts", "utf8");
+    const source = readFileSync("content/decorations/annual.tsx", "utf8");
     expect(source).toContain('home: "索引"');
     expect(source).toContain('about: "关于"');
     expect(source).toContain('products: "在线"');

@@ -34,9 +34,9 @@ export function AboutSection({ signature }: Props) {
           <Image src="/avatar.png" alt="AFreeCoder 头像" width={1242} height={1124} priority className="annual-about-avatar" />
         </div>
         <div className="annual-about-caption">
-          <b>AFreeCoder</b> · 主理人<br/>
+          <b>AFreeCoder</b><br/>
           ex-bigtech · ex-soe<br/>
-          now: 自由职业 / AI / 独立产品
+          freelance · AI · 独立产品
         </div>
       </div>
       <div className="annual-about-prose">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { renderWithAccent } from "@/content/decorations/annual";
 
 type Props = {
   num: string;
@@ -8,23 +9,12 @@ type Props = {
   metaHref?: string;
 };
 
-function renderTitleWithAccent(title: string, accent?: string) {
-  if (!accent || !title.includes(accent)) return title;
-  const parts = title.split(accent);
-  const nodes: React.ReactNode[] = [];
-  parts.forEach((p, i) => {
-    if (i > 0) nodes.push(<em key={`em-${i}`}>{accent}</em>);
-    nodes.push(<span key={`s-${i}`}>{p}</span>);
-  });
-  return nodes;
-}
-
 export function ChapterHead({ num, title, titleAccent, metaLabel, metaHref }: Props) {
   return (
     <div className="annual-chapter-head">
-      <div>
-        <div className="annual-chapter-num">{num}</div>
-        <h3 className="annual-chapter-title">{renderTitleWithAccent(title, titleAccent)}</h3>
+      <div className="left">
+        <span className="annual-chapter-num">{num}</span>
+        <h2 className="annual-chapter-title">{renderWithAccent(title, titleAccent)}</h2>
       </div>
       {metaLabel && (
         metaHref
