@@ -1,7 +1,8 @@
 import { renderWithAccent } from "@/content/decorations/annual";
 
 type Props = {
-  num: string;
+  /** 空字符串/undefined 时不渲染章号小字 */
+  num?: string;
   title: string;
   titleAccent?: string;
   caption?: string;

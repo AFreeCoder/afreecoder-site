@@ -12,7 +12,7 @@
   --color-accent-soft: #f1d8d0;
   --color-rule:        #d8cdb7;
   --color-rule-soft:   #e6dcc6;
-  --color-quiet:       #7a6d56;   /* 比 muted 浅一档：用于"轻量交互元数据"如 chapter meta link */
+  --color-quiet:       #6b5e48;   /* 比 muted 浅一档但仍 ≥4.5:1 AA：用于"轻量交互元数据"如 chapter meta link */
 
   /* 字体 */
   --font-display:  var(--font-fraunces),    Georgia, "Noto Serif SC", serif;
@@ -281,8 +281,6 @@ body {
   text-align: right; font-family: var(--font-mono); font-size: 13px;
   color: var(--color-muted); letter-spacing: 0.04em; line-height: 1.8;
 }
-.annual-entry-role { color: var(--color-fg-soft); text-transform: uppercase; letter-spacing: 0.12em; }
-.annual-entry-phase { display: block; margin-top: 3px; }
 .annual-entry-tags {
   margin-top: 10px; display: flex; justify-content: flex-end; gap: 5px;
   flex-wrap: wrap; list-style: none; padding: 0;
@@ -401,11 +399,17 @@ body {
   .annual-page-head .title { font-size: 38px; }
   .annual-chapter-title { font-size: 24px; }
   .annual-about { grid-template-columns: 1fr; }
-  .annual-entry { grid-template-columns: 1fr; }
+  /* 单列堆叠：覆盖 .annual-entry-body/.annual-entry-meta/.annual-entry-foot 的 grid 锚定 */
+  .annual-entry { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .annual-entry-body,
+  .annual-entry-meta,
+  .annual-entry-foot {
+    grid-column: 1;
+    grid-row: auto;
+  }
   .annual-entry-meta { text-align: left; }
   .annual-entry-tags { justify-content: flex-start; }
+  .annual-entry-foot { text-align: left; }
   .annual-toc-row { grid-template-columns: 100px 1fr; gap: 14px; }
   .annual-toc-rt { display: none; }
-  .annual-colophon-grid { grid-template-columns: 1fr; }
-  .annual-colophon-grid .disclaimer { text-align: left; max-width: none; }
 }

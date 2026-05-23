@@ -2,8 +2,10 @@ import Link from "next/link";
 import { renderWithAccent } from "@/content/decorations/annual";
 
 type Props = {
-  num: string;
-  title: string;
+  /** 空字符串/undefined 时不渲染章号小字 */
+  num?: string;
+  /** 空字符串/undefined 时不渲染标题 h2 */
+  title?: string;
   titleAccent?: string;
   metaLabel?: string;
   metaHref?: string;

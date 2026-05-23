@@ -32,6 +32,7 @@ export function WritingListPage({ theme, posts, stats }: Props) {
       <PageHead
         num={d.pageHeads.writing.num}
         title={fillTemplate(d.pageHeads.writing.title, stats)}
+        titleAccent={fillTemplate(d.pageHeads.writing.titleAccent ?? "", stats)}
         caption={d.pageHeads.writing.caption}
       />
       <main className="annual-shell annual-section">
