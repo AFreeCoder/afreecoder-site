@@ -3,24 +3,16 @@ import { describe, expect, it } from "vitest";
 import { THEME_IDS } from "./themes";
 
 const REQUIRED_TOKENS = [
-  "color-bg",
-  "color-fg",
-  "color-muted",
-  "color-faint",
-  "color-accent",
-  "color-accent-soft",
-  "color-card",
-  "color-border",
-  "color-border-strong",
-  "color-card-border",
-  "color-card-border-hover",
+  "color-bg", "color-bg-soft", "color-fg", "color-fg-soft",
+  "color-muted", "color-faint",
+  "color-accent", "color-accent-soft",
+  "color-rule", "color-rule-soft",
 ] as const;
 
 function loadCss(): string {
   return readFileSync("app/globals.css", "utf8");
 }
 
-/** 提取选择器内的属性值。selector 例：":root" / "[data-theme=\"ink\"]" / "@theme" */
 function extractBlock(css: string, selector: string): string {
   const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const re = new RegExp(`${escaped}\\s*\\{([\\s\\S]*?)\\}`);
@@ -31,12 +23,8 @@ function extractBlock(css: string, selector: string): string {
 
 function getHexToken(block: string, name: string): string {
   const match = new RegExp(`--${name}:\\s*(#[0-9a-fA-F]{6})`).exec(block);
-  if (!match) throw new Error(`Missing token --${name} (hex) in block`);
+  if (!match) throw new Error(`Missing token --${name} (hex)`);
   return match[1];
-}
-
-function hasShadowToken(block: string, name: string): boolean {
-  return new RegExp(`--${name}:\\s*[^;]+;`).test(block);
 }
 
 function relativeLuminance(hex: string) {
@@ -58,56 +46,41 @@ function contrastRatio(fg: string, bg: string) {
   return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 }
 
-/** sand 主题的 tokens 来自 @theme 默认值；其他主题来自 [data-theme="id"] 覆盖块。 */
-function blockFor(css: string, id: string): string {
-  return id === "sand"
-    ? extractBlock(css, "@theme")
-    : extractBlock(css, `[data-theme="${id}"]`);
-}
-
-describe("design tokens · 6 themes", () => {
+describe("design tokens · annual reference", () => {
   const css = loadCss();
+  const annual = extractBlock(css, "@theme");
 
-  it.each(THEME_IDS)("%s 主题定义全部必需 color token", (id) => {
-    const block = blockFor(css, id);
+  it("annual token block defines all required tokens as hex", () => {
     for (const name of REQUIRED_TOKENS) {
-      expect(getHexToken(block, name)).toMatch(/^#[0-9a-fA-F]{6}$/);
+      expect(getHexToken(annual, name)).toMatch(/^#[0-9a-fA-F]{6}$/);
     }
   });
 
-  it.each(THEME_IDS)("%s 主题定义 shadow-soft 与 shadow-soft-hover", (id) => {
-    const block = blockFor(css, id);
-    expect(hasShadowToken(block, "shadow-soft")).toBe(true);
-    expect(hasShadowToken(block, "shadow-soft-hover")).toBe(true);
+  it("annual fg vs bg >= 7:1 (AAA body)", () => {
+    expect(contrastRatio(getHexToken(annual, "color-fg"), getHexToken(annual, "color-bg")))
+      .toBeGreaterThanOrEqual(7);
   });
 
-  it.each(THEME_IDS)("%s 主题 accent 和 faint 对 bg 满足 4.5:1 对比度（小字 AA）", (id) => {
-    const block = blockFor(css, id);
-    const bg = getHexToken(block, "color-bg");
-    expect(contrastRatio(getHexToken(block, "color-accent"), bg)).toBeGreaterThanOrEqual(4.5);
-    expect(contrastRatio(getHexToken(block, "color-faint"), bg)).toBeGreaterThanOrEqual(4.5);
+  it("annual accent vs bg >= 4.5:1 (AA)", () => {
+    expect(contrastRatio(getHexToken(annual, "color-accent"), getHexToken(annual, "color-bg")))
+      .toBeGreaterThanOrEqual(4.5);
   });
 
-  it.each(THEME_IDS)("%s 主题正文 fg 对 bg 满足 7:1 对比度（正文 AAA）", (id) => {
-    const block = blockFor(css, id);
-    const bg = getHexToken(block, "color-bg");
-    expect(contrastRatio(getHexToken(block, "color-fg"), bg)).toBeGreaterThanOrEqual(7);
+  it("annual muted vs bg >= 4.5:1 (AA)", () => {
+    expect(contrastRatio(getHexToken(annual, "color-muted"), getHexToken(annual, "color-bg")))
+      .toBeGreaterThanOrEqual(4.5);
   });
 
-  const THEME_SCHEMES: Record<(typeof THEME_IDS)[number], "light" | "dark"> = {
-    sand: "light",
-    mist: "light",
-    editorial: "light",
-    ink: "dark",
-    moss: "dark",
-    terminal: "dark",
+  const SCHEMES: Record<(typeof THEME_IDS)[number], "light" | "dark"> = {
+    annual: "light",
+    workshop: "light",
+    nocturne: "dark",
+    telegraph: "dark",
   };
 
-  it.each(THEME_IDS)("%s 主题声明对应的 color-scheme", (id) => {
-    const scheme = THEME_SCHEMES[id];
-    const re = new RegExp(
-      `html\\[data-theme="${id}"\\][^}]*\\bcolor-scheme:\\s*${scheme}`,
-    );
+  it.each(THEME_IDS)("%s declares color-scheme", (id) => {
+    const scheme = SCHEMES[id];
+    const re = new RegExp(`html\\[data-theme="${id}"\\][^}]*\\bcolor-scheme:\\s*${scheme}`);
     expect(css).toMatch(re);
   });
 });

@@ -1,148 +1,342 @@
 @import "tailwindcss";
 
-/* sand 主题作为 @theme 默认值；切换器不主动设置 data-theme="sand" 时也走这里。 */
 @theme {
-  /* Brand — Warm Sand (default) */
-  --color-bg: #fbfaf7;
-  --color-fg: #1c1917;
-  --color-muted: #625a55;
-  --color-faint: #78716c;
-  --color-accent: #c2410c;
-  --color-accent-soft: #fff7ed;
+  /* Annual 默认 token —— @theme 默认值，即 data-theme="annual" 行为 */
+  --color-bg:          #f4ede0;
+  --color-bg-soft:     #ece3d1;
+  --color-fg:          #15110c;
+  --color-fg-soft:     #3a3128;
+  --color-muted:       #5a4f3f;
+  --color-faint:       #7b6f5f;
+  --color-accent:      #b53028;
+  --color-accent-soft: #f1d8d0;
+  --color-rule:        #d8cdb7;
+  --color-rule-soft:   #e6dcc6;
 
-  /* Surfaces */
-  --color-card: #fffdfb;
-  --color-border: #e8e1d8;
-  --color-border-strong: #d6cec4;
-  --color-card-border: #e8e1d8;
-  --color-card-border-hover: #c8b7a8;
-
-  /* Shadows */
-  --shadow-soft: 0 1px 2px rgba(28, 25, 23, 0.04);
-  --shadow-soft-hover: 0 10px 24px rgba(28, 25, 23, 0.07);
-
-  /* Typography */
-  --font-sans: var(--font-geist-sans), -apple-system, "PingFang SC", sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
-  --font-serif: var(--font-source-serif), Georgia, "Noto Serif SC", serif;
+  /* 字体 */
+  --font-display:  var(--font-fraunces),    Georgia, "Noto Serif SC", serif;
+  --font-serif:    var(--font-newsreader),  Georgia, "Noto Serif SC", serif;
+  --font-mono:     var(--font-jetbrains),   ui-monospace, "SF Mono", monospace;
+  --font-sans:     var(--font-geist-sans),  -apple-system, "PingFang SC", sans-serif;
 }
 
-/* —— 主题覆盖 —— */
-
-[data-theme="ink"] {
-  --color-bg: #0c0c0f;
-  --color-fg: #ececef;
-  --color-muted: #8e8e96;
-  --color-faint: #797981;
-  --color-accent: #fb923c;
-  --color-accent-soft: #3a1f0a;
-  --color-card: #16161b;
-  --color-border: #25252c;
-  --color-border-strong: #3a3a44;
-  --color-card-border: #25252c;
-  --color-card-border-hover: #4a4a55;
-  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-soft-hover: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="mist"] {
-  --color-bg: #eef2f6;
-  --color-fg: #0f172a;
-  --color-muted: #475569;
-  --color-faint: #606f84;
-  --color-accent: #1e40af;
-  --color-accent-soft: #eff6ff;
-  --color-card: #ffffff;
-  --color-border: #d8dee6;
-  --color-border-strong: #b8c2cf;
-  --color-card-border: #d8dee6;
-  --color-card-border-hover: #94a3b8;
-  --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.05);
-  --shadow-soft-hover: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-[data-theme="moss"] {
-  --color-bg: #0f1611;
-  --color-fg: #e8e1d3;
-  --color-muted: #8a9285;
-  --color-faint: #788076;
-  --color-accent: #d4a574;
-  --color-accent-soft: #2a2018;
-  --color-card: #1a2520;
-  --color-border: #2a3a32;
-  --color-border-strong: #3d5044;
-  --color-card-border: #2a3a32;
-  --color-card-border-hover: #556657;
-  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-soft-hover: 0 10px 30px rgba(0, 0, 0, 0.45);
-}
-
-[data-theme="editorial"] {
-  --color-bg: #f5efe6;
-  --color-fg: #1a1410;
-  --color-muted: #5c544a;
-  --color-faint: #766b5d;
-  --color-accent: #9b2c2c;
-  --color-accent-soft: #fef2f2;
-  --color-card: #ffffff;
-  --color-border: #e0d8cc;
-  --color-border-strong: #c9bfae;
-  --color-card-border: #e0d8cc;
-  --color-card-border-hover: #a89a82;
-  --shadow-soft: 0 1px 2px rgba(26, 20, 16, 0.05);
-  --shadow-soft-hover: 0 10px 24px rgba(26, 20, 16, 0.08);
-}
-
-[data-theme="terminal"] {
-  --color-bg: #0a0e0a;
-  --color-fg: #c9d1c9;
-  --color-muted: #808a80;
-  --color-faint: #727d72;
-  --color-accent: #7ee787;
-  --color-accent-soft: #0f2515;
-  --color-card: #11161a;
-  --color-border: #1f2a22;
-  --color-border-strong: #324032;
-  --color-card-border: #1f2a22;
-  --color-card-border-hover: #4a5c4a;
-  --shadow-soft: 0 0 0 1px rgba(126, 231, 135, 0.05);
-  --shadow-soft-hover: 0 0 12px rgba(126, 231, 135, 0.15);
-}
-
-/* —— color-scheme：影响原生滚动条 / autofill 颜色 —— */
-
-html[data-theme="sand"] { color-scheme: light; }
-html[data-theme="mist"] { color-scheme: light; }
-html[data-theme="editorial"] { color-scheme: light; }
-html:not([data-theme]) { color-scheme: light; }
-html[data-theme="ink"] { color-scheme: dark; }
-html[data-theme="moss"] { color-scheme: dark; }
-html[data-theme="terminal"] { color-scheme: dark; }
-
-/* —— 字体差异：报刊衬线标题 / 终端全 mono —— */
-
-[data-theme="editorial"] h1,
-[data-theme="editorial"] h2,
-[data-theme="editorial"] h3,
-[data-theme="editorial"] h4 {
-  font-family: var(--font-serif);
-}
-
-[data-theme="terminal"] body {
-  font-family: var(--font-mono);
-}
-
-/* —— 全局基础 —— */
+html[data-theme="annual"]    { color-scheme: light; }
+html[data-theme="workshop"]  { color-scheme: light; }
+html[data-theme="nocturne"]  { color-scheme: dark;  }
+html[data-theme="telegraph"] { color-scheme: dark;  }
 
 body {
   background: var(--color-bg);
   color: var(--color-fg);
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
+  font-weight: 380;
+  font-size: 17px;
+  line-height: 1.78;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  background-image:
+    radial-gradient(rgba(21,17,12,0.035) 1px, transparent 1px),
+    radial-gradient(rgba(21,17,12,0.025) 1px, transparent 1px);
+  background-size: 3px 3px, 7px 7px;
+  background-position: 0 0, 1.5px 1.5px;
 }
 
-::selection {
-  background: var(--color-accent);
-  color: #ffffff;
+::selection { background: var(--color-accent); color: #fff; }
+
+/* —————— Annual layout primitives —————— */
+.annual-shell { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+.annual-layout { display: grid; grid-template-columns: 88px 1fr; border-bottom: 1px solid var(--color-fg); }
+.annual-content { padding: 48px 56px 64px; min-width: 0; }
+
+/* —————— Masthead —————— */
+.annual-masthead { border-bottom: 1px solid var(--color-fg); padding: 18px 0 12px; }
+.annual-masthead-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.annual-masthead-left { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+.annual-masthead-issue, .annual-masthead-date {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted);
+}
+.annual-masthead-nav { display: flex; align-items: center; gap: 22px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; flex-wrap: wrap; }
+.annual-masthead-nav a { color: var(--color-muted); transition: color .15s; text-decoration: none; }
+.annual-masthead-nav a:hover { color: var(--color-accent); }
+.annual-masthead-nav a.is-active { color: var(--color-fg); position: relative; }
+.annual-masthead-nav a.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; border-bottom: 2px solid var(--color-accent); }
+
+.annual-masthead-title {
+  border-top: 6px double var(--color-fg);
+  border-bottom: 1px solid var(--color-fg);
+  padding: 14px 0 18px; margin-top: 8px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+}
+.annual-masthead-mt-left, .annual-masthead-mt-right {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted);
+}
+.annual-masthead-mt-right { text-align: right; }
+.annual-masthead-mt-center {
+  font-family: var(--font-display); font-weight: 300; letter-spacing: -0.02em;
+  font-size: 64px; line-height: 1; text-align: center;
+}
+.annual-masthead-mt-center i { font-style: italic; font-weight: 300; color: var(--color-accent); }
+.annual-masthead-est {
+  font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.4em;
+  margin-left: 14px; vertical-align: middle; color: var(--color-muted);
+}
+
+/* —————— Frontispiece —————— */
+.annual-frontispiece { padding: 80px 0 56px; border-bottom: 1px solid var(--color-rule); }
+.annual-frontispiece-grid { display: grid; grid-template-columns: 100px 1fr 220px; gap: 48px; }
+.annual-frontispiece-roman {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: 120px; line-height: 0.85; color: var(--color-accent);
+}
+.annual-frontispiece-title {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: 80px; line-height: 0.98; letter-spacing: -0.025em;
+}
+.annual-frontispiece-title em { font-style: italic; color: var(--color-accent); font-weight: 300; }
+.annual-frontispiece-caption {
+  margin-top: 24px; color: var(--color-fg-soft); font-style: italic;
+  font-family: var(--font-serif); font-size: 19px; line-height: 1.55; max-width: 560px;
+}
+.annual-frontispiece-stamp { align-self: start; justify-self: end; }
+
+/* —————— TimelineSpine —————— */
+.annual-timeline { border-right: 1px solid var(--color-rule); padding: 48px 0; }
+.annual-timeline-track {
+  position: sticky; top: 24px;
+  display: flex; flex-direction: column; align-items: center;
+  font-family: var(--font-mono); font-size: 11px; color: var(--color-muted);
+}
+.annual-timeline-year {
+  writing-mode: vertical-rl; letter-spacing: 0.3em; padding: 18px 0;
+  border-bottom: 1px solid var(--color-rule-soft);
+}
+.annual-timeline-year:last-of-type { border-bottom: none; }
+.annual-timeline-year.is-active { color: var(--color-accent); }
+.annual-timeline-now {
+  margin-top: 14px; padding: 6px 0;
+  border-top: 2px solid var(--color-accent);
+  color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.2em;
+}
+
+/* —————— ChapterHead —————— */
+.annual-chapter-head {
+  display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: baseline;
+  padding-bottom: 14px; margin-top: 48px; margin-bottom: 30px;
+  border-bottom: 1px solid var(--color-fg);
+}
+.annual-chapter-head:first-child { margin-top: 0; }
+.annual-chapter-num {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.3em; color: var(--color-accent); text-transform: uppercase;
+}
+.annual-chapter-title {
+  font-family: var(--font-display); font-weight: 300; letter-spacing: -0.01em;
+  font-size: 42px; line-height: 1;
+}
+.annual-chapter-title em { font-style: italic; color: var(--color-accent); font-weight: 300; }
+.annual-chapter-meta {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--color-muted); text-decoration: none;
+}
+.annual-chapter-meta:hover { color: var(--color-accent); }
+
+/* —————— AboutSection —————— */
+.annual-about { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.annual-about-portrait { position: relative; }
+.annual-about-frame {
+  width: 200px; height: 240px; padding: 6px;
+  border: 1px solid var(--color-fg); background: var(--color-bg-soft);
+  box-shadow:
+    0 1px 0 var(--color-bg-soft),
+    4px 4px 0 var(--color-rule),
+    9px 9px 0 var(--color-bg),
+    9px 9px 0 1px var(--color-rule);
+  transform: rotate(-1.5deg);
+  overflow: hidden;
+}
+.annual-about-avatar { width: 100%; height: 100%; object-fit: contain; display: block; }
+.annual-about-caption {
+  margin-top: 18px; font-family: var(--font-mono); font-size: 10.5px;
+  color: var(--color-muted); letter-spacing: 0.08em; line-height: 1.6;
+  padding-left: 14px; border-left: 2px solid var(--color-accent);
+}
+.annual-about-caption b { color: var(--color-fg); font-weight: 500; }
+.annual-about-prose { font-size: 18px; line-height: 1.85; color: var(--color-fg-soft); }
+.annual-about-prose p { margin-bottom: 14px; }
+.annual-about-prose p:first-child {
+  font-family: var(--font-display); font-size: 24px; line-height: 1.45;
+  font-weight: 300; letter-spacing: -0.005em; color: var(--color-fg);
+}
+.annual-about-prose p:first-child::first-letter {
+  font-family: var(--font-display); font-weight: 300; font-size: 78px;
+  line-height: 0.85; float: left; padding: 6px 10px 0 0; color: var(--color-accent);
+}
+.annual-about-sign {
+  margin-top: 24px; font-family: var(--font-display); font-style: italic;
+  font-size: 22px; color: var(--color-accent);
+}
+.annual-about-pursuits {
+  display: flex; flex-wrap: wrap; gap: 6px 10px; margin-top: 18px;
+  font-family: var(--font-mono); font-size: 11px; color: var(--color-muted);
+  list-style: none; padding: 0;
+}
+.annual-about-pursuits li {
+  padding: 3px 9px; border: 1px solid var(--color-rule);
+  border-radius: 999px; background: var(--color-bg-soft);
+}
+.annual-about-pursuits li::before { content: "§ "; color: var(--color-accent); }
+
+/* —————— ProductEntry (Annual ledger) —————— */
+.annual-ledger { border-top: 1px solid var(--color-rule); }
+.annual-entry-link { display: block; color: inherit; text-decoration: none; }
+.annual-entry {
+  display: grid; grid-template-columns: 64px 1fr 240px; gap: 24px;
+  padding: 24px 0; border-bottom: 1px solid var(--color-rule);
+  align-items: start; transition: background .15s;
+}
+.annual-entry:hover { background: var(--color-bg-soft); }
+.annual-entry-idx {
+  font-family: var(--font-display); font-weight: 300; font-size: 46px;
+  color: var(--color-accent); line-height: 0.9;
+}
+.annual-entry-title {
+  font-family: var(--font-display); font-weight: 400; font-size: 28px;
+  letter-spacing: -0.01em; margin-bottom: 4px;
+}
+.annual-entry-glyph { color: var(--color-accent); font-style: italic; margin-right: 4px; }
+.annual-entry-desc { color: var(--color-fg-soft); font-size: 16px; margin-bottom: 10px; max-width: 620px; }
+.annual-entry-pull {
+  font-family: var(--font-display); font-style: italic; font-size: 17px;
+  color: var(--color-fg); border-left: 2px solid var(--color-accent);
+  padding-left: 12px; max-width: 620px;
+}
+.annual-entry-meta {
+  text-align: right; font-family: var(--font-mono); font-size: 11px;
+  color: var(--color-muted); letter-spacing: 0.06em; line-height: 1.8;
+}
+.annual-entry-role { color: var(--color-fg); text-transform: uppercase; letter-spacing: 0.16em; }
+.annual-entry-phase { display: block; margin-top: 2px; }
+.annual-entry-tags {
+  margin-top: 8px; display: flex; justify-content: flex-end; gap: 6px;
+  flex-wrap: wrap; list-style: none; padding: 0;
+}
+.annual-entry-tags li {
+  padding: 2px 7px; border: 1px solid var(--color-rule);
+  border-radius: 2px; color: var(--color-fg-soft); background: var(--color-bg);
+}
+.annual-entry-url { display: inline-block; margin-top: 10px; color: var(--color-accent); }
+.annual-entry-url::after { content: " →"; }
+
+/* —————— Writing TOC —————— */
+.annual-toc { margin-top: 8px; }
+.annual-toc-row {
+  display: grid; grid-template-columns: 80px 56px 1fr 100px; gap: 18px;
+  align-items: baseline; padding: 14px 0; border-bottom: 1px dotted var(--color-rule);
+  transition: color .15s; text-decoration: none; color: inherit;
+}
+.annual-toc-row:hover { color: var(--color-accent); }
+.annual-toc-date { font-family: var(--font-mono); font-size: 12px; color: var(--color-muted); letter-spacing: 0.04em; }
+.annual-toc-no { font-family: var(--font-display); font-style: italic; color: var(--color-accent); font-size: 15px; }
+.annual-toc-title { font-family: var(--font-display); font-weight: 400; font-size: 19px; letter-spacing: -0.005em; }
+.annual-toc-rt { font-family: var(--font-mono); font-size: 11px; color: var(--color-muted); text-align: right; }
+
+/* —————— Colophon —————— */
+.annual-colophon {
+  padding: 36px 32px 48px;
+  border-top: 6px double var(--color-fg);
+  margin: 48px auto 0;
+  max-width: 1180px;
+}
+.annual-colophon-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  font-family: var(--font-mono); font-size: 11px; color: var(--color-muted);
+  letter-spacing: 0.06em; line-height: 1.7;
+}
+.annual-colophon-grid b { color: var(--color-fg); font-weight: 500; display: block; margin-bottom: 6px; letter-spacing: 0.16em; text-transform: uppercase; }
+.annual-colophon-grid a { color: var(--color-accent); text-decoration: none; }
+
+/* —————— Article (about/post) —————— */
+.annual-article {
+  max-width: 820px; margin: 48px auto; padding: 0 32px;
+}
+.annual-article-head { margin-bottom: 32px; }
+.annual-article-foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--color-rule); }
+
+/* —————— prose-annual —————— */
+.prose-annual { font-family: var(--font-serif); font-size: 17px; line-height: 1.78; color: var(--color-fg); }
+.prose-annual h1, .prose-annual h2, .prose-annual h3, .prose-annual h4 { font-family: var(--font-display); font-weight: 400; }
+.prose-annual h1 { font-size: 38px; margin-top: 36px; margin-bottom: 14px; line-height: 1.15; }
+.prose-annual h2 { font-size: 28px; margin-top: 32px; margin-bottom: 12px; line-height: 1.2; }
+.prose-annual h3 { font-size: 22px; margin-top: 24px; margin-bottom: 10px; line-height: 1.25; }
+.prose-annual p { margin-bottom: 14px; }
+.prose-annual a { color: var(--color-accent); border-bottom: 1px solid var(--color-accent); text-decoration: none; }
+.prose-annual a:hover { background: var(--color-accent-soft); }
+.prose-annual blockquote {
+  border-left: 2px solid var(--color-accent); padding-left: 16px; margin: 18px 0;
+  font-style: italic; color: var(--color-fg-soft);
+}
+.prose-annual code {
+  font-family: var(--font-mono); font-size: 14px; background: var(--color-bg-soft);
+  padding: 1px 5px; border-radius: 2px;
+}
+.prose-annual pre { font-family: var(--font-mono); background: var(--color-bg-soft); padding: 14px 18px; overflow-x: auto; border: 1px solid var(--color-rule); }
+.prose-annual pre code { background: transparent; padding: 0; }
+.prose-annual ul, .prose-annual ol { padding-left: 22px; margin-bottom: 14px; }
+.prose-annual ul { list-style: disc; }
+.prose-annual ol { list-style: decimal; }
+.prose-annual li { margin-bottom: 6px; }
+.prose-annual img { max-width: 100%; margin: 18px 0; }
+.prose-annual hr { border: 0; border-top: 1px solid var(--color-rule); margin: 24px 0; }
+
+/* —————— ThemeSwitcher —————— */
+.annual-switcher { position: relative; }
+.annual-switcher-btn {
+  display: flex; height: 32px; width: 32px;
+  align-items: center; justify-content: center;
+  border: 1px solid var(--color-rule); background: var(--color-bg-soft);
+  color: var(--color-fg); border-radius: 6px; cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.annual-switcher-btn:hover { color: var(--color-accent); border-color: var(--color-accent); }
+.annual-switcher-menu {
+  position: absolute; right: 0; top: 42px; z-index: 50;
+  width: 240px; padding: 6px; list-style: none; margin: 0;
+  border: 1px solid var(--color-fg); background: var(--color-bg);
+  font-family: var(--font-mono); font-size: 12px;
+  box-shadow: 4px 4px 0 var(--color-rule);
+}
+.annual-switcher-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+  cursor: pointer; transition: background .12s;
+  color: var(--color-fg);
+}
+.annual-switcher-item:hover:not(.is-disabled) { background: var(--color-accent-soft); color: var(--color-accent); }
+.annual-switcher-item.is-active { background: var(--color-accent-soft); color: var(--color-accent); }
+.annual-switcher-item.is-disabled { opacity: .45; cursor: not-allowed; }
+.annual-switcher-swatch { width: 14px; height: 14px; border: 1px solid var(--color-rule); display: inline-block; flex-shrink: 0; }
+.annual-switcher-label { flex: 1; }
+.annual-switcher-badge {
+  font-size: 9px; letter-spacing: 0.18em; padding: 1px 5px;
+  border: 1px solid var(--color-accent); color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+/* —————— Responsive —————— */
+@media (max-width: 900px) {
+  .annual-frontispiece-grid { grid-template-columns: 1fr; gap: 24px; }
+  .annual-frontispiece-title { font-size: 48px; }
+  .annual-frontispiece-stamp { justify-self: start; }
+  .annual-masthead-mt-center { font-size: 42px; }
+  .annual-layout { grid-template-columns: 1fr; }
+  .annual-timeline { display: none; }
+  .annual-content { padding: 32px 20px; }
+  .annual-about { grid-template-columns: 1fr; }
+  .annual-entry { grid-template-columns: 48px 1fr; }
+  .annual-entry-meta { grid-column: 1 / -1; text-align: left; }
+  .annual-entry-tags { justify-content: flex-start; }
+  .annual-toc-row { grid-template-columns: 64px 1fr; gap: 8px; }
+  .annual-toc-no, .annual-toc-rt { display: none; }
+  .annual-colophon-grid { grid-template-columns: 1fr 1fr; }
 }
