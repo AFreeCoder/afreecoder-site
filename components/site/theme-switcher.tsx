@@ -1,36 +1,28 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { DEFAULT_THEME, THEMES, type ThemeId } from "@/lib/themes";
+import { useRouter } from "next/navigation";
+import { THEMES, type ThemeId } from "@/lib/themes";
+import { THEME_COOKIE_NAME } from "@/lib/get-current-theme";
 
-function isThemeId(value: unknown): value is ThemeId {
-  return (
-    typeof value === "string" &&
-    THEMES.some((t) => t.id === value)
-  );
-}
+type Props = { current: ThemeId };
 
-export function ThemeSwitcher() {
+export function ThemeSwitcher({ current }: Props) {
   const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState<ThemeId>(DEFAULT_THEME);
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const router = useRouter();
 
-  // 挂载后从 <html data-theme> 同步当前值（防闪脚本已设置）
-  useEffect(() => {
-    const value = document.documentElement.dataset.theme;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (isThemeId(value)) setCurrent(value);
-  }, []);
-
-  // 点击菜单外关闭 & Esc 关闭
   useEffect(() => {
     if (!open) return;
     function onPointerDown(e: PointerEvent) {
       if (!containerRef.current?.contains(e.target as Node)) setOpen(false);
     }
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        buttonRef.current?.focus();
+      }
     }
     document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
@@ -40,21 +32,20 @@ export function ThemeSwitcher() {
     };
   }, [open]);
 
-  function choose(id: ThemeId) {
-    // eslint-disable-next-line react-hooks/immutability
-    document.documentElement.dataset.theme = id;
-    try {
-      localStorage.setItem("theme", id);
-    } catch {
-      // sandbox iframe 等场景 localStorage 不可写——忽略
+  function choose(id: ThemeId, available: boolean) {
+    if (!available) return;
+    if (id === current) {
+      setOpen(false);
+      return;
     }
-    setCurrent(id);
+    const yearSec = 60 * 60 * 24 * 365;
+    document.cookie = `${THEME_COOKIE_NAME}=${id}; path=/; max-age=${yearSec}; samesite=lax`;
     setOpen(false);
-    buttonRef.current?.focus();
+    router.refresh();
   }
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="annual-switcher">
       <button
         ref={buttonRef}
         type="button"
@@ -63,7 +54,7 @@ export function ThemeSwitcher() {
         aria-expanded={open}
         aria-controls="theme-menu"
         onClick={() => setOpen((v) => !v)}
-        className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--color-card-border)] bg-[var(--color-card)] text-[var(--color-fg)] transition-colors hover:border-[var(--color-card-border-hover)] hover:text-[var(--color-accent)]"
+        className="annual-switcher-btn"
       >
         <svg
           width="16"
@@ -88,35 +79,36 @@ export function ThemeSwitcher() {
         <ul
           id="theme-menu"
           role="menu"
-          className="absolute right-0 top-[42px] z-50 w-[200px] rounded-[10px] border border-[var(--color-border)] bg-[var(--color-card)] p-1.5 text-[13px] shadow-[var(--shadow-soft-hover)]"
+          className="annual-switcher-menu"
         >
           {THEMES.map((t) => {
             const active = current === t.id;
+            const disabled = !t.available;
             return (
               <li
                 key={t.id}
                 role="menuitem"
                 aria-current={active}
-                tabIndex={0}
-                onClick={() => choose(t.id)}
+                aria-disabled={disabled}
+                tabIndex={disabled ? -1 : 0}
+                onClick={() => choose(t.id, t.available)}
                 onKeyDown={(e) => {
+                  if (disabled) return;
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    choose(t.id);
+                    choose(t.id, t.available);
                   }
                 }}
-                className={`flex cursor-pointer items-center gap-2.5 rounded-md px-2.5 py-2 transition-colors ${
-                  active
-                    ? "bg-[var(--color-accent-soft)] text-[var(--color-accent)]"
-                    : "text-[var(--color-fg)] hover:bg-[var(--color-accent-soft)]"
-                }`}
+                className={`annual-switcher-item${active ? " is-active" : ""}${disabled ? " is-disabled" : ""}`}
+                title={disabled ? `${t.blurb} · 预览中` : t.blurb}
               >
                 <span
-                  className="inline-block h-3.5 w-3.5 rounded border border-[var(--color-border)]"
+                  className="annual-switcher-swatch"
                   style={{ background: t.swatch }}
                   aria-hidden
                 />
-                <span className="flex-1">{t.label}</span>
+                <span className="annual-switcher-label">{t.label}</span>
+                {disabled && <span className="annual-switcher-badge">预览</span>}
                 {active && (
                   <svg
                     width="14"
