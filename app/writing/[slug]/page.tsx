@@ -1,7 +1,6 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCurrentTheme } from "@/lib/get-current-theme";
-import { renderThemedPage } from "@/components/themes/dispatch";
-import { getSiteStats } from "@/lib/site-stats";
+import { Mdx } from "@/lib/mdx";
 import { getAllWriting, getWritingBySlug } from "@/lib/writing";
 
 type Params = { slug: string };
@@ -27,6 +26,10 @@ export async function generateMetadata({
   };
 }
 
+function formatDate(d: string): string {
+  return d.replaceAll("-", "/");
+}
+
 export default async function WritingDetailPage({
   params,
 }: {
@@ -35,11 +38,19 @@ export default async function WritingDetailPage({
   const { slug } = await params;
   const post = await getWritingBySlug(slug);
   if (!post) notFound();
-  const [theme, stats] = await Promise.all([getCurrentTheme(), getSiteStats()]);
-  return renderThemedPage(theme, "writingPost", {
-    theme,
-    stats,
-    meta: post.meta,
-    body: post.body,
-  });
+
+  return (
+    <article className="article">
+      <div className="article-meta">
+        {formatDate(post.meta.date)} · {post.meta.readingTime} min read
+      </div>
+      <h1 className="article-title">{post.meta.title}</h1>
+      <div className="prose">
+        <Mdx source={post.body} />
+      </div>
+      <footer className="article-foot">
+        <Link href="/writing">← 返回文章列表</Link>
+      </footer>
+    </article>
+  );
 }

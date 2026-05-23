@@ -1,24 +1,10 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Fraunces, Newsreader, JetBrains_Mono } from "next/font/google";
-import { getCurrentTheme } from "@/lib/get-current-theme";
-import { ScrollYearTrack } from "./scroll-year-track";
+import { JetBrains_Mono } from "next/font/google";
+import { getColorScheme } from "@/lib/get-color-scheme";
+import { Sidebar } from "@/components/site/sidebar";
 import "./globals.css";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  axes: ["opsz", "SOFT", "WONK"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  axes: ["opsz"],
-  variable: "--font-newsreader",
-  display: "swap",
-});
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
@@ -47,16 +33,18 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const theme = await getCurrentTheme();
+  const scheme = await getColorScheme();
   return (
     <html
       lang="zh-CN"
-      data-theme={theme}
-      className={`${GeistSans.variable} ${GeistMono.variable} ${fraunces.variable} ${newsreader.variable} ${jetbrains.variable}`}
+      data-color-scheme={scheme}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${jetbrains.variable}`}
     >
       <body>
-        <ScrollYearTrack />
-        {children}
+        <div className="app-shell">
+          <Sidebar scheme={scheme} />
+          <main className="app-main">{children}</main>
+        </div>
       </body>
     </html>
   );
