@@ -13,8 +13,10 @@ export function ChapterHead({ num, title, titleAccent, metaLabel, metaHref }: Pr
   return (
     <div className="annual-chapter-head">
       <div className="left">
-        <span className="annual-chapter-num">{num}</span>
-        <h2 className="annual-chapter-title">{renderWithAccent(title, titleAccent)}</h2>
+        {num && <span className="annual-chapter-num">{num}</span>}
+        {title && (
+          <h2 className="annual-chapter-title">{renderWithAccent(title, titleAccent)}</h2>
+        )}
       </div>
       {metaLabel && (
         metaHref

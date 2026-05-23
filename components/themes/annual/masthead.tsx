@@ -14,10 +14,9 @@ export function Masthead({ theme, decoration, active }: Props) {
     <header className="annual-masthead">
       <div className="annual-shell annual-masthead-row">
         <Link href="/" className="annual-masthead-name">
-          A<i>·</i>F<i>·</i>C
+          AFreeCoder
         </Link>
         <nav className="annual-masthead-nav">
-          <Link href="/"         className={active === "home"     ? "is-active" : ""}>{decoration.navLabels.home}</Link>
           <Link href="/about"    className={active === "about"    ? "is-active" : ""}>{decoration.navLabels.about}</Link>
           <Link href="/products" className={active === "products" ? "is-active" : ""}>{decoration.navLabels.products}</Link>
           <Link href="/writing"  className={active === "writing"  ? "is-active" : ""}>{decoration.navLabels.writing}</Link>

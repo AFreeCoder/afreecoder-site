@@ -12,7 +12,7 @@ export function PageHead({ num, title, titleAccent, caption }: Props) {
   return (
     <section className="annual-page-head">
       <div className="annual-shell">
-        <div className="num">{num}</div>
+        {num && <div className="num">{num}</div>}
         <h1 className="title">{renderWithAccent(title, titleAccent)}</h1>
         {caption && <p className="caption">{caption}</p>}
       </div>

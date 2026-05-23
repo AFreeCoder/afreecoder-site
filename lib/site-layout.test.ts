@@ -48,8 +48,8 @@ describe("site layout · themed dispatch", () => {
     const source = readFileSync("content/decorations/annual.tsx", "utf8");
     expect(source).toContain('home: "索引"');
     expect(source).toContain('about: "关于"');
-    expect(source).toContain('products: "在线"');
-    expect(source).toContain('writing: "实证"');
+    expect(source).toContain('products: "产品·服务"');
+    expect(source).toContain('writing: "文章"');
   });
 
   it("Annual AboutSection still wires the local avatar image", () => {

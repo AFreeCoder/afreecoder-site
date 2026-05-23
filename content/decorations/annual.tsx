@@ -16,10 +16,12 @@ export type AnnualDecoration = {
     products: { num: string; title: string; titleAccent?: string };
     writing:  { num: string; title: string; titleAccent?: string };
   };
-  /** 页脚两列文案（联络 / 声明） */
+  /** 页脚（品牌名 / slogan / 版权） */
   colophon: {
-    contactLine: string;
-    disclaimerLine: string;
+    brand: string;
+    slogan: string;
+    /** 支持 {{sinceYear}} 占位符 */
+    copyright: string;
   };
   /** AboutSection 末尾的签名行；空字符串则不渲染 */
   signature: string;
@@ -29,8 +31,8 @@ export const annualDecoration: AnnualDecoration = {
   navLabels: {
     home: "索引",
     about: "关于",
-    products: "在线",
-    writing: "实证",
+    products: "产品·服务",
+    writing: "文章",
   },
   pageHeads: {
     home: {
@@ -40,30 +42,32 @@ export const annualDecoration: AnnualDecoration = {
       caption: "自 {{since}} 起记录至今。",
     },
     about: {
-      num: "II · 关于",
+      num: "",
       title: "我，A-Free-Coder。",
       titleAccent: "A-Free-Coder",
       caption: "一个追求自由的 Coder 的自白。",
     },
     products: {
-      num: "III · 在线",
-      title: "仍在运转的 {{productLiveCount}} 件事。",
+      num: "",
+      title: "进行中的产品·服务",
       caption: "公开地址、长期可访问。",
     },
     writing: {
-      num: "IV · 实证",
-      title: "{{postCount}} 篇连续记录。",
+      num: "",
+      title: "记录 · {{postCount}} 篇",
+      titleAccent: "{{postCount}}",
       caption: "按年分卷，年内倒序。",
     },
   },
   chapters: {
-    about:    { num: "关于",     title: "我，A-Free-Coder", titleAccent: "A-Free-Coder", metaHref: "/about", metaLabel: "→ 完整自白" },
-    products: { num: "在线运行", title: "仍在运转的四件事", titleAccent: "运转" },
-    writing:  { num: "实证目录", title: "已记录的 {{postCount}} 篇", titleAccent: "{{postCount}} 篇" },
+    about:    { num: "", title: "关于",                  metaHref: "/about", metaLabel: "全部 →" },
+    products: { num: "", title: "产品 / 业务" },
+    writing:  { num: "", title: "记录 · {{postCount}} 篇", titleAccent: "{{postCount}}" },
   },
   colophon: {
-    contactLine:    "GitHub · AFreeCoder · hello@afreecoder.dev",
-    disclaimerLine: "自 {{since}} 持续撰写。© {{sinceYear}}—当下 · A-Free-Coder",
+    brand:     "AFreeCoder",
+    slogan:    "一个追求自由的 Coder",
+    copyright: "© {{sinceYear}}—当下 · AFreeCoder",
   },
   signature: "— A.F.C.",
 };

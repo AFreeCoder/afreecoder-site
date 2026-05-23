@@ -26,14 +26,13 @@ export function ProductsPage({ theme, products, stats }: Props) {
       />
       <main className="annual-shell annual-section">
         <section>
-          <ChapterHead num="在线运行" title="RUNNING" />
           <div className="annual-ledger">
             {active.map((p) => <ProductEntry key={p.name} product={p} />)}
           </div>
         </section>
         {archived.length > 0 && (
           <section>
-            <ChapterHead num="已归档" title="ARCHIVED" />
+            <ChapterHead num="" title="已归档" />
             <div className="annual-ledger" style={{ opacity: 0.7 }}>
               {archived.map((p) => <ProductEntry key={p.name} product={p} />)}
             </div>

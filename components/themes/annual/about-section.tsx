@@ -25,6 +25,19 @@ function parseAboutSummary() {
   return { paras, pursuits };
 }
 
+/** 每行 N 个字 + (N-1) 个圆点，flex justify-between 撑满行宽 */
+function SloganLine({ text }: { text: string }) {
+  const chars = Array.from(text);
+  const items: React.ReactNode[] = [];
+  chars.forEach((ch, i) => {
+    items.push(<span key={`c${i}`} className="annual-slogan-char">{ch}</span>);
+    if (i < chars.length - 1) {
+      items.push(<span key={`d${i}`} className="annual-slogan-dot" aria-hidden>·</span>);
+    }
+  });
+  return <div className="annual-slogan-line">{items}</div>;
+}
+
 export function AboutSection({ signature }: Props) {
   const { paras, pursuits } = parseAboutSummary();
   return (
@@ -34,9 +47,8 @@ export function AboutSection({ signature }: Props) {
           <Image src="/avatar.png" alt="AFreeCoder 头像" width={1242} height={1124} priority className="annual-about-avatar" />
         </div>
         <div className="annual-about-caption">
-          <b>AFreeCoder</b><br/>
-          ex-bigtech · ex-soe<br/>
-          freelance · AI · 独立产品
+          <SloganLine text="道阻且长" />
+          <SloganLine text="行则将至" />
         </div>
       </div>
       <div className="annual-about-prose">

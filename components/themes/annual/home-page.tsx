@@ -4,7 +4,6 @@ import type { Product, WritingMeta } from "@/lib/types";
 import { annualDecoration } from "@/content/decorations/annual";
 import { fillTemplate } from "@/lib/site-stats";
 import { Masthead } from "./masthead";
-import { PageHead } from "./page-head";
 import { ChapterHead } from "./chapter-head";
 import { AboutSection } from "./about-section";
 import { ProductEntry } from "./product-entry";
@@ -26,12 +25,6 @@ export function HomePage({ theme, posts, products, stats }: Props) {
   return (
     <>
       <Masthead theme={theme} decoration={d} active="home" />
-      <PageHead
-        num={d.pageHeads.home.num}
-        title={d.pageHeads.home.title}
-        titleAccent={d.pageHeads.home.titleAccent}
-        caption={fillTemplate(d.pageHeads.home.caption, stats)}
-      />
       <main className="annual-shell annual-section">
         <section id="about">
           <ChapterHead
@@ -49,7 +42,7 @@ export function HomePage({ theme, posts, products, stats }: Props) {
             title={fillTemplate(d.chapters.products.title, stats)}
             titleAccent={d.chapters.products.titleAccent}
             metaHref="/products"
-            metaLabel={`${stats.productLiveCount} 件 · 全部 →`}
+            metaLabel="全部 →"
           />
           <div className="annual-ledger">
             {liveProducts.map((p) => <ProductEntry key={p.name} product={p} />)}
@@ -61,7 +54,7 @@ export function HomePage({ theme, posts, products, stats }: Props) {
             title={fillTemplate(d.chapters.writing.title, stats)}
             titleAccent={fillTemplate(d.chapters.writing.titleAccent ?? "", stats)}
             metaHref="/writing"
-            metaLabel={`${stats.postCount} 篇 · 全部 →`}
+            metaLabel="全部 →"
           />
           <div className="annual-toc">
             {recentPosts.map((p) => <TocRow key={p.slug} post={p} />)}

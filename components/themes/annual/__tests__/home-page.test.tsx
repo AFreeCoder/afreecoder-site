@@ -60,16 +60,14 @@ const posts = [
 ];
 
 describe("Annual.HomePage", () => {
-  it("renders masthead nav labels from decoration", () => {
+  it("renders 3 masthead nav labels from decoration (home link removed)", () => {
     const { container } = render(
       <HomePage theme="annual" stats={stats} products={products} posts={posts} />,
     );
-    // nav labels 出现在 masthead 的 <a> 文本中
     const text = container.textContent ?? "";
-    expect(text).toContain("索引");
     expect(text).toContain("关于");
-    expect(text).toContain("在线");
-    expect(text).toContain("实证");
+    expect(text).toContain("产品·服务");
+    expect(text).toContain("文章");
   });
 
   it("renders product data", () => {
@@ -88,31 +86,47 @@ describe("Annual.HomePage", () => {
     expect(getByText("TITLE-ONE")).toBeTruthy();
   });
 
-  it("fills frontispiece caption with stats placeholders", () => {
+  it("fills stats placeholders in chapter titles and colophon copyright", () => {
     const { container } = render(
       <HomePage theme="annual" stats={stats} products={products} posts={posts} />,
     );
     const text = container.textContent ?? "";
-    expect(text).toContain("2019.06.05"); // {{since}}
-    expect(text).toContain("67"); // {{postCount}}
-    expect(text).toContain("4"); // {{productLiveCount}}
+    // chapters.writing.title 含 {{postCount}}
+    expect(text).toContain("67");
+    // colophon.copyright 含 {{sinceYear}}
+    expect(text).toContain("2019");
     // 未替换的占位符不应残留
     expect(text).not.toContain("{{");
   });
 
-  it("masthead shows brand A·F·C", () => {
+  it("masthead shows brand AFreeCoder", () => {
     const { container } = render(
       <HomePage theme="annual" stats={stats} products={products} posts={posts} />,
     );
     const text = container.textContent ?? "";
-    expect(text).toContain("A·F·C");
+    expect(text).toContain("AFreeCoder");
   });
 
-  it("page-head shows chapter number I (home is volume one)", () => {
+  it("home page does NOT render the top index PageHead", () => {
     const { container } = render(
       <HomePage theme="annual" stats={stats} products={products} posts={posts} />,
     );
     const text = container.textContent ?? "";
-    expect(text).toContain("I · 索引");
+    expect(text).not.toContain("I · 索引");
+    // Home page goes straight from masthead into the first chapter (关于)
+    expect(text).toContain("关于");
+  });
+
+  it("masthead does NOT show home link", () => {
+    const { container } = render(
+      <HomePage theme="annual" stats={stats} products={products} posts={posts} />,
+    );
+    // navLabels.home is "索引"; masthead should NOT include it (A·F·C logo is the home link)
+    const navLinks = container.querySelectorAll(".annual-masthead-nav a");
+    const linkTexts = Array.from(navLinks).map((a) => a.textContent?.trim());
+    expect(linkTexts).not.toContain("索引");
+    expect(linkTexts).toContain("关于");
+    expect(linkTexts).toContain("产品·服务");
+    expect(linkTexts).toContain("文章");
   });
 });

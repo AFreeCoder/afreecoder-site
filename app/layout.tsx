@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Fraunces, Newsreader, JetBrains_Mono } from "next/font/google";
 import { getCurrentTheme } from "@/lib/get-current-theme";
+import { ScrollYearTrack } from "./scroll-year-track";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -53,7 +54,10 @@ export default async function RootLayout({
       data-theme={theme}
       className={`${GeistSans.variable} ${GeistMono.variable} ${fraunces.variable} ${newsreader.variable} ${jetbrains.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <ScrollYearTrack />
+        {children}
+      </body>
     </html>
   );
 }
