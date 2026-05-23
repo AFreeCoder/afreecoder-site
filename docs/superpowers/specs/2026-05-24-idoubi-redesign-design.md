@@ -123,6 +123,7 @@
 ### `/writing`
 - `<SectionHead>` "写作"
 - 按年份分组渲染 `<WritingRow>`，每年小标题（mono，小字号）
+- **编号策略**：每年内独立 `01..N`（不跨年累计）。理由：归档页的章节感更接近年鉴而不是连续日记；首页只显示最近 10 篇，所以首页连续编号与归档页每年重置在用户视角下不会撞车。
 
 ### `/writing/[slug]`
 - `<SectionHead>` "阅读" + meta（日期 · 阅读时间）
@@ -135,6 +136,10 @@
 - 首次访问无 cookie → `dark`
 - 服务端：`getColorScheme()` 读 cookie，写到 `<html data-color-scheme>` 与 `<html>` 的 `style="color-scheme: dark|light"`
 - 客户端：`<ColorSchemeToggle>` 读 cookie 决定按钮状态；点击写 cookie → `router.refresh()`；无水合 flash（服务端已注入正确 token）
+
+### 代价：全站 dynamic SSR
+
+`app/layout.tsx` 调用 `cookies()` 后整棵子树都被 Next 标记为 `ƒ (Dynamic)`，所有路由不再走静态化（参见 `pnpm run build:next` 输出）。这是有意取舍——用一次 cookie 读换无 FOUC 的明暗注入。在 Cloudflare Workers 上每次请求都会跑 SSR；`/writing/[slug]` 的 mdx 正文已在 build 期 prerender，OpenNext 会把 prerendered HTML 内联，运行时不会触发 `readFileSync`。**部署前需要 `pnpm run preview` 跑一次 OpenNext 本地预览验证。**
 
 ## 8. 测试策略
 

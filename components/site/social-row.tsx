@@ -11,7 +11,7 @@ export function SocialRow({ socials }: Props) {
         const isExternal = /^https?:\/\//.test(s.href);
         return (
           <a
-            key={s.icon + s.href}
+            key={s.href}
             href={s.href}
             className="social-link"
             aria-label={s.label}
@@ -52,19 +52,6 @@ function SocialIcon({ icon }: { icon: SocialIconKey }) {
       return (
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M4 4.5C15.05 4.5 19.5 8.95 19.5 20H17C17 10.34 13.66 7 4 7V4.5zM4 11.5c4.69 0 8 3.31 8 8H9.5c0-3.04-2.46-5.5-5.5-5.5v-2.5zM5.6 16.4a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/>
-        </svg>
-      );
-    case "jike":
-      return (
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" fill="currentColor"/>
-          <text x="12" y="16" textAnchor="middle" fontSize="10" fontFamily="sans-serif" fontWeight="700" fill="var(--color-bg)">即</text>
-        </svg>
-      );
-    case "wechat":
-      return (
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M9.5 4C5.36 4 2 6.91 2 10.5c0 2 1.05 3.78 2.7 4.97L4 18l2.66-1.43c.6.15 1.22.25 1.84.31a5.94 5.94 0 0 1-.5-2.38c0-3.59 3.36-6.5 7.5-6.5.36 0 .72.02 1.07.07C16 5.6 13 4 9.5 4zM7 8.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm3.5 2c-3.3 0-6 2.3-6 5.13 0 1.6.9 3.02 2.3 3.96L11.4 21l2.16-1.18c.66.16 1.34.24 2.04.24 3.3 0 6-2.3 6-5.13 0-2.83-2.7-5.13-6-5.13zm-2 4.13a.85.85 0 1 1 0-1.7.85.85 0 0 1 0 1.7zm4 0a.85.85 0 1 1 0-1.7.85.85 0 0 1 0 1.7z"/>
         </svg>
       );
   }

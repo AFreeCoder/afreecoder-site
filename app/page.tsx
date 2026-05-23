@@ -18,7 +18,7 @@ export default async function HomePage() {
       <section className="section">
         <SectionHead title="关于我" metaHref="/about" metaLabel="了解更多" />
         <div className="about-block">
-          {lead.map((p, i) => <p key={i}>{p}</p>)}
+          {lead.map((p) => <p key={p}>{p}</p>)}
         </div>
       </section>
 

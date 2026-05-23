@@ -150,24 +150,17 @@ function renderInline(text: string): ReactNode[] {
     } else if (token.startsWith("*")) {
       nodes.push(<em key={nodes.length}>{token.slice(1, -1)}</em>);
     } else if (token.startsWith("`")) {
-      nodes.push(
-        <code
-          key={nodes.length}
-          className="rounded border border-[var(--color-border)] bg-[var(--color-card)] px-1.5 py-0.5 font-mono text-[14px] text-[var(--color-accent)]"
-        >
-          {token.slice(1, -1)}
-        </code>,
-      );
+      nodes.push(<code key={nodes.length}>{token.slice(1, -1)}</code>);
     } else {
       const link = /^\[([^\]]+)]\(([^)]+)\)$/.exec(token);
       if (link) {
+        const external = link[2].startsWith("http");
         nodes.push(
           <a
             key={nodes.length}
             href={link[2]}
-            className="text-[var(--color-accent)] underline-offset-4 hover:underline"
-            target={link[2].startsWith("http") ? "_blank" : undefined}
-            rel={link[2].startsWith("http") ? "noreferrer" : undefined}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noreferrer" : undefined}
           >
             {link[1]}
           </a>,
@@ -194,39 +187,21 @@ export function Mdx({ source }: { source: string }) {
     <>
       {parseBlocks(source).map((block, index) => {
         if (block.type === "heading") {
-          const className =
-            block.level === 1
-              ? "mt-10 mb-4 text-[30px] font-bold tracking-[-0.5px] text-[var(--color-fg)]"
-              : block.level === 2
-                ? "mt-9 mb-3 text-[24px] font-semibold tracking-[-0.3px] text-[var(--color-fg)]"
-                : block.level === 3
-                  ? "mt-7 mb-2 text-[19px] font-semibold text-[var(--color-fg)]"
-                  : "mt-6 mb-2 text-[17px] font-semibold text-[var(--color-fg)]";
           const children = renderInline(block.text);
-          if (block.level === 1) return <h1 key={index} className={className}>{children}</h1>;
-          if (block.level === 2) return <h2 key={index} className={className}>{children}</h2>;
-          if (block.level === 3) return <h3 key={index} className={className}>{children}</h3>;
-          return <h4 key={index} className={className}>{children}</h4>;
+          if (block.level === 1) return <h1 key={index}>{children}</h1>;
+          if (block.level === 2) return <h2 key={index}>{children}</h2>;
+          if (block.level === 3) return <h3 key={index}>{children}</h3>;
+          return <h4 key={index}>{children}</h4>;
         }
 
         if (block.type === "paragraph") {
-          return (
-            <p
-              key={index}
-              className="my-4 text-[17px] leading-[1.85] text-[var(--color-fg)]"
-            >
-              {renderWithBreaks(block.text)}
-            </p>
-          );
+          return <p key={index}>{renderWithBreaks(block.text)}</p>;
         }
 
         if (block.type === "list") {
           const Tag = block.ordered ? "ol" : "ul";
           return (
-            <Tag
-              key={index}
-              className={`my-4 space-y-1.5 pl-6 text-[17px] leading-[1.8] text-[var(--color-fg)] ${block.ordered ? "list-decimal" : "list-disc"}`}
-            >
+            <Tag key={index}>
               {block.items.map((item) => (
                 <li key={item}>{renderInline(item)}</li>
               ))}
@@ -236,33 +211,20 @@ export function Mdx({ source }: { source: string }) {
 
         if (block.type === "blockquote") {
           return (
-            <blockquote
-              key={index}
-              className="my-5 border-l-2 border-[var(--color-accent)] pl-4 text-[16px] italic leading-[1.8] text-[var(--color-muted)]"
-            >
-              {renderWithBreaks(block.text)}
-            </blockquote>
+            <blockquote key={index}>{renderWithBreaks(block.text)}</blockquote>
           );
         }
 
         if (block.type === "image") {
           return (
             // eslint-disable-next-line @next/next/no-img-element -- Historical Markdown images already use absolute OSS URLs with unknown intrinsic sizes.
-            <img
-              key={index}
-              src={block.src}
-              alt={block.alt}
-              className="my-6 block h-auto max-w-full rounded-[8px] border border-[var(--color-border)] bg-[var(--color-card)]"
-            />
+            <img key={index} src={block.src} alt={block.alt} />
           );
         }
 
         if (block.type === "code") {
           return (
-            <pre
-              key={index}
-              className="my-5 overflow-x-auto rounded-[8px] border border-[var(--color-border)] bg-[var(--color-card)] p-4 text-[14px] leading-[1.7] text-[var(--color-fg)]"
-            >
+            <pre key={index}>
               <code>{block.code}</code>
             </pre>
           );
@@ -270,17 +232,12 @@ export function Mdx({ source }: { source: string }) {
 
         if (block.type === "table") {
           return (
-            <div key={index} className="my-5 overflow-x-auto">
-              <table className="w-full border-collapse text-[15px] leading-[1.6] text-[var(--color-fg)]">
+            <div key={index} className="prose-table-scroll">
+              <table>
                 <thead>
                   <tr>
                     {block.headers.map((header) => (
-                      <th
-                        key={header}
-                        className="border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-left font-semibold"
-                      >
-                        {renderInline(header)}
-                      </th>
+                      <th key={header}>{renderInline(header)}</th>
                     ))}
                   </tr>
                 </thead>
@@ -288,10 +245,7 @@ export function Mdx({ source }: { source: string }) {
                   {block.rows.map((row, rowIndex) => (
                     <tr key={rowIndex}>
                       {row.map((cell, cellIndex) => (
-                        <td
-                          key={`${rowIndex}-${cellIndex}`}
-                          className="border border-[var(--color-border)] px-3 py-2 align-top"
-                        >
+                        <td key={`${rowIndex}-${cellIndex}`}>
                           {renderInline(cell)}
                         </td>
                       ))}
@@ -303,7 +257,7 @@ export function Mdx({ source }: { source: string }) {
           );
         }
 
-        return <hr key={index} className="my-8 border-t border-[var(--color-border)]" />;
+        return <hr key={index} />;
       })}
     </>
   );

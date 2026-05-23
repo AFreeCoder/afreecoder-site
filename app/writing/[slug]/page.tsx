@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Mdx } from "@/lib/mdx";
 import { getAllWriting, getWritingBySlug } from "@/lib/writing";
+import { formatDate } from "@/lib/format-date";
 
 type Params = { slug: string };
 
@@ -24,10 +25,6 @@ export async function generateMetadata({
     title: post.meta.title,
     description: post.meta.summary,
   };
-}
-
-function formatDate(d: string): string {
-  return d.replaceAll("-", "/");
 }
 
 export default async function WritingDetailPage({

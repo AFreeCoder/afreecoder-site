@@ -1,4 +1,4 @@
-export type SocialIconKey = "github" | "x" | "email" | "rss" | "jike" | "wechat";
+export type SocialIconKey = "github" | "x" | "email" | "rss";
 
 export type SocialLink = {
   icon: SocialIconKey;

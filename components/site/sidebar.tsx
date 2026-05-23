@@ -36,16 +36,7 @@ export function Sidebar({ scheme }: Props) {
       <SidebarNav items={siteConfig.nav} />
 
       <div className="sidebar-colophon">
-        <span>
-          © {year}{" "}
-          <a
-            href={siteConfig.domain}
-            target="_blank"
-            rel="noreferrer"
-          >
-            afreecoder.dev
-          </a>
-        </span>
+        <span>© {year} afreecoder.dev</span>
         <ColorSchemeToggle current={scheme} />
       </div>
     </aside>

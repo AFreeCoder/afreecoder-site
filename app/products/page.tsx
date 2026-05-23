@@ -23,7 +23,7 @@ export default function ProductsPage() {
       </section>
 
       {archived.length > 0 && (
-        <section className="section" style={{ opacity: 0.65 }}>
+        <section className="section section--archived">
           <SectionHead title="已归档" />
           <div className="products-grid">
             {archived.map((p) => (
