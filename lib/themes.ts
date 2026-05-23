@@ -23,9 +23,5 @@ export const THEMES: ThemeMeta[] = [
 
 export const DEFAULT_THEME: ThemeId = "annual";
 
-/**
- * 临时保留：旧主题 ID 字符串数组。
- * 仅供尚未删除的旧组件 import，避免中间阶段编译失败。
- * Task 18（阶段一收尾）时连同旧组件一起删除。
- */
-export const LEGACY_THEME_IDS = ["sand", "ink", "mist", "moss", "editorial", "terminal"] as const;
+/** Cookie 名称：server 端 getCurrentTheme 读、client 端 ThemeSwitcher 写共用。 */
+export const THEME_COOKIE_NAME = "theme";

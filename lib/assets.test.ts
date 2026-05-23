@@ -18,12 +18,13 @@ describe("avatar assets", () => {
     expect(existsSync("app/icon.svg")).toBe(false);
   });
 
-  it("renders the homepage avatar from the original PNG", () => {
-    const hero = readFileSync("components/site/hero.tsx", "utf8");
-    expect(hero).toContain('src="/avatar.png"');
-    expect(hero).toContain("object-contain");
-    expect(hero).not.toContain('src="/avatar.svg"');
-    expect(hero).not.toContain("object-cover");
+  it("renders the homepage avatar from the original PNG via Annual.AboutSection", () => {
+    const aboutSection = readFileSync(
+      "components/themes/annual/about-section.tsx",
+      "utf8",
+    );
+    expect(aboutSection).toContain('src="/avatar.png"');
+    expect(aboutSection).not.toContain('src="/avatar.svg"');
   });
 });
 

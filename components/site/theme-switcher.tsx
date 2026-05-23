@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { THEMES, type ThemeId } from "@/lib/themes";
-import { THEME_COOKIE_NAME } from "@/lib/get-current-theme";
+import { THEMES, THEME_COOKIE_NAME, type ThemeId } from "@/lib/themes";
 
 type Props = { current: ThemeId };
 
@@ -39,6 +38,7 @@ export function ThemeSwitcher({ current }: Props) {
       return;
     }
     const yearSec = 60 * 60 * 24 * 365;
+    // eslint-disable-next-line react-hooks/immutability
     document.cookie = `${THEME_COOKIE_NAME}=${id}; path=/; max-age=${yearSec}; samesite=lax`;
     setOpen(false);
     router.refresh();
