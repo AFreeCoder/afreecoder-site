@@ -43,10 +43,12 @@ export default async function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} ${jetbrains.variable}`}
     >
       <body>
-        <TopNav items={siteConfig.nav} />
         <div className="app-shell">
           <Sidebar scheme={scheme} />
-          <main className="app-main">{children}</main>
+          <div className="app-main-wrap">
+            <TopNav items={siteConfig.nav} />
+            <main className="app-main">{children}</main>
+          </div>
         </div>
       </body>
     </html>
