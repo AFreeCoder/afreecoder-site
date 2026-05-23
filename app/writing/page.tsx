@@ -1,7 +1,6 @@
-import { Nav } from "@/components/site/nav";
-import { Footer } from "@/components/site/footer";
-import { WritingItem } from "@/components/site/writing-item";
-import { PageShell } from "@/components/site/page-shell";
+import { getCurrentTheme } from "@/lib/get-current-theme";
+import { renderThemedPage } from "@/components/themes/dispatch";
+import { getSiteStats } from "@/lib/site-stats";
 import { getAllWriting } from "@/lib/writing";
 
 export const metadata = {
@@ -10,24 +9,10 @@ export const metadata = {
 };
 
 export default async function WritingPage() {
-  const posts = await getAllWriting();
-  return (
-    <PageShell>
-      <Nav />
-      <header className="py-10">
-        <h1 className="text-[36px] font-bold tracking-[-0.5px] text-[var(--color-fg)]">
-          文章
-        </h1>
-        <p className="mt-2 text-[15px] text-[var(--color-muted)]">
-          {posts.length} 篇文章 · 按时间倒序
-        </p>
-      </header>
-      <div>
-        {posts.map((p) => (
-          <WritingItem key={p.slug} post={p} />
-        ))}
-      </div>
-      <Footer />
-    </PageShell>
-  );
+  const [theme, posts, stats] = await Promise.all([
+    getCurrentTheme(),
+    getAllWriting(),
+    getSiteStats(),
+  ]);
+  return renderThemedPage(theme, "writingList", { theme, posts, stats });
 }
