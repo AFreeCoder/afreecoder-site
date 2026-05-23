@@ -155,7 +155,6 @@ a { color: inherit; text-decoration: none; }
 .app-main {
   min-width: 0;
   padding: 48px 64px 96px;
-  max-width: 1040px;
   width: 100%;
 }
 
