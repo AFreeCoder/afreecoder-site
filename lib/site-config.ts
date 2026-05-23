@@ -9,7 +9,6 @@ export type SocialLink = {
 export type NavItem = {
   label: string;
   href: string;
-  icon: "about" | "products" | "writing";
 };
 
 export const siteConfig = {
@@ -28,8 +27,9 @@ export const siteConfig = {
     { icon: "rss",    label: "RSS",   href: "/rss.xml" },
   ] as SocialLink[],
   nav: [
-    { label: "关于", href: "/about",   icon: "about"    },
-    { label: "产品", href: "/products", icon: "products" },
-    { label: "文章", href: "/writing",  icon: "writing"  },
+    { label: "主页", href: "/"        },
+    { label: "关于", href: "/about"   },
+    { label: "产品", href: "/products" },
+    { label: "文章", href: "/writing"  },
   ] as NavItem[],
 } as const;

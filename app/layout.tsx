@@ -4,6 +4,8 @@ import { GeistMono } from "geist/font/mono";
 import { JetBrains_Mono } from "next/font/google";
 import { getColorScheme } from "@/lib/get-color-scheme";
 import { Sidebar } from "@/components/site/sidebar";
+import { TopNav } from "@/components/site/top-nav";
+import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 const jetbrains = JetBrains_Mono({
@@ -41,6 +43,7 @@ export default async function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} ${jetbrains.variable}`}
     >
       <body>
+        <TopNav items={siteConfig.nav} />
         <div className="app-shell">
           <Sidebar scheme={scheme} />
           <main className="app-main">{children}</main>

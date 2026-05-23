@@ -3,7 +3,6 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import type { ColorScheme } from "@/lib/color-scheme";
 import { SocialRow } from "./social-row";
-import { SidebarNav } from "./sidebar-nav";
 import { ColorSchemeToggle } from "./color-scheme-toggle";
 
 type Props = { scheme: ColorScheme };
@@ -16,8 +15,8 @@ export function Sidebar({ scheme }: Props) {
         <Image
           src="/avatar.png"
           alt={`${siteConfig.name} 头像`}
-          width={168}
-          height={168}
+          width={248}
+          height={248}
           priority
         />
       </Link>
@@ -30,10 +29,6 @@ export function Sidebar({ scheme }: Props) {
       <p className="sidebar-tagline">{siteConfig.taglines.secondary}</p>
 
       <SocialRow socials={siteConfig.socials} />
-
-      <div className="sidebar-section-divider" aria-hidden />
-
-      <SidebarNav items={siteConfig.nav} />
 
       <div className="sidebar-colophon">
         <span>© {year} afreecoder.dev</span>

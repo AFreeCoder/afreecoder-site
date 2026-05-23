@@ -83,27 +83,32 @@
 ## 5. 布局
 
 ```
-┌─────────────┬─────────────────────────────────────────┐
-│             │                                          │
-│  sidebar    │   main (scrollable)                      │
-│  (sticky)   │                                          │
-│             │   — 关于我             了解更多 →         │
-│  avatar     │   <bio paragraphs>                       │
-│  AFreeCoder │                                          │
-│  bio        │   — 我的产品           查看全部 →         │
-│  tagline    │   [card] [card] [card]                   │
-│  [socials]  │                                          │
-│  - 关于     │   — 近期文章           阅读更多 →         │
-│  - 产品     │   01  Title ………… 2026/05/24             │
-│  - 写作     │   02  Title ………… 2026/05/22             │
-│  © 2026     │   ...                                    │
-│  ☼ toggle   │                                          │
-└─────────────┴─────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│            主页   关于   产品   文章                       │  ← TopNav (sticky, blur backdrop)
+├─────────────┬────────────────────────────────────────────┤
+│             │                                            │
+│  sidebar    │   main (scrollable)                        │
+│  (sticky)   │                                            │
+│             │   — 关于我             了解更多 →           │
+│  AVATAR     │   <bio paragraphs>                         │
+│  AFreeCoder │                                            │
+│  bio        │   — 我的产品           查看全部 →           │
+│  tagline    │   [card] [card] [card]                     │
+│  [socials]  │                                            │
+│             │   — 近期文章           阅读更多 →           │
+│             │   01  Title ………… 2026/05/24               │
+│             │   02  Title ………… 2026/05/22               │
+│  © 2026     │   ...                                      │
+│  ☼ toggle   │                                            │
+└─────────────┴────────────────────────────────────────────┘
 ```
 
-- desktop ≥ 1024px：`grid-template-columns: 280px 1fr`；sidebar `position: sticky; top: 0; height: 100vh; overflow: hidden auto`
-- 1024 > viewport ≥ 640：单列，sidebar 变为页头（avatar + name 一行 + nav 一行）
-- < 640：sidebar 变为紧凑页头（avatar + name + nav 三行紧凑堆叠）
+- 顶部固定 `<TopNav>`：sticky top 0、52px 高、半透明 backdrop-blur、4 项 nav（主页/关于/产品/文章）水平居中。active 项底部有 1.5px accent 下划线。
+- desktop ≥ 1024px：`grid-template-columns: 240px 1fr`；sidebar `position: sticky; top: 52px; height: calc(100vh - 52px); overflow: hidden auto`。
+- 1024 > viewport ≥ 640：单列，sidebar 变为页头（avatar + name + bio + socials + colophon 垂直堆叠）。TopNav 继续 sticky 在最顶。
+- < 640：sidebar 紧凑页头。TopNav 项间距收窄（28px → 18px）。
+
+注：nav 不在 sidebar 里，sidebar 只承载身份信息（avatar/name/bio/socials）+ colophon（版权 + dark/light 切换）。avatar 点击回主页 + TopNav 主页项是回主页的两个明显入口。
 
 ## 6. 页面骨架
 
