@@ -1,22 +1,33 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Source_Serif_4 } from "next/font/google";
-import { ThemeInit } from "./theme-init";
+import { Fraunces, Newsreader, JetBrains_Mono } from "next/font/google";
+import { getCurrentTheme } from "@/lib/get-current-theme";
 import "./globals.css";
 
-const SourceSerif = Source_Serif_4({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-source-serif",
+  axes: ["opsz", "SOFT", "WONK"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://afreecoder.dev"),
-  title: {
-    default: "AFreeCoder",
-    template: "%s · AFreeCoder",
-  },
+  title: { default: "AFreeCoder", template: "%s · AFreeCoder" },
   description:
     "A-Free-Coder，一个追求自由的 Coder。记录自由职业、AI、产品和写作。",
   openGraph: {
@@ -30,21 +41,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const theme = await getCurrentTheme();
   return (
     <html
       lang="zh-CN"
-      data-theme="sand"
-      className={`${GeistSans.variable} ${GeistMono.variable} ${SourceSerif.variable}`}
+      data-theme={theme}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${fraunces.variable} ${newsreader.variable} ${jetbrains.variable}`}
     >
-      <body>
-        <ThemeInit />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
