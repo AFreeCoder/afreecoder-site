@@ -11,8 +11,8 @@ describe("color-scheme", () => {
     expect([...COLOR_SCHEMES]).toEqual(["dark", "light"]);
   });
 
-  it("defaults to dark", () => {
-    expect(DEFAULT_COLOR_SCHEME).toBe("dark");
+  it("defaults to light", () => {
+    expect(DEFAULT_COLOR_SCHEME).toBe("light");
   });
 
   it("cookie name is color-scheme", () => {

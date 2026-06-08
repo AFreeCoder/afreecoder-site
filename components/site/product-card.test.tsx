@@ -6,6 +6,7 @@ import type { Product } from "@/lib/types";
 const sample: Product = {
   name: "APIPool",
   description: "AI API 聚合与转发服务。",
+  screenshot: "/product-screenshots/apipool-card.png",
   role: "SaaS",
   phase: "线上运行",
   highlight: "把多模型 API 收束成一个入口。",
@@ -46,8 +47,17 @@ describe("ProductCard", () => {
     expect(html).not.toContain(">E<");
   });
 
-  it("renders an abstract placeholder with the product's first letter", () => {
+  it("renders the product screenshot when provided", () => {
     const html = renderToStaticMarkup(<ProductCard product={sample} />);
+    expect(html).toContain("APIPool 产品截图");
+    expect(html).toContain("product-card-image");
+    expect(html).not.toContain("product-placeholder");
+  });
+
+  it("falls back to an abstract placeholder when no screenshot is provided", () => {
+    const html = renderToStaticMarkup(
+      <ProductCard product={{ ...sample, screenshot: undefined }} />,
+    );
     expect(html).toContain("product-placeholder");
     expect(html).toContain(">A<"); // letter for "APIPool"
   });

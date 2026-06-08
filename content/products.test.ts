@@ -25,6 +25,7 @@ describe("products content", () => {
       expect(product.role).toBeTruthy();
       expect(product.phase).toBeTruthy();
       expect(product.highlight).toBeTruthy();
+      expect(product.screenshot).toMatch(/^\/product-screenshots\/.+\.png$/);
       expect(product.tags.length).toBeGreaterThanOrEqual(2);
     }
   });

@@ -1,6 +1,7 @@
 export type Product = {
   name: string;
   description: string;
+  screenshot?: string;
   role: string;
   phase: string;
   highlight: string;

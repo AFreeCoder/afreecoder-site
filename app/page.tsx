@@ -1,13 +1,11 @@
 import { products } from "@/content/products";
 import { getAllWriting } from "@/lib/writing";
-import { getAboutLead } from "@/lib/about-summary";
 import { SectionHead } from "@/components/site/section-head";
 import { ProductCard } from "@/components/site/product-card";
 import { WritingRow } from "@/components/site/writing-row";
 
 export default async function HomePage() {
   const posts = await getAllWriting();
-  const lead = getAboutLead(3);
   const featuredProducts = products
     .filter((p) => p.status === "active")
     .slice(0, 3);
@@ -17,8 +15,13 @@ export default async function HomePage() {
     <>
       <section className="section">
         <SectionHead title="关于我" metaHref="/about" metaLabel="了解更多" />
-        <div className="about-block">
-          {lead.map((p) => <p key={p}>{p}</p>)}
+        <div className="about-block about-block--home">
+          <p>
+            我是 AFreeCoder，一名独立开发者。这里是我的个人名片：记录正在构建的 AI 产品、发表过的文章，以及用代码追求自由的过程。
+          </p>
+          <p>
+            如果你想快速了解我，先看产品和文章；更完整的经历、关注方向和联系方式放在关于页。
+          </p>
         </div>
       </section>
 

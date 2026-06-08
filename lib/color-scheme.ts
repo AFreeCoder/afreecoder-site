@@ -2,7 +2,7 @@ export type ColorScheme = "dark" | "light";
 
 export const COLOR_SCHEMES: readonly ColorScheme[] = ["dark", "light"] as const;
 
-export const DEFAULT_COLOR_SCHEME: ColorScheme = "dark";
+export const DEFAULT_COLOR_SCHEME: ColorScheme = "light";
 
 export const COLOR_SCHEME_COOKIE = "color-scheme";
 

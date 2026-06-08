@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Product } from "@/lib/types";
 import { ProductPlaceholder } from "./product-placeholder";
 
@@ -8,7 +9,18 @@ export function ProductCard({ product }: Props) {
   const inner = (
     <>
       <div className="product-card-frame">
-        <ProductPlaceholder name={product.name} />
+        {product.screenshot ? (
+          <Image
+            src={product.screenshot}
+            alt={`${product.name} 产品截图`}
+            fill
+            sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+            loading="eager"
+            className="product-card-image"
+          />
+        ) : (
+          <ProductPlaceholder name={product.name} />
+        )}
       </div>
       <div className="product-card-body">
         <div className="product-card-name">{product.name}</div>
