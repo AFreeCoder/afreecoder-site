@@ -10,16 +10,21 @@
 
 ## Trigger
 
-- Deployment trigger: push `main` to GitHub, then Cloudflare Workers Builds deploys the site.
+- Deployment trigger: **manual deploy from a local checkout**. Pushing `main` to GitHub does
+  NOT deploy — Cloudflare Workers Builds is not connected to this repository
+  (verified 2026-06-10: `wrangler deployments list` showed no build after a push).
 - CI/CD workflow, platform, or command: Cloudflare Workers using OpenNext for Cloudflare.
-- Manual deploy command, if needed:
+- Deploy command (run from the repo root):
 
 ```bash
-pnpm deploy
+pnpm run deploy
 ```
 
-- Expected deployment duration: a few minutes.
+(`pnpm deploy` without `run` hits pnpm's workspace-deploy subcommand and fails.)
+
+- Expected deployment duration: 2–4 minutes (build) + seconds (upload).
 - Concurrency or deploy-lock behavior: none documented in this repository.
+- Always push `main` in the same session so Git history matches production.
 
 ## Runtime Architecture
 
@@ -45,7 +50,30 @@ pnpm build:next
 pnpm run build:cloudflare
 ```
 
+Then verify the worker bundle locally — `next dev` cannot catch Workers-runtime-only
+failures (e.g. `node:fs` use, missing modules):
+
+```bash
+npx wrangler dev --port 8787 --local
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8787/
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8787/writing/go-file-lock
+```
+
 If any check is intentionally skipped, record the reason and risk before deployment.
+
+## Size and Runtime Constraints
+
+- Free-plan Workers limit: **3 MiB gzip** per script. Current usage after the 2026-06-10
+  release: ~2.70 MiB gzip — adding heavy dependencies can break deployment.
+- Inspect bundle composition with `.open-next/server-functions/default/handler.mjs.meta.json`
+  (esbuild metafile; group `inputs` bytes by package).
+- Known trap: turbopack externalizes subpath imports (e.g. `shiki/core`) to the package
+  main entry, so OpenNext bundles the full package. Heavy data (grammars, article bodies)
+  must be inlined via generated modules: `pnpm gen:highlight`, `pnpm gen:bodies`.
+- The Workers runtime has no filesystem: never call `node:fs` in request-time code paths.
+  `layout.tsx` uses `cookies()`, so every page renders dynamically at request time.
+- After `pnpm sync:writing`, regenerate bodies (`gen:bodies` runs automatically in that
+  script) before deploying.
 
 ## Deployment-Critical Files
 
