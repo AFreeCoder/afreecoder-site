@@ -1,12 +1,6 @@
-import { createHighlighterCoreSync, type HighlighterCore } from "shiki/core";
-import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
-import go from "@shikijs/langs/go";
-import bash from "@shikijs/langs/bash";
-import json from "@shikijs/langs/json";
-import sql from "@shikijs/langs/sql";
-import ini from "@shikijs/langs/ini";
-import vitesseLight from "@shikijs/themes/vitesse-light";
-import vitesseDark from "@shikijs/themes/vitesse-dark";
+import { createHighlighterCoreSync, type HighlighterCore } from "@shikijs/core";
+import { createJavaScriptRegexEngine } from "@shikijs/engine-javascript";
+import { highlightLangs, highlightThemes } from "./highlight-data";
 
 /** 历史文章里的语言别名 → shiki 语言 id；未注册的语言由调用方回退纯文本。 */
 const LANG_ALIASES: Record<string, string> = {
@@ -23,8 +17,8 @@ let highlighter: HighlighterCore | null = null;
 
 function getHighlighter(): HighlighterCore {
   highlighter ??= createHighlighterCoreSync({
-    themes: [vitesseLight, vitesseDark],
-    langs: [go, bash, json, sql, ini],
+    themes: highlightThemes,
+    langs: highlightLangs,
     engine: createJavaScriptRegexEngine(),
   });
   return highlighter;
