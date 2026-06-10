@@ -10,11 +10,14 @@
 
 ## Trigger
 
-- Deployment trigger: **manual deploy from a local checkout**. Pushing `main` to GitHub does
-  NOT deploy — Cloudflare Workers Builds is not connected to this repository
-  (verified 2026-06-10: `wrangler deployments list` showed no build after a push).
-- CI/CD workflow, platform, or command: Cloudflare Workers using OpenNext for Cloudflare.
-- Deploy command (run from the repo root):
+- Deployment trigger: push `main` to GitHub — Cloudflare Workers Builds is connected to
+  this repository and deploys automatically (~3 minutes after push; verified 2026-06-10,
+  deployment `a507f66b` appeared without any manual deploy).
+- **Failed builds leave NO deployment record.** `wrangler deployments list` staying quiet
+  after a push means the build was triggered but failed (e.g. the 3 MiB size limit) — check
+  the Cloudflare dashboard → Workers Builds history, do not conclude the integration is
+  missing.
+- Manual fallback deploy (emergency only; the next push will overwrite it):
 
 ```bash
 pnpm run deploy
@@ -24,7 +27,6 @@ pnpm run deploy
 
 - Expected deployment duration: 2–4 minutes (build) + seconds (upload).
 - Concurrency or deploy-lock behavior: none documented in this repository.
-- Always push `main` in the same session so Git history matches production.
 
 ## Runtime Architecture
 
