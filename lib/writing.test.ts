@@ -46,9 +46,14 @@ describe("getAllWriting", () => {
     expect(index).toContain('"bodyFile": "invest-practice-26.md"');
     expect(existsSync("content/writing/invest-practice-26.md")).toBe(true);
     expect(existsSync("public/content/writing/invest-practice-26.md")).toBe(false);
+  });
 
+  it("loads bodies from the generated module, never via runtime fs (Workers has no filesystem)", () => {
     const loader = readFileSync("lib/writing.ts", "utf8");
-    expect(loader).toContain('join(process.cwd(), "content", "writing", post.bodyFile)');
+    expect(loader).not.toContain("readFileSync");
+    expect(loader).not.toContain("node:fs");
+    expect(loader).toContain("writingBodies");
+    expect(existsSync("content/writing-bodies.ts")).toBe(true);
   });
 });
 

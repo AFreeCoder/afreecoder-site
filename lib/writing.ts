@@ -1,6 +1,5 @@
 import { writingPosts, type WritingSource } from "@/content/writing-posts";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { writingBodies } from "@/content/writing-bodies";
 import type { WritingMeta } from "./types";
 
 function toWritingMeta(post: WritingSource): WritingMeta {
@@ -22,8 +21,7 @@ function stripFrontmatter(source: string): string {
 }
 
 function readWritingBody(post: WritingSource): string {
-  const filePath = join(process.cwd(), "content", "writing", post.bodyFile);
-  return stripFrontmatter(readFileSync(filePath, "utf8"));
+  return stripFrontmatter(writingBodies[post.slug] ?? "");
 }
 
 export async function getAllWriting(): Promise<WritingMeta[]> {
