@@ -24,4 +24,22 @@ describe("SectionHead", () => {
     );
     expect(html).not.toContain("section-head-meta");
   });
+
+  it("renders mono index with tone class when num is provided", () => {
+    const html = renderToStaticMarkup(
+      <SectionHead title="写作" num="02" tone="accent-2" />,
+    );
+    expect(html).toContain("section-head-num--accent-2");
+    expect(html).toContain("02");
+  });
+
+  it("defaults tone to accent", () => {
+    const html = renderToStaticMarkup(<SectionHead title="产品" num="01" />);
+    expect(html).toContain("section-head-num--accent");
+  });
+
+  it("omits index span when num is not provided", () => {
+    const html = renderToStaticMarkup(<SectionHead title="关于" />);
+    expect(html).not.toContain("section-head-num");
+  });
 });

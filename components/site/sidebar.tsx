@@ -5,9 +5,12 @@ import type { ColorScheme } from "@/lib/color-scheme";
 import { SocialRow } from "./social-row";
 import { ColorSchemeToggle } from "./color-scheme-toggle";
 
-type Props = { scheme: ColorScheme };
+type Props = {
+  scheme: ColorScheme;
+  stats?: { products: number; posts: number };
+};
 
-export function Sidebar({ scheme }: Props) {
+export function Sidebar({ scheme, stats }: Props) {
   const year = new Date().getFullYear();
   return (
     <aside className="app-sidebar">
@@ -27,6 +30,17 @@ export function Sidebar({ scheme }: Props) {
 
       <p className="sidebar-bio">{siteConfig.taglines.primary}</p>
       <p className="sidebar-tagline">{siteConfig.taglines.secondary}</p>
+
+      <div className="sidebar-now">
+        <span className="sidebar-now-label">NOW</span>
+        <span className="sidebar-now-line">正在构建 {siteConfig.now.building}</span>
+        <span className="sidebar-now-sub">{siteConfig.now.note}</span>
+      </div>
+      {stats && (
+        <p className="sidebar-stats">
+          产品 {stats.products} · 文章 {stats.posts}
+        </p>
+      )}
 
       <SocialRow socials={siteConfig.socials} />
 

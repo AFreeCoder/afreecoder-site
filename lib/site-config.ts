@@ -20,6 +20,11 @@ export const siteConfig = {
     primary: "独立开发者，关注 AI 产品与写作。",
     secondary: "用代码记录追求自由的过程。",
   },
+  now: {
+    building: "APIPool",
+    link: "https://apipool.dev",
+    note: "对产品合作与交流开放",
+  },
   socials: [
     { icon: "github", label: "GitHub", href: "https://github.com/AFreeCoder" },
     { icon: "x",      label: "X / Twitter", href: "https://x.com/" },

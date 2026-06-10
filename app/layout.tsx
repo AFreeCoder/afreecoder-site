@@ -6,6 +6,8 @@ import { getColorScheme } from "@/lib/get-color-scheme";
 import { Sidebar } from "@/components/site/sidebar";
 import { TopNav } from "@/components/site/top-nav";
 import { siteConfig } from "@/lib/site-config";
+import { products } from "@/content/products";
+import { getAllWriting } from "@/lib/writing";
 import "./globals.css";
 
 const jetbrains = JetBrains_Mono({
@@ -36,6 +38,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const scheme = await getColorScheme();
+  const posts = await getAllWriting();
+  const activeProducts = products.filter((p) => p.status === "active").length;
   return (
     <html
       lang="zh-CN"
@@ -44,7 +48,10 @@ export default async function RootLayout({
     >
       <body>
         <div className="app-shell">
-          <Sidebar scheme={scheme} />
+          <Sidebar
+            scheme={scheme}
+            stats={{ products: activeProducts, posts: posts.length }}
+          />
           <div className="app-main-wrap">
             <TopNav items={siteConfig.nav} />
             <main className="app-main">{children}</main>
