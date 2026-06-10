@@ -581,6 +581,114 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
+ * About：轨迹时间线 / 关注 / 联系
+ * ============================================================ */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 640px;
+}
+.timeline-item {
+  position: relative;
+  padding: 0 0 30px 28px;
+}
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  bottom: -4px;
+  width: 1px;
+  background: var(--color-rule-strong);
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item:last-child::before { display: none; }
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2px solid var(--color-bg);
+}
+.timeline-item--now::after { background: var(--color-accent-2); }
+.timeline-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-fg-muted);
+}
+.timeline-item--now .timeline-label { color: var(--color-accent-2); }
+.timeline-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--color-fg);
+  margin: 3px 0 5px;
+}
+.timeline-desc {
+  font-size: 14.5px;
+  color: var(--color-fg-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+.timeline-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-fg-muted);
+  letter-spacing: 0.03em;
+  margin: 6px 0 0;
+}
+
+.about-focus {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.about-focus li {
+  font-size: 13.5px;
+  color: var(--color-chip-2-fg);
+  background: var(--color-chip-2-bg);
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+
+.about-contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 15px;
+}
+.about-contact li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.about-contact-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-fg-muted);
+  letter-spacing: 0.04em;
+  min-width: 64px;
+}
+.about-contact a {
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-accent-soft);
+  transition: border-color .15s;
+}
+.about-contact a:hover { border-bottom-color: var(--color-accent); }
+
+/* ============================================================
  * Product card grid
  * ============================================================ */
 .products-grid {
@@ -893,6 +1001,11 @@ html[data-color-scheme="light"] .product-placeholder { color: rgba(255, 255, 255
 .article {
   max-width: 760px;
 }
+/* 文章详情页：列在宽屏下居中（关于页等保持左对齐跟随标题） */
+.article--center {
+  margin-left: auto;
+  margin-right: auto;
+}
 .article-meta {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -970,6 +1083,15 @@ html[data-color-scheme="light"] .product-placeholder { color: rgba(255, 255, 255
   border: 0;
   padding: 0;
   font-size: inherit;
+}
+/* shiki 双主题：默认（深色）读 --shiki-dark，浅色读 --shiki-light；背景统一用站点卡色 */
+.prose pre.shiki,
+.prose pre.shiki span {
+  color: var(--shiki-dark);
+}
+html[data-color-scheme="light"] .prose pre.shiki,
+html[data-color-scheme="light"] .prose pre.shiki span {
+  color: var(--shiki-light);
 }
 .prose ul, .prose ol { padding-left: 26px; margin: 0 0 16px; }
 .prose ul { list-style: disc; }

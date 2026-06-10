@@ -37,7 +37,7 @@ export default async function WritingDetailPage({
   if (!post) notFound();
 
   return (
-    <article className="article">
+    <article className="article article--center">
       <div className="article-meta">
         {formatDate(post.meta.date)} · {post.meta.readingTime} min read
       </div>

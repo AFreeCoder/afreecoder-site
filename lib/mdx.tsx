@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { highlightCode } from "./highlight";
 
 type Block =
   | { type: "heading"; level: 1 | 2 | 3 | 4; text: string }
@@ -223,6 +224,16 @@ export function Mdx({ source }: { source: string }) {
         }
 
         if (block.type === "code") {
+          const highlighted = highlightCode(block.code, block.language);
+          if (highlighted) {
+            return (
+              <div
+                key={index}
+                className="prose-code"
+                dangerouslySetInnerHTML={{ __html: highlighted }}
+              />
+            );
+          }
           return (
             <pre key={index}>
               <code>{block.code}</code>
