@@ -136,6 +136,54 @@ function parseBlocks(source: string): Block[] {
   return blocks;
 }
 
+export type TocItem = { id: string; text: string; level: 2 | 3 };
+
+/** 去掉行内 Markdown 标记，得到标题纯文本 */
+function plainText(text: string): string {
+  return text
+    .replace(/\[([^\]]+)]\([^)]+\)/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .trim();
+}
+
+/** 中文友好的 slug：保留 CJK/字母/数字，空白转连字符 */
+function slugify(text: string): string {
+  const base = plainText(text)
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s-]+/gu, "")
+    .trim()
+    .replace(/\s+/g, "-");
+  return base || "section";
+}
+
+/** 为 h2–h4 生成稳定且去重的 id（渲染与目录提取共用，保证锚点一致） */
+function assignHeadingIds(
+  blocks: Block[],
+): Map<number, { id: string; text: string; level: number }> {
+  const seen = new Map<string, number>();
+  const ids = new Map<number, { id: string; text: string; level: number }>();
+  blocks.forEach((block, index) => {
+    if (block.type !== "heading" || block.level < 2) return;
+    const base = slugify(block.text);
+    const count = (seen.get(base) ?? 0) + 1;
+    seen.set(base, count);
+    ids.set(index, {
+      id: count > 1 ? `${base}-${count}` : base,
+      text: plainText(block.text),
+      level: block.level,
+    });
+  });
+  return ids;
+}
+
+export function extractToc(source: string): TocItem[] {
+  return [...assignHeadingIds(parseBlocks(source)).values()]
+    .filter((h) => h.level === 2 || h.level === 3)
+    .map((h) => ({ id: h.id, text: h.text, level: h.level as 2 | 3 }));
+}
+
 function renderInline(text: string): ReactNode[] {
   const nodes: ReactNode[] = [];
   const pattern = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\[[^\]]+]\([^)]+\))/g;
@@ -184,15 +232,18 @@ function renderWithBreaks(text: string): ReactNode[] {
 }
 
 export function Mdx({ source }: { source: string }) {
+  const blocks = parseBlocks(source);
+  const headingIds = assignHeadingIds(blocks);
   return (
     <>
-      {parseBlocks(source).map((block, index) => {
+      {blocks.map((block, index) => {
         if (block.type === "heading") {
           const children = renderInline(block.text);
+          const id = headingIds.get(index)?.id;
           if (block.level === 1) return <h1 key={index}>{children}</h1>;
-          if (block.level === 2) return <h2 key={index}>{children}</h2>;
-          if (block.level === 3) return <h3 key={index}>{children}</h3>;
-          return <h4 key={index}>{children}</h4>;
+          if (block.level === 2) return <h2 key={index} id={id}>{children}</h2>;
+          if (block.level === 3) return <h3 key={index} id={id}>{children}</h3>;
+          return <h4 key={index} id={id}>{children}</h4>;
         }
 
         if (block.type === "paragraph") {

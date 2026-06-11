@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Mdx } from "@/lib/mdx";
+import { Mdx, extractToc } from "@/lib/mdx";
+import { ArticleToc } from "@/components/site/article-toc";
 import { getAllWriting, getWritingBySlug } from "@/lib/writing";
 import { formatDate } from "@/lib/format-date";
 
@@ -36,18 +37,23 @@ export default async function WritingDetailPage({
   const post = await getWritingBySlug(slug);
   if (!post) notFound();
 
+  const toc = extractToc(post.body);
+
   return (
-    <article className="article article--center">
-      <div className="article-meta">
-        {formatDate(post.meta.date)} · {post.meta.readingTime} min read
-      </div>
-      <h1 className="article-title">{post.meta.title}</h1>
-      <div className="prose">
-        <Mdx source={post.body} />
-      </div>
-      <footer className="article-foot">
-        <Link href="/writing">← 返回文章列表</Link>
-      </footer>
-    </article>
+    <div className="article-layout">
+      <article className="article article--center">
+        <div className="article-meta">
+          {formatDate(post.meta.date)} · {post.meta.readingTime} min read
+        </div>
+        <h1 className="article-title">{post.meta.title}</h1>
+        <div className="prose">
+          <Mdx source={post.body} />
+        </div>
+        <footer className="article-foot">
+          <Link href="/writing">← 返回文章列表</Link>
+        </footer>
+      </article>
+      {toc.length >= 2 && <ArticleToc items={toc} />}
+    </div>
   );
 }
