@@ -11,6 +11,19 @@ export type WritingSource = WritingFrontmatter & {
 // Run `pnpm sync:writing` after refreshing the GitHub Pages repository.
 export const writingPosts: WritingSource[] = [
   {
+    "title": "滴答清单支持 MCP，可以在任何 AI 工具中进行任务管理了",
+    "date": "2026-06-12",
+    "slug": "%E6%BB%B4%E7%AD%94%E6%B8%85%E5%8D%95%E6%94%AF%E6%8C%81%20MCP%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E4%BB%BB%E4%BD%95%20AI%20%E5%B7%A5%E5%85%B7%E4%B8%AD%E8%BF%9B%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E4%BA%86",
+    "summary": "才知道滴答清单在 3 月份就支持了 MCP，现在可以在各个 AI 工具中管理滴答清单上的任务清单。 等这个功能等太久了，以至于 5 月 7 日会员到期后，都不打算续费了。（当然，知道它支持 MCP 后，当天就续费了）。 我的需求 随着 AI 的发展，我现在工作的入口已经变成了 C",
+    "original_url": "https://afreecoder.dev/writing/%E6%BB%B4%E7%AD%94%E6%B8%85%E5%8D%95%E6%94%AF%E6%8C%81%20MCP%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E4%BB%BB%E4%BD%95%20AI%20%E5%B7%A5%E5%85%B7%E4%B8%AD%E8%BF%9B%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E4%BA%86",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 5,
+    "bodyFile": "%E6%BB%B4%E7%AD%94%E6%B8%85%E5%8D%95%E6%94%AF%E6%8C%81%20MCP%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E4%BB%BB%E4%BD%95%20AI%20%E5%B7%A5%E5%85%B7%E4%B8%AD%E8%BF%9B%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E4%BA%86.md"
+  },
+  {
     "title": "财务自由实证#26——高层火灾如何逃生？",
     "date": "2022-12-06",
     "slug": "invest-practice-26",

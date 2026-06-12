@@ -24,7 +24,7 @@ describe("getAllWriting", () => {
       expect(p.title).toBeTruthy();
       expect(p.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       expect(p.slug).toBeTruthy();
-      expect(p.original_url).toMatch(/^https:\/\/afreecoder\.cn\//);
+      expect(p.original_url).toMatch(/^https:\/\/(?:afreecoder\.cn\/|afreecoder\.dev\/writing\/)/);
       expect((p as { bodyFormat?: string }).bodyFormat).toBe("markdown");
       expect(typeof p.readingTime).toBe("number");
     }
@@ -99,10 +99,10 @@ describe("restored Markdown files", () => {
     const posts = await getAllWriting();
 
     for (const post of posts) {
-      const source = readFileSync(
-        `content/writing/${post.slug}.md`,
-        "utf8",
-      );
+      const filePath = `content/writing/${post.slug}.md`;
+      const source = existsSync(filePath)
+        ? readFileSync(filePath, "utf8")
+        : (await getWritingBySlug(post.slug))?.body ?? "";
       expect(source).not.toContain("公众号二维码");
       expect(source).not.toContain("gongzhonghaopic");
       expect(source).not.toContain("赞/在看");
