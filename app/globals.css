@@ -675,6 +675,105 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
+ * Business information
+ * ============================================================ */
+.business-intro {
+  max-width: 800px;
+  color: var(--color-fg-muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.business-intro p { margin: 0; }
+
+.business-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 920px;
+}
+.business-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+  padding: 24px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-rule-strong);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+}
+.business-card-eyebrow {
+  margin: 0 0 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-accent-2);
+}
+.business-card h3 {
+  margin: 0;
+  color: var(--color-fg);
+  font-size: 22px;
+  line-height: 1.25;
+}
+.business-card > p:not(.business-card-eyebrow) {
+  margin: 10px 0 24px;
+  color: var(--color-fg-muted);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+.business-card a {
+  width: fit-content;
+  margin-top: auto;
+  color: var(--color-fg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid var(--color-rule-strong);
+  transition: color .15s, border-color .15s;
+}
+.business-card a:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+.business-policy-list {
+  max-width: 920px;
+  margin: 0;
+  border-top: 1px solid var(--color-rule-strong);
+}
+.business-policy-list > div {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+.business-policy-list dt {
+  color: var(--color-fg);
+  font-size: 15px;
+  font-weight: 600;
+}
+.business-policy-list dd {
+  margin: 0;
+  color: var(--color-fg-muted);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+.business-policy-list a {
+  color: var(--color-accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
+}
+
+@media (max-width: 600px) {
+  .business-grid { grid-template-columns: 1fr; }
+  .business-card { min-height: 0; padding: 20px; }
+  .business-policy-list > div {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 18px 0;
+  }
+}
+
+/* ============================================================
  * About：轨迹时间线 / 关注 / 联系
  * ============================================================ */
 .timeline {
