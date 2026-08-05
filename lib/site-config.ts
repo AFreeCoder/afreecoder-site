@@ -35,7 +35,6 @@ export const siteConfig = {
     { label: "主页", href: "/"        },
     { label: "关于", href: "/about"   },
     { label: "产品", href: "/products" },
-    { label: "业务", href: "/business" },
     { label: "文章", href: "/writing"  },
   ] as NavItem[],
 } as const;
