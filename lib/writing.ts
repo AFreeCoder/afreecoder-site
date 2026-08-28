@@ -2,6 +2,14 @@ import { writingPosts, type WritingSource } from "@/content/writing-posts";
 import { writingBodies } from "@/content/writing-bodies";
 import type { WritingMeta } from "./types";
 
+export function toWritingRouteSlug(slug: string): string {
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
+}
+
 function toWritingMeta(post: WritingSource): WritingMeta {
   return {
     title: post.title,
@@ -32,6 +40,10 @@ export async function getAllWriting(): Promise<WritingMeta[]> {
 export async function getWritingBySlug(
   slug: string,
 ): Promise<{ meta: WritingMeta; body: string } | null> {
-  const post = writingPosts.find((item) => item.slug === slug);
+  const routeSlug = toWritingRouteSlug(slug);
+  const post = writingPosts.find(
+    (item) =>
+      item.slug === slug || toWritingRouteSlug(item.slug) === routeSlug,
+  );
   return post ? { meta: toWritingMeta(post), body: readWritingBody(post) } : null;
 }

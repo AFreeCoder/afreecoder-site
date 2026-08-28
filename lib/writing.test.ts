@@ -1,6 +1,10 @@
 import { existsSync, readFileSync } from "node:fs";
 import { describe, it, expect } from "vitest";
-import { getAllWriting, getWritingBySlug } from "./writing";
+import {
+  getAllWriting,
+  getWritingBySlug,
+  toWritingRouteSlug,
+} from "./writing";
 
 describe("getAllWriting", () => {
   it("loads the published knowledge-base articles", async () => {
@@ -85,6 +89,14 @@ describe("getWritingBySlug", () => {
   it("returns null for unknown slug", async () => {
     const post = await getWritingBySlug("does-not-exist");
     expect(post).toBeNull();
+  });
+
+  it("resolves encoded article slugs from their decoded route segment", async () => {
+    const title = "从 0 开发一个能赚钱的产品，需求怎么找？";
+    const encodedSlug = encodeURIComponent(title);
+
+    expect(toWritingRouteSlug(encodedSlug)).toBe(title);
+    expect((await getWritingBySlug(title))?.meta.title).toBe(title);
   });
 });
 

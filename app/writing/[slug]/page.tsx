@@ -2,7 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Mdx, extractToc } from "@/lib/mdx";
 import { ArticleToc } from "@/components/site/article-toc";
-import { getAllWriting, getWritingBySlug } from "@/lib/writing";
+import {
+  getAllWriting,
+  getWritingBySlug,
+  toWritingRouteSlug,
+} from "@/lib/writing";
 import { formatDate } from "@/lib/format-date";
 
 type Params = { slug: string };
@@ -11,7 +15,7 @@ export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<Params[]> {
   const all = await getAllWriting();
-  return all.map((p) => ({ slug: p.slug }));
+  return all.map((p) => ({ slug: toWritingRouteSlug(p.slug) }));
 }
 
 export async function generateMetadata({
