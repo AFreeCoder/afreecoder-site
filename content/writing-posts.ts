@@ -11,6 +11,110 @@ export type WritingSource = WritingFrontmatter & {
 // Run `pnpm sync:writing` after refreshing the GitHub Pages repository.
 export const writingPosts: WritingSource[] = [
   {
+    "title": "从 0 开发一个能赚钱的产品，需求怎么找？",
+    "date": "2026-08-28",
+    "slug": "%E4%BB%8E%200%20%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%83%BD%E8%B5%9A%E9%92%B1%E7%9A%84%E4%BA%A7%E5%93%81%EF%BC%8C%E9%9C%80%E6%B1%82%E6%80%8E%E4%B9%88%E6%89%BE%EF%BC%9F",
+    "summary": "自从有了 AI 之后，软件开发的难度大幅降低——从此\"人人都是产品经理、人人都是独立开发者\"。 然而现实很骨感，下面是很多”独立开发者“真实的状态： 1. 上午 9 点，研究 Codex 和 Claude Code 分别发布了什么新功能，谁更强？ 2. 下午 2 点，重构项目，使",
+    "original_url": "https://afreecoder.dev/writing/%E4%BB%8E%200%20%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%83%BD%E8%B5%9A%E9%92%B1%E7%9A%84%E4%BA%A7%E5%93%81%EF%BC%8C%E9%9C%80%E6%B1%82%E6%80%8E%E4%B9%88%E6%89%BE%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 4,
+    "bodyFile": "%E4%BB%8E%200%20%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%83%BD%E8%B5%9A%E9%92%B1%E7%9A%84%E4%BA%A7%E5%93%81%EF%BC%8C%E9%9C%80%E6%B1%82%E6%80%8E%E4%B9%88%E6%89%BE%EF%BC%9F.md"
+  },
+  {
+    "title": "产品开发好了，域名怎么买？",
+    "date": "2026-08-20",
+    "slug": "%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91%E5%A5%BD%E4%BA%86%EF%BC%8C%E5%9F%9F%E5%90%8D%E6%80%8E%E4%B9%88%E4%B9%B0%EF%BC%9F",
+    "summary": "Reddit（美版贴吧）有一个帖子，帖主说他在本机上开发了一个完整的 SaaS 项目，大家可以点击 https://localhost:3000 来体验。 如果你开发过网站类的项目，你一定能看得懂这个笑话；如果你看不懂这个笑话，那你一定要看这篇文章。 解释一下这个笑点，local",
+    "original_url": "https://afreecoder.dev/writing/%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91%E5%A5%BD%E4%BA%86%EF%BC%8C%E5%9F%9F%E5%90%8D%E6%80%8E%E4%B9%88%E4%B9%B0%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 7,
+    "bodyFile": "%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91%E5%A5%BD%E4%BA%86%EF%BC%8C%E5%9F%9F%E5%90%8D%E6%80%8E%E4%B9%88%E4%B9%B0%EF%BC%9F.md"
+  },
+  {
+    "title": "一文讲清楚 ChatGPT、Codex、Work 模式到底有什么区别",
+    "date": "2026-08-17",
+    "slug": "%E4%B8%80%E6%96%87%E8%AE%B2%E6%B8%85%E6%A5%9A%20ChatGPT%E3%80%81Codex%E3%80%81Work%20%E6%A8%A1%E5%BC%8F%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB",
+    "summary": "最近我发现，有很多 ChatGPT 用户还不知道 Codex 是什么、Work 模式又是什么。甚至还有一些用户听说了这些概念之后，来问我 Codex 怎么用，能不能给他们做个培训。 所以今天这篇文章，就来彻底讲清楚这三个东西到底是什么、有什么区别、怎么用。 ChatGPT 现在是",
+    "original_url": "https://afreecoder.dev/writing/%E4%B8%80%E6%96%87%E8%AE%B2%E6%B8%85%E6%A5%9A%20ChatGPT%E3%80%81Codex%E3%80%81Work%20%E6%A8%A1%E5%BC%8F%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 5,
+    "bodyFile": "%E4%B8%80%E6%96%87%E8%AE%B2%E6%B8%85%E6%A5%9A%20ChatGPT%E3%80%81Codex%E3%80%81Work%20%E6%A8%A1%E5%BC%8F%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB.md"
+  },
+  {
+    "title": "我用 Codex 一天提交了 80 次代码",
+    "date": "2026-08-16",
+    "slug": "%E6%88%91%E7%94%A8%20Codex%20%E4%B8%80%E5%A4%A9%E6%8F%90%E4%BA%A4%E4%BA%86%2080%20%E6%AC%A1%E4%BB%A3%E7%A0%81",
+    "summary": "前天 ShipArt 上线之后，写了一篇文章 记录一下。 里面提到一天提交 80 个 commit，很多朋友对这个数字感到惊讶，所以今天就来展开说一下我是如何一天提交 80 个 commit 的。 注：commit 是软件开发中的一个术语，表示代码提交，一个 commit 就是一",
+    "original_url": "https://afreecoder.dev/writing/%E6%88%91%E7%94%A8%20Codex%20%E4%B8%80%E5%A4%A9%E6%8F%90%E4%BA%A4%E4%BA%86%2080%20%E6%AC%A1%E4%BB%A3%E7%A0%81",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 3,
+    "bodyFile": "%E6%88%91%E7%94%A8%20Codex%20%E4%B8%80%E5%A4%A9%E6%8F%90%E4%BA%A4%E4%BA%86%2080%20%E6%AC%A1%E4%BB%A3%E7%A0%81.md"
+  },
+  {
+    "title": "两周半，我的 vibe coding 产品 ShipArt 上线了",
+    "date": "2026-08-11",
+    "slug": "%E4%B8%A4%E5%91%A8%E5%8D%8A%EF%BC%8C%E6%88%91%E7%9A%84%20vibe%20coding%20%E4%BA%A7%E5%93%81%20ShipArt%20%E4%B8%8A%E7%BA%BF%E4%BA%86",
+    "summary": "写这篇文章之前，我一直在纠结，要不要等 ShipArt 这个产品完善之后再写。但是思来想去，完成比完美更重要。从立项到 MVP 上线，前后大约两周半，这个过程中的一些思考和收获，值得记录一下。 一句话介绍下 ShipArt（访问入口：shipart.app） ： ShipArt ",
+    "original_url": "https://afreecoder.dev/writing/%E4%B8%A4%E5%91%A8%E5%8D%8A%EF%BC%8C%E6%88%91%E7%9A%84%20vibe%20coding%20%E4%BA%A7%E5%93%81%20ShipArt%20%E4%B8%8A%E7%BA%BF%E4%BA%86",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 6,
+    "bodyFile": "%E4%B8%A4%E5%91%A8%E5%8D%8A%EF%BC%8C%E6%88%91%E7%9A%84%20vibe%20coding%20%E4%BA%A7%E5%93%81%20ShipArt%20%E4%B8%8A%E7%BA%BF%E4%BA%86.md"
+  },
+  {
+    "title": "一个任务烧掉 5 亿 token：GPT-5.6-Sol 失控复盘",
+    "date": "2026-08-08",
+    "slug": "%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1%E7%83%A7%E6%8E%89%205%20%E4%BA%BF%20token%EF%BC%9AGPT-5.6-Sol%20%E5%A4%B1%E6%8E%A7%E5%A4%8D%E7%9B%98",
+    "summary": "GPT 5.6 发布之后，好多人都说 token 消耗巨快，还没怎么用，5 小时限额就刷完了。 恰好我最近也经历了一次任务失控、token 异常消耗，复盘后，总结出了以下几个方法： 1. 非必要不开 Ultra 模式 2. 卸载 superpowers、gstack 等重型 sk",
+    "original_url": "https://afreecoder.dev/writing/%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1%E7%83%A7%E6%8E%89%205%20%E4%BA%BF%20token%EF%BC%9AGPT-5.6-Sol%20%E5%A4%B1%E6%8E%A7%E5%A4%8D%E7%9B%98",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 5,
+    "bodyFile": "%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1%E7%83%A7%E6%8E%89%205%20%E4%BA%BF%20token%EF%BC%9AGPT-5.6-Sol%20%E5%A4%B1%E6%8E%A7%E5%A4%8D%E7%9B%98.md"
+  },
+  {
+    "title": "Codex 还是 Claude Code ？这是一个问题。",
+    "date": "2026-08-08",
+    "slug": "codex-vs-claude-code",
+    "summary": "自从准备出来单干之后，我就把 ChatGPT 和 Claude 订阅直接拉满。毕竟是我的两大主力数字员工，粮草不能少。 作为 ChatGPT Pro 和 Claude Max 双持用户，今天聊一聊这俩怎么选。 先说结论： 优先选 Codex，不怕封号可以再叠加 Claude Co",
+    "original_url": "https://afreecoder.dev/writing/codex-vs-claude-code",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 5,
+    "bodyFile": "codex-vs-claude-code.md"
+  },
+  {
+    "title": "心心念念了许久，Codex 终于支持通过手机远程控制了！",
+    "date": "2026-07-12",
+    "slug": "%E5%BF%83%E5%BF%83%E5%BF%B5%E5%BF%B5%E4%BA%86%E8%AE%B8%E4%B9%85%EF%BC%8CCodex%20%E7%BB%88%E4%BA%8E%E6%94%AF%E6%8C%81%E9%80%9A%E8%BF%87%E6%89%8B%E6%9C%BA%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BA%86%EF%BC%81",
+    "summary": "凌晨 4 点，OpenAI 发了一条帖子，正式宣布 Codex 支持通过手机远程控制了。 帖子第一句话 “You've been asking for this one...”——“你们一直在等的这个功能来了...”。 真的是等了好久，昨天我还在搜 Codex 最新的远程控制方案",
+    "original_url": "https://afreecoder.dev/writing/%E5%BF%83%E5%BF%83%E5%BF%B5%E5%BF%B5%E4%BA%86%E8%AE%B8%E4%B9%85%EF%BC%8CCodex%20%E7%BB%88%E4%BA%8E%E6%94%AF%E6%8C%81%E9%80%9A%E8%BF%87%E6%89%8B%E6%9C%BA%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BA%86%EF%BC%81",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 2,
+    "bodyFile": "%E5%BF%83%E5%BF%83%E5%BF%B5%E5%BF%B5%E4%BA%86%E8%AE%B8%E4%B9%85%EF%BC%8CCodex%20%E7%BB%88%E4%BA%8E%E6%94%AF%E6%8C%81%E9%80%9A%E8%BF%87%E6%89%8B%E6%9C%BA%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BA%86%EF%BC%81.md"
+  },
+  {
     "title": "滴答清单支持 MCP，可以在任何 AI 工具中进行任务管理了",
     "date": "2026-06-12",
     "slug": "%E6%BB%B4%E7%AD%94%E6%B8%85%E5%8D%95%E6%94%AF%E6%8C%81%20MCP%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E4%BB%BB%E4%BD%95%20AI%20%E5%B7%A5%E5%85%B7%E4%B8%AD%E8%BF%9B%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E4%BA%86",
@@ -22,6 +126,227 @@ export const writingPosts: WritingSource[] = [
     "bodyFormat": "markdown",
     "readingTime": 5,
     "bodyFile": "%E6%BB%B4%E7%AD%94%E6%B8%85%E5%8D%95%E6%94%AF%E6%8C%81%20MCP%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E4%BB%BB%E4%BD%95%20AI%20%E5%B7%A5%E5%85%B7%E4%B8%AD%E8%BF%9B%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E4%BA%86.md"
+  },
+  {
+    "title": "ChatGPT 现在还值得开会员吗？我的判断：值，但不要盲开",
+    "date": "2026-05-20",
+    "slug": "chatgpt-plus-worth-gpt101",
+    "summary": "ChatGPT 现在还值得开会员吗？我的判断：值，但不要盲开 先说结论： 如果你只是偶尔翻译一句话、问几个生活问题、让它帮你改一段文案，免费版够用。 但如果你每天都要处理文字、代码、表格、资料检索、方案写作、PPT、运营后台、网页资料和项目协作，Plus 依然是相对容易回本的一档",
+    "original_url": "https://afreecoder.dev/writing/chatgpt-plus-worth-gpt101",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 9,
+    "bodyFile": "chatgpt-plus-worth-gpt101.md"
+  },
+  {
+    "title": "别只让 ChatGPT 写文案了，它挖信息比你想象的猛",
+    "date": "2026-05-13",
+    "slug": "%E5%88%AB%E5%8F%AA%E8%AE%A9%20ChatGPT%20%E5%86%99%E6%96%87%E6%A1%88%E4%BA%86%EF%BC%8C%E5%AE%83%E6%8C%96%E4%BF%A1%E6%81%AF%E6%AF%94%E4%BD%A0%E6%83%B3%E8%B1%A1%E7%9A%84%E7%8C%9B",
+    "summary": "最近我发现了 ChatGPT 一个被严重低估的能力： 信息挖掘 。 不是那种\"帮我查一下某个概念\"的搜索替代，而是真正的\"侦探式\"信息挖掘—— 从公开渠道里，把散落在各处的线索串起来，找到你想要的答案 。 案例一：帮朋友\"摸底\"一家保密阶段的创业公司 起因是朋友面试一个创业公司，",
+    "original_url": "https://afreecoder.dev/writing/%E5%88%AB%E5%8F%AA%E8%AE%A9%20ChatGPT%20%E5%86%99%E6%96%87%E6%A1%88%E4%BA%86%EF%BC%8C%E5%AE%83%E6%8C%96%E4%BF%A1%E6%81%AF%E6%AF%94%E4%BD%A0%E6%83%B3%E8%B1%A1%E7%9A%84%E7%8C%9B",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 3,
+    "bodyFile": "%E5%88%AB%E5%8F%AA%E8%AE%A9%20ChatGPT%20%E5%86%99%E6%96%87%E6%A1%88%E4%BA%86%EF%BC%8C%E5%AE%83%E6%8C%96%E4%BF%A1%E6%81%AF%E6%AF%94%E4%BD%A0%E6%83%B3%E8%B1%A1%E7%9A%84%E7%8C%9B.md"
+  },
+  {
+    "title": "没攒够 500 万，但我准备从国企裸辞了（V3）",
+    "date": "2026-05-13",
+    "slug": "%E6%B2%A1%E6%94%92%E5%A4%9F%20500%20%E4%B8%87%EF%BC%8C%E4%BD%86%E6%88%91%E5%87%86%E5%A4%87%E4%BB%8E%E5%9B%BD%E4%BC%81%E8%A3%B8%E8%BE%9E%E4%BA%86%EF%BC%88V3%EF%BC%89",
+    "summary": "六年前我给自己定了个计划：攒够 500 万就辞职。六年后，钱没攒够，准备提前裸辞了。 为什么想离职？ 为什么想离职，尤其是眼下这个所谓的大环境不好的时候？ 1. 自由，是我长期以来的追求。 从工作的第一天起，我就在想这件事。 19 年毕业进互联网大厂，很快感受到这个行业的残酷——",
+    "original_url": "https://afreecoder.dev/writing/%E6%B2%A1%E6%94%92%E5%A4%9F%20500%20%E4%B8%87%EF%BC%8C%E4%BD%86%E6%88%91%E5%87%86%E5%A4%87%E4%BB%8E%E5%9B%BD%E4%BC%81%E8%A3%B8%E8%BE%9E%E4%BA%86%EF%BC%88V3%EF%BC%89",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 5,
+    "bodyFile": "%E6%B2%A1%E6%94%92%E5%A4%9F%20500%20%E4%B8%87%EF%BC%8C%E4%BD%86%E6%88%91%E5%87%86%E5%A4%87%E4%BB%8E%E5%9B%BD%E4%BC%81%E8%A3%B8%E8%BE%9E%E4%BA%86%EF%BC%88V3%EF%BC%89.md"
+  },
+  {
+    "title": "普通人如何抓住 AI 时代的风口？",
+    "date": "2026-05-13",
+    "slug": "%E6%99%AE%E9%80%9A%E4%BA%BA%E5%A6%82%E4%BD%95%E6%8A%93%E4%BD%8F%20AI%20%E6%97%B6%E4%BB%A3%E7%9A%84%E9%A3%8E%E5%8F%A3%EF%BC%9F",
+    "summary": "起这个标题，起因是看到知乎上有这样一个问题： 这是一个 23 年的提问，不知道怎么被我刷到了。正好最近有一些感悟，就来聊一聊 如何抓住 AI 时代的风口？ 任何一个新兴事物的发展，一定会经历三个阶段： 早期、中期、后期 ——听着是不是点像废话？别笑，且听我慢慢分析。 在这三个阶段",
+    "original_url": "https://afreecoder.dev/writing/%E6%99%AE%E9%80%9A%E4%BA%BA%E5%A6%82%E4%BD%95%E6%8A%93%E4%BD%8F%20AI%20%E6%97%B6%E4%BB%A3%E7%9A%84%E9%A3%8E%E5%8F%A3%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 2,
+    "bodyFile": "%E6%99%AE%E9%80%9A%E4%BA%BA%E5%A6%82%E4%BD%95%E6%8A%93%E4%BD%8F%20AI%20%E6%97%B6%E4%BB%A3%E7%9A%84%E9%A3%8E%E5%8F%A3%EF%BC%9F.md"
+  },
+  {
+    "title": "如何有效利用chatgpt？",
+    "date": "2026-05-13",
+    "slug": "%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E5%88%A9%E7%94%A8chatgpt%EF%BC%9F",
+    "summary": "问题地址：https://www.zhihu.com/question/594302992 我的观点是：现在花精力研究如何有效利用 ChatGPT，还不如花精力研究 ChatGPT 对应的 Agent 工具——Codex（只要是 ChatGPT 会员，就可以用 Codex）。 C",
+    "original_url": "https://afreecoder.dev/writing/%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E5%88%A9%E7%94%A8chatgpt%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 3,
+    "bodyFile": "%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E5%88%A9%E7%94%A8chatgpt%EF%BC%9F.md"
+  },
+  {
+    "title": "软件迭代频率、模型发布速度、GDP 总量变化",
+    "date": "2026-05-13",
+    "slug": "%E8%BD%AF%E4%BB%B6%E8%BF%AD%E4%BB%A3%E9%A2%91%E7%8E%87%E3%80%81%E6%A8%A1%E5%9E%8B%E5%8F%91%E5%B8%83%E9%80%9F%E5%BA%A6%E3%80%81GDP%20%E6%80%BB%E9%87%8F%E5%8F%98%E5%8C%96",
+    "summary": "有感于最近这两年AI 模型智能提升的速度，软件迭代的频率，以及近 2000 年全世界的 GDP 增长情况。 大模型智能提升速度 2018 年 6 月，GPT 1 发布。 2022 年 11 月，GPT 3.5 发布，引发全民讨论。 自此以后，大模型的核心能力更新进入季度/月度节奏",
+    "original_url": "https://afreecoder.dev/writing/%E8%BD%AF%E4%BB%B6%E8%BF%AD%E4%BB%A3%E9%A2%91%E7%8E%87%E3%80%81%E6%A8%A1%E5%9E%8B%E5%8F%91%E5%B8%83%E9%80%9F%E5%BA%A6%E3%80%81GDP%20%E6%80%BB%E9%87%8F%E5%8F%98%E5%8C%96",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 2,
+    "bodyFile": "%E8%BD%AF%E4%BB%B6%E8%BF%AD%E4%BB%A3%E9%A2%91%E7%8E%87%E3%80%81%E6%A8%A1%E5%9E%8B%E5%8F%91%E5%B8%83%E9%80%9F%E5%BA%A6%E3%80%81GDP%20%E6%80%BB%E9%87%8F%E5%8F%98%E5%8C%96.md"
+  },
+  {
+    "title": "网页剪裁工具不满意？我用 Codex 半小时创建了一个剪裁 Skill",
+    "date": "2026-05-13",
+    "slug": "%E7%BD%91%E9%A1%B5%E5%89%AA%E8%A3%81%E5%B7%A5%E5%85%B7%E4%B8%8D%E6%BB%A1%E6%84%8F%EF%BC%9F%E6%88%91%E7%94%A8%20Codex%20%E5%8D%8A%E5%B0%8F%E6%97%B6%E5%88%9B%E5%BB%BA%E4%BA%86%E4%B8%80%E4%B8%AA%E5%89%AA%E8%A3%81%20Skill",
+    "summary": "我平时看到好文章，会习惯性地收藏到本地，用于稍后读或者永久保存。 AI 时代，我认为文字信息存储最好的载体就是 markdown，因此把笔记软件换成了 Obsidian。此时就需要合适的网页剪裁工具， 一键保存到我的 Obsidian 笔记库，连图片一起下载到本地 。 尝试了很多",
+    "original_url": "https://afreecoder.dev/writing/%E7%BD%91%E9%A1%B5%E5%89%AA%E8%A3%81%E5%B7%A5%E5%85%B7%E4%B8%8D%E6%BB%A1%E6%84%8F%EF%BC%9F%E6%88%91%E7%94%A8%20Codex%20%E5%8D%8A%E5%B0%8F%E6%97%B6%E5%88%9B%E5%BB%BA%E4%BA%86%E4%B8%80%E4%B8%AA%E5%89%AA%E8%A3%81%20Skill",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 3,
+    "bodyFile": "%E7%BD%91%E9%A1%B5%E5%89%AA%E8%A3%81%E5%B7%A5%E5%85%B7%E4%B8%8D%E6%BB%A1%E6%84%8F%EF%BC%9F%E6%88%91%E7%94%A8%20Codex%20%E5%8D%8A%E5%B0%8F%E6%97%B6%E5%88%9B%E5%BB%BA%E4%BA%86%E4%B8%80%E4%B8%AA%E5%89%AA%E8%A3%81%20Skill.md"
+  },
+  {
+    "title": "微信支持接入原生 OpenClaw 了",
+    "date": "2026-05-13",
+    "slug": "%E5%BE%AE%E4%BF%A1%E6%94%AF%E6%8C%81%E6%8E%A5%E5%85%A5%E5%8E%9F%E7%94%9F%20OpenClaw%20%E4%BA%86",
+    "summary": "这两天一直在忙我的新项目 API 站的事情，本来打算等后台运营工作交接 给小龙虾后，就来写一篇文章正式介绍下。 今天早上忽然看到消息， 微信支持接入原生 OpenClaw 了，有点吃惊，比我想象中要快很多。 原本以为微信这种十几亿用户的国民级应用怎么也会等 OpenClaw 稳定",
+    "original_url": "https://afreecoder.dev/writing/%E5%BE%AE%E4%BF%A1%E6%94%AF%E6%8C%81%E6%8E%A5%E5%85%A5%E5%8E%9F%E7%94%9F%20OpenClaw%20%E4%BA%86",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 1,
+    "bodyFile": "%E5%BE%AE%E4%BF%A1%E6%94%AF%E6%8C%81%E6%8E%A5%E5%85%A5%E5%8E%9F%E7%94%9F%20OpenClaw%20%E4%BA%86.md"
+  },
+  {
+    "title": "为什么都在推Obsidian这么偏门的app做笔记？",
+    "date": "2026-05-13",
+    "slug": "%E4%B8%BA%E4%BB%80%E4%B9%88%E9%83%BD%E5%9C%A8%E6%8E%A8Obsidian%E8%BF%99%E4%B9%88%E5%81%8F%E9%97%A8%E7%9A%84app%E5%81%9A%E7%AC%94%E8%AE%B0%EF%BC%9F",
+    "summary": "问题地址：https://www.zhihu.com/question/2001604730540028239 ob字体、大小、颜色都要靠代码和插件才能实现，为什么大行其道，网上见笔记，就说OB多好，真的那么好吗？ 我是最近才开始使用 Obsidian 的，理由如下： AI 时代",
+    "original_url": "https://afreecoder.dev/writing/%E4%B8%BA%E4%BB%80%E4%B9%88%E9%83%BD%E5%9C%A8%E6%8E%A8Obsidian%E8%BF%99%E4%B9%88%E5%81%8F%E9%97%A8%E7%9A%84app%E5%81%9A%E7%AC%94%E8%AE%B0%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 2,
+    "bodyFile": "%E4%B8%BA%E4%BB%80%E4%B9%88%E9%83%BD%E5%9C%A8%E6%8E%A8Obsidian%E8%BF%99%E4%B9%88%E5%81%8F%E9%97%A8%E7%9A%84app%E5%81%9A%E7%AC%94%E8%AE%B0%EF%BC%9F.md"
+  },
+  {
+    "title": "我把写 git commit 这活儿甩给 Claude Code 了",
+    "date": "2026-05-13",
+    "slug": "%E6%88%91%E6%8A%8A%E5%86%99%20git%20commit%20%E8%BF%99%E6%B4%BB%E5%84%BF%E7%94%A9%E7%BB%99%20Claude%20Code%20%E4%BA%86",
+    "summary": "我自己开发项目的时候，经常为怎么写 commit message 头疼。 我知道好的 commit message 应该遵循下面的规范： 我知道，但我做不到。。。 所以，我的 commit message 常常是下面这样： 鬼知道优化的是什么。。。 现在把这个活甩给 Claude",
+    "original_url": "https://afreecoder.dev/writing/%E6%88%91%E6%8A%8A%E5%86%99%20git%20commit%20%E8%BF%99%E6%B4%BB%E5%84%BF%E7%94%A9%E7%BB%99%20Claude%20Code%20%E4%BA%86",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 2,
+    "bodyFile": "%E6%88%91%E6%8A%8A%E5%86%99%20git%20commit%20%E8%BF%99%E6%B4%BB%E5%84%BF%E7%94%A9%E7%BB%99%20Claude%20Code%20%E4%BA%86.md"
+  },
+  {
+    "title": "现在的大学生，还有必要学习手搓代码吗？",
+    "date": "2026-05-13",
+    "slug": "%E7%8E%B0%E5%9C%A8%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%EF%BC%8C%E8%BF%98%E6%9C%89%E5%BF%85%E8%A6%81%E5%AD%A6%E4%B9%A0%E6%89%8B%E6%90%93%E4%BB%A3%E7%A0%81%E5%90%97%EF%BC%9F",
+    "summary": "今天从知乎上刷到的一个问题： 很现实的一个问题。 套用《双城记》中的一句名言： “这是最好的时代，这是最坏的时代”。 有了 AI 之后， 既感觉自己无所不能，又感觉自己一无所知 。 题主才大二，还有很多时间思考， 未来人和 Agent 共存的时代，什么才是核心竞争力。 我也是计算",
+    "original_url": "https://afreecoder.dev/writing/%E7%8E%B0%E5%9C%A8%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%EF%BC%8C%E8%BF%98%E6%9C%89%E5%BF%85%E8%A6%81%E5%AD%A6%E4%B9%A0%E6%89%8B%E6%90%93%E4%BB%A3%E7%A0%81%E5%90%97%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 3,
+    "bodyFile": "%E7%8E%B0%E5%9C%A8%E7%9A%84%E5%A4%A7%E5%AD%A6%E7%94%9F%EF%BC%8C%E8%BF%98%E6%9C%89%E5%BF%85%E8%A6%81%E5%AD%A6%E4%B9%A0%E6%89%8B%E6%90%93%E4%BB%A3%E7%A0%81%E5%90%97%EF%BC%9F.md"
+  },
+  {
+    "title": "用 Claude Code 打造自动写日记系统",
+    "date": "2026-05-13",
+    "slug": "%E7%94%A8%20Claude%20Code%20%E6%89%93%E9%80%A0%E8%87%AA%E5%8A%A8%E5%86%99%E6%97%A5%E8%AE%B0%E7%B3%BB%E7%BB%9F",
+    "summary": "用 Claude Code 打造\"自动写日记\"系统：我的 Obsidian 一键记录工作流 一、痛点：记录和心流，天然矛盾 我有个习惯，喜欢把工作中的细节都记下来。 不是那种\"今天完成了 xx 功能\"的流水账，而是详细的过程：为什么要做这件事、中间踩了什么坑、最后怎么解决的。这些",
+    "original_url": "https://afreecoder.dev/writing/%E7%94%A8%20Claude%20Code%20%E6%89%93%E9%80%A0%E8%87%AA%E5%8A%A8%E5%86%99%E6%97%A5%E8%AE%B0%E7%B3%BB%E7%BB%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 4,
+    "bodyFile": "%E7%94%A8%20Claude%20Code%20%E6%89%93%E9%80%A0%E8%87%AA%E5%8A%A8%E5%86%99%E6%97%A5%E8%AE%B0%E7%B3%BB%E7%BB%9F.md"
+  },
+  {
+    "title": "最后一天，终于自由了",
+    "date": "2026-05-13",
+    "slug": "%E6%9C%80%E5%90%8E%E4%B8%80%E5%A4%A9%EF%BC%8C%E7%BB%88%E4%BA%8E%E8%87%AA%E7%94%B1%E4%BA%86",
+    "summary": "昨天 lastday，从今天开始，终于自由了。 此刻我就坐在图书馆写这篇文章，和之前周六日一样。 我是 19 年 3 月正式开始工作，到今天 7 年零 1 个月整。整 7 年，实现从职场到自由职业的转变，说实话，这个进度还是有点超出我预期的。 朋友问离职啥心情，倒是没有想象中那么",
+    "original_url": "https://afreecoder.dev/writing/%E6%9C%80%E5%90%8E%E4%B8%80%E5%A4%A9%EF%BC%8C%E7%BB%88%E4%BA%8E%E8%87%AA%E7%94%B1%E4%BA%86",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 3,
+    "bodyFile": "%E6%9C%80%E5%90%8E%E4%B8%80%E5%A4%A9%EF%BC%8C%E7%BB%88%E4%BA%8E%E8%87%AA%E7%94%B1%E4%BA%86.md"
+  },
+  {
+    "title": "ChatGPT 官宣将加入广告，怎样看待这一决定？对使用体验影响有多大？",
+    "date": "2026-05-13",
+    "slug": "chatgpt-ads-impact",
+    "summary": "在搜索大厂工作过，聊聊我的看法—— ChatGPT 加广告不是问题，不加广告才是问题。 一、先看一组数据：不靠广告，科技巨头根本活不了 C 端产品的商业模式，说到底就两种： 广告和会员 。 Google ：2024 年总营收 3480 亿美元，其中广告收入 2645 亿， 占比 ",
+    "original_url": "https://afreecoder.dev/writing/chatgpt-ads-impact",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 2,
+    "bodyFile": "chatgpt-ads-impact.md"
+  },
+  {
+    "title": "ChatGPT要加广告了，慌什么",
+    "date": "2026-05-13",
+    "slug": "chatgpt-ads-dont-panic",
+    "summary": "ChatGPT 要加广告了，慌什么？ ChatGPT 官宣加入广告，评论区一片哀嚎。 但说实话， 不加广告才该慌。 看几个数字你就明白了： Google 76% 的收入靠广告。 Meta 97% 的收入靠广告。 OpenAI 呢？2025 年预计亏损 90 亿美元。 光靠每月 2",
+    "original_url": "https://afreecoder.dev/writing/chatgpt-ads-dont-panic",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 1,
+    "bodyFile": "chatgpt-ads-dont-panic.md"
+  },
+  {
+    "title": "Codex 浏览器插件发布：普通用户也能轻松执行浏览器自动化任务了",
+    "date": "2026-05-13",
+    "slug": "codex-browser-extension",
+    "summary": "5 月 7 日，Codex 发布了 Chrome 浏览器插件，插件名也叫 Codex。 通过这个插件，Codex 可以和你共用一个浏览器，在后台并行打开多个标签页， 重点是不影响你当前的工作 。 这不算特别新的功能，但使用体验很好。 对普通用户的日常办公、运营后台操作、数据统计、",
+    "original_url": "https://afreecoder.dev/writing/codex-browser-extension",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 2,
+    "bodyFile": "codex-browser-extension.md"
+  },
+  {
+    "title": "GPT-Image-2 发布，图片创作的 vibe design 时刻！",
+    "date": "2026-05-13",
+    "slug": "gpt-image-2-vibe-design",
+    "summary": "传了好久的 GPT Image 2 终于全量发布，实测了下，内心只有一个想法： vibe design 的时代来了 ！ 不需要精心设计的复杂提示词，简单几个字就能有非常好的效果。 测试前提 ChatGPT Plus 会员 测试场景清单 1. 微博热搜 2. 抖音直播间 3. 互联",
+    "original_url": "https://afreecoder.dev/writing/gpt-image-2-vibe-design",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 1,
+    "bodyFile": "gpt-image-2-vibe-design.md"
   },
   {
     "title": "财务自由实证#26——高层火灾如何逃生？",

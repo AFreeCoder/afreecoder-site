@@ -5,9 +5,18 @@ import { getAllWriting, getWritingBySlug } from "./writing";
 describe("getAllWriting", () => {
   it("loads the published knowledge-base articles", async () => {
     const posts = await getAllWriting();
-    expect(posts.length).toBeGreaterThanOrEqual(60);
-    expect(posts.length).toBeLessThanOrEqual(80);
+    expect(posts.length).toBeGreaterThanOrEqual(90);
+    expect(posts.length).toBeLessThanOrEqual(110);
     expect(posts.map((post) => post.title)).toContain("财务自由实证#26——高层火灾如何逃生？");
+  });
+
+  it("includes every 2026 article from the published outbox", async () => {
+    const posts = await getAllWriting();
+    const posts2026 = posts.filter((post) => post.date.startsWith("2026-"));
+
+    expect(posts2026).toHaveLength(26);
+    expect(posts2026.map((post) => post.title)).toContain("从 0 开发一个能赚钱的产品，需求怎么找？");
+    expect(posts2026.map((post) => post.title)).toContain("一个任务烧掉 5 亿 token：GPT-5.6-Sol 失控复盘");
   });
 
   it("returns posts sorted by date desc", async () => {
