@@ -1,0 +1,29 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "afreecoder-aihot",
+	"main": "workers/app.ts",
+	"compatibility_date": "2026-09-11",
+	"compatibility_flags": ["nodejs_compat"],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": "build/client",
+	},
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 1,
+	},
+	"vars": {
+		"SITE_URL": "https://aihot.afreecoder.dev",
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "afreecoder-aihot",
+			"database_id": "00000000-0000-0000-0000-000000000000",
+			"migrations_dir": "migrations",
+		},
+	],
+	"secrets": {
+		"required": ["PUBLISH_TOKEN"],
+	},
+}

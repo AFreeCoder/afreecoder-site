@@ -9,6 +9,6 @@ export default defineConfig({
     // 默认 node；需要 DOM 的测试用文件顶部 docblock 指定：
     //   // @vitest-environment jsdom
     environment: "node",
-    exclude: [...configDefaults.exclude, ".next/**", ".open-next/**"],
+    exclude: [...configDefaults.exclude, ".next/**", ".open-next/**", "apps/**"],
   },
 });

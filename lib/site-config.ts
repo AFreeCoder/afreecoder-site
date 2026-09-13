@@ -36,5 +36,6 @@ export const siteConfig = {
     { label: "关于", href: "/about"   },
     { label: "产品", href: "/products" },
     { label: "文章", href: "/writing"  },
+    { label: "AI 热点", href: "https://aihot.afreecoder.dev" },
   ] as NavItem[],
 } as const;

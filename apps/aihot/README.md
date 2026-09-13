@@ -1,0 +1,93 @@
+# AI 信息流
+
+个人网站同仓库的独立子站，目标域名为 `aihot.afreecoder.dev`。保留原采集任务的时间流样式，使用 TypeScript、React Router SSR、Vite、Cloudflare Workers 和 D1。主站仍使用根目录的 Next.js / OpenNext 配置。
+
+当前配置可本地运行；D1 ID 是本地占位值，正式资源、域名、持续部署和采集任务的定时推送尚未配置。生产数据与发布密钥不进 Git。
+
+## 数据与页面
+
+- Python 采集任务继续产出已整理的事件；本应用不重新采集或调用模型。
+- 同步脚本只上传事件 ID、标题、完整中文正文、产品、类别、发布时间和公开来源链接。材料路径、采集覆盖、飞书信息、原始采集记录不进入公开库。
+- D1 每条事件独立保存；同一 ID 修订覆盖内容。按内容指纹识别重复，旧批次重试不会覆盖更新的版本。
+- 首页和 API 每页最多 20 条，按发布时间及 ID 使用游标分页；上一页、下一页切换时替换列表。搜索及日期、产品、类别筛选在数据库执行，不只筛选当前页。
+- 列表保留全文，单条正文上限 12,000 字符。首页请求大小受单页限制；总历史量不会全量下载到浏览器。全文搜索当前用 LIKE，历史数据显著增长后应按实际延迟考虑 FTS，不预先引入搜索服务。
+- 每分钟检查一个小型版本接口，有变化显示刷新入口，阅读中不自动插入新闻。每次同步成功都会更新同步时间；超过三小时未同步显示延迟提示，继续展示已有数据。
+- HTML 在 Worker 服务端渲染；静态资源由 Workers Assets 服务；详情页包含标题、描述和 canonical。暂不需要服务器、R2 或外部数据库。
+
+## 本地运行
+
+以下命令均在 `apps/aihot` 目录执行，需要 Node 22.22+（推荐 Node 24）和 pnpm 10。
+
+```bash
+pnpm install --frozen-lockfile
+cp .dev.vars.example .dev.vars
+# 将 .dev.vars 中的占位 PUBLISH_TOKEN 替换成随机本地令牌。
+pnpm db:local
+pnpm dev
+```
+
+开发地址为 `http://localhost:5178`。验证生产产物在另一个终端执行：
+
+```bash
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm preview
+```
+
+生产产物预览地址为 `http://localhost:8788`。迁移、开发与预览均使用应用目录下的 `.wrangler/state`；预览脚本显式固定此位置，避免生成配置改用另一套空数据库。
+
+## 导入与后续同步
+
+支持采集任务的 `flow/store.json`（events 字典）或 `events.json`（events 数组）。首次上传所有已整理事件，此后仅发送公开字段变化。不要将原始文件复制进仓库。
+
+```bash
+# 只查看投影数量，不上传；不是完整的服务端校验。
+pnpm sync --input /absolute/path/to/flow/store.json --dry-run
+
+# 首批本地导入；重复执行会跳过未变化事件。
+pnpm sync --input /absolute/path/to/flow/store.json \
+  --url http://localhost:8788 --token-file .dev.vars
+```
+
+线上接入后，在采集任务**完成事件整理**的步骤后执行相同脚本，将 `--url` 换成子站 HTTPS 地址，用单独 `--state` 区分目标。密钥通过环境变量 `AIHOT_PUBLISH_TOKEN` 或权限为 600 的纯令牌文件传入；不要写入命令参数、URL、日志或仓库。Worker 对应 secret 名为 `PUBLISH_TOKEN`。
+
+脚本每批最多 40 条并限制字节数，服务端每批事务提交。网络失败保留待处理批次及原快照时间，下次执行优先重试；不需要重新采集。`.sync` 状态文件含公开事件的待重试内容，按私有本地文件保存。单个目标只运行一个同步进程，调度端避免并发启动。
+
+```bash
+# 显式撤下已发布事件，状态文件会记住撤下标记。
+pnpm sync --input /absolute/path/to/flow/store.json \
+  --url http://localhost:8788 --token-file .dev.vars --withdraw event-id
+
+# 确认恢复时显式指定，输入中必须仍包含该事件。
+pnpm sync --input /absolute/path/to/flow/store.json \
+  --url http://localhost:8788 --token-file .dev.vars --restore event-id
+```
+
+缺少某条输入不会自动删库。撤下标记存在同步状态文件中，后续普通同步不会自动恢复；保留该文件。如果需要换机器，应连同状态文件迁移，或先从输入中移除已撤下信息，避免将其当作新的公开事件。
+
+## 两条独立部署流程
+
+采用同一个 GitHub 仓库、两个 Workers Builds 项目，各自发布和回滚。
+
+| 配置 | 个人主站 | AI 信息流 |
+| --- | --- | --- |
+| Worker | `afreecoder-site` | `afreecoder-aihot` |
+| 根目录 | 仓库根目录 | `apps/aihot` |
+| 安装 | `pnpm install --frozen-lockfile` | `pnpm install --frozen-lockfile` |
+| 构建 | 现有 `pnpm run build` | `pnpm typecheck && pnpm test && pnpm build` |
+| 发布 | 现有 OpenNext deploy | `pnpm run deploy` |
+| 构建监视路径 | 排除 `apps/aihot/**` | 仅包含 `apps/aihot/**` |
+| 数据 | 现有编译期内容 | 独立 D1 |
+
+上表是首次上线需配置的目标；仓库目录隔离已实现，控制台路径过滤尚未设置。主站的有效部署说明见根目录 `docs/deployment.md`，该文档中的“无数据库”仅指主站。
+
+首次正式上线顺序：
+
+1. 创建 `afreecoder-aihot` D1，将 ID 写入本目录 `wrangler.jsonc`；远程应用 `migrations/0001_events.sql`。本地占位 ID 会被发布脚本拒绝。
+2. 为子站配置 `PUBLISH_TOKEN` secret，构建并部署到独立 Worker。绑定 `aihot.afreecoder.dev` custom domain，确认 HTTPS 可用。不要把主站现有域名移到子站。
+3. 使用独立状态文件导入已有事件；验证首批条数、重复同步、筛选分页、详情、来源及未授权发布被拒绝。
+4. 设置两条 Workers Builds 的目录和监视路径，子站使用 Node 24；保留主站原配置。子站数据同步不触发代码重建。
+5. 将同步命令接入既有采集任务，并观察一次后续同步成功。最后发布主站导航入口，避免入口先指向未上线站点。
+
+发布前记录上一 Worker 版本；修改已有远程数据库前用 D1 export 留存备份。本次迁移仅新增表，不包含删除。回滚代码使用对应 Worker 历史版本，不会回滚 D1 数据；内容错误通过同 ID 修订或显式撤下处理。生产验收以实际域名页面、API、数据回执和部署版本为准。
