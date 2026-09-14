@@ -1,5 +1,7 @@
 # 部署手册
 
+本手册描述个人主站。AI 热点子站使用同仓库的独立 Worker/D1，部署和同步说明见 [apps/aihot/README.md](../apps/aihot/README.md)。
+
 ## 发布目标
 
 - 发布分支：`main`
@@ -15,7 +17,8 @@
 - Workers Builds 构建配置（控制台侧）：
   - Install command：`pnpm install --frozen-lockfile`
   - Build command：`pnpm run build`
-  - Deploy command：`npx @opennextjs/cloudflare deploy`
+  - Deploy command：`npx wrangler deploy`（2026-09-14 控制台回读并通过自动部署验证；由前一步 OpenNext build 生成产物和 Wrangler 重定向配置）
+  - 根目录：`/`；构建监视路径包括 `*`、排除 `apps/aihot/**`。只修改子站目录不会触发主站构建。
   - 不要把 Build command 配成单独的 `next build`——后续部署阶段会找不到 OpenNext 编译配置而失败。
 - 手动兜底部署（仅应急；下一次 push 会覆盖手动部署的版本）：
 
