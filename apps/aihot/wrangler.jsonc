@@ -1,6 +1,8 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "afreecoder-aihot",
+	"account_id": "14adab5cba8297168cf0534d5da65db7",
+	"routes": [{ "pattern": "aihot.afreecoder.dev", "custom_domain": true }],
 	"main": "workers/app.ts",
 	"compatibility_date": "2026-09-11",
 	"compatibility_flags": ["nodejs_compat"],
@@ -19,7 +21,7 @@
 		{
 			"binding": "DB",
 			"database_name": "afreecoder-aihot",
-			"database_id": "00000000-0000-0000-0000-000000000000",
+			"database_id": "29966f27-64fe-45f1-a262-45759309db35",
 			"migrations_dir": "migrations",
 		},
 	],
