@@ -2,7 +2,7 @@
 
 个人网站同仓库的独立子站，目标域名为 `aihot.afreecoder.dev`。保留原采集任务的时间流样式，使用 TypeScript、React Router SSR、Vite、Cloudflare Workers 和 D1。主站仍使用根目录的 Next.js / OpenNext 配置。
 
-当前配置可本地运行；D1 ID 是本地占位值，正式资源、域名、持续部署和采集任务的定时推送尚未配置。生产数据与发布密钥不进 Git。
+已于 2026-09-14 上线到 https://aihot.afreecoder.dev ，使用独立 Worker 和 D1。主站与子站均已连接同一 GitHub 仓库的独立 Workers Builds 流程；生产数据与发布密钥不进 Git。
 
 ## 数据与页面
 
@@ -50,7 +50,7 @@ pnpm sync --input /absolute/path/to/flow/store.json \
   --url http://localhost:8788 --token-file .dev.vars
 ```
 
-线上接入后，在采集任务**完成事件整理**的步骤后执行相同脚本，将 `--url` 换成子站 HTTPS 地址，用单独 `--state` 区分目标。密钥通过环境变量 `AIHOT_PUBLISH_TOKEN` 或权限为 600 的纯令牌文件传入；不要写入命令参数、URL、日志或仓库。Worker 对应 secret 名为 `PUBLISH_TOKEN`。
+现有“每小时采集 AI 信息并推送飞书”任务在**完成事件整理**后执行已安装的同步脚本，网站和飞书分别记录成败。脚本安装于 `~/.local/share/ai-news-collect/website/sync.mjs`，不依赖开发 worktree 或 pnpm；发布脚本有变更时应同步更新这一副本。手动同步使用子站 HTTPS 地址，用单独 `--state` 区分目标。密钥通过环境变量 `AIHOT_PUBLISH_TOKEN` 或权限为 600 的纯令牌文件传入；不要写入命令参数、URL、日志或仓库。Worker 对应 secret 名为 `PUBLISH_TOKEN`。
 
 脚本每批最多 40 条并限制字节数，服务端每批事务提交。网络失败保留待处理批次及原快照时间，下次执行优先重试；不需要重新采集。`.sync` 状态文件含公开事件的待重试内容，按私有本地文件保存。单个目标只运行一个同步进程，调度端避免并发启动。
 
@@ -76,18 +76,20 @@ pnpm sync --input /absolute/path/to/flow/store.json \
 | 根目录 | 仓库根目录 | `apps/aihot` |
 | 安装 | `pnpm install --frozen-lockfile` | `pnpm install --frozen-lockfile` |
 | 构建 | 现有 `pnpm run build` | `pnpm typecheck && pnpm test && pnpm build` |
-| 发布 | 现有 OpenNext deploy | `pnpm run deploy` |
+| 发布 | `npx wrangler deploy` | `pnpm run deploy` |
 | 构建监视路径 | 排除 `apps/aihot/**` | 仅包含 `apps/aihot/**` |
 | 数据 | 现有编译期内容 | 独立 D1 |
 
-上表是首次上线需配置的目标；仓库目录隔离已实现，控制台路径过滤尚未设置。主站的有效部署说明见根目录 `docs/deployment.md`，该文档中的“无数据库”仅指主站。
+上表已在控制台保存。两站生产分支均为 `main`，预览分支构建均关闭；子站构建环境 `NODE_VERSION=24`。主站的有效部署说明见根目录 `docs/deployment.md`，该文档中的“无数据库”仅指主站。
 
-首次正式上线顺序：
+重建环境或接管部署时的顺序：
 
-1. 创建 `afreecoder-aihot` D1，将 ID 写入本目录 `wrangler.jsonc`；远程应用 `migrations/0001_events.sql`。本地占位 ID 会被发布脚本拒绝。
+1. 创建 `afreecoder-aihot` D1，将 ID 写入本目录 `wrangler.jsonc`；远程应用 `migrations/0001_events.sql`。已有环境直接复用配置中的 ID，不重复创建。
 2. 为子站配置 `PUBLISH_TOKEN` secret，构建并部署到独立 Worker。绑定 `aihot.afreecoder.dev` custom domain，确认 HTTPS 可用。不要把主站现有域名移到子站。
 3. 使用独立状态文件导入已有事件；验证首批条数、重复同步、筛选分页、详情、来源及未授权发布被拒绝。
 4. 设置两条 Workers Builds 的目录和监视路径，子站使用 Node 24；保留主站原配置。子站数据同步不触发代码重建。
 5. 将同步命令接入既有采集任务，并观察一次后续同步成功。最后发布主站导航入口，避免入口先指向未上线站点。
 
 发布前记录上一 Worker 版本；修改已有远程数据库前用 D1 export 留存备份。本次迁移仅新增表，不包含删除。回滚代码使用对应 Worker 历史版本，不会回滚 D1 数据；内容错误通过同 ID 修订或显式撤下处理。生产验收以实际域名页面、API、数据回执和部署版本为准。
+
+首批线上导入 220 条已整理事件，随后重复同步为 0 条。正式同步状态位于 `~/.local/share/ai-news-collect/website/state.json`，密钥由同目录权限为 600 的文件提供。初始 D1 SQL 备份保存在该目录的 `backups` 下；它与同步状态均不进入 Git。
