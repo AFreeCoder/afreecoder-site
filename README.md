@@ -39,7 +39,7 @@ pnpm gen:highlight       # 重新生成代码高亮语法/主题数据
 
 push `main` 到 GitHub 即自动触发 Cloudflare Workers Builds 部署（约 3 分钟）。完整发布流程、体积约束、回滚路径见 [docs/deployment.md](docs/deployment.md)。
 
-AI 热点子站位于 [apps/aihot](apps/aihot/README.md)，使用独立依赖、Worker 与 D1 配置。两站分别构建、部署和回滚；子站的本地启动、数据同步及首次上线配置见该目录说明。
+AI 新鲜事子站位于 [apps/aihot](apps/aihot/README.md)，使用独立依赖、Worker 与 D1 配置。两站分别构建、部署和回滚；子站的本地启动、数据同步及首次上线配置见该目录说明。
 
 ## 目录结构
 

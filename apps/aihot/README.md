@@ -1,4 +1,4 @@
-# AI 信息流
+# AI 新鲜事
 
 个人网站同仓库的独立子站，目标域名为 `aihot.afreecoder.dev`。保留原采集任务的时间流样式，使用 TypeScript、React Router SSR、Vite、Cloudflare Workers 和 D1。主站仍使用根目录的 Next.js / OpenNext 配置。
 
@@ -70,7 +70,7 @@ pnpm sync --input /absolute/path/to/flow/store.json \
 
 采用同一个 GitHub 仓库、两个 Workers Builds 项目，各自发布和回滚。
 
-| 配置 | 个人主站 | AI 信息流 |
+| 配置 | 个人主站 | AI 新鲜事 |
 | --- | --- | --- |
 | Worker | `afreecoder-site` | `afreecoder-aihot` |
 | 根目录 | 仓库根目录 | `apps/aihot` |

@@ -5,15 +5,18 @@ export function Masthead() {
 	return (
 		<>
 			<div className="eyebrow">
-				AI OBSERVER{' '}
+				AI NEWS{' '}
 				<a className="home-link" href="https://afreecoder.dev">
 					← AFreeCoder
 				</a>
 			</div>
 			<h1>
-				<Link to="/">AI 信息流</Link>
+				<Link className="brand" to="/">
+					<img className="brand-mark" src="/brand/ai-news-bird.png" alt="" width="64" height="64" />
+					<span>AI 新鲜事</span>
+				</Link>
 			</h1>
-			<p>OpenAI 与 Anthropic · 官网、更新日志及官方与员工动态。</p>
+			<p>看看 AI 又有什么新变化</p>
 		</>
 	);
 }

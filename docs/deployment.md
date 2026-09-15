@@ -1,6 +1,6 @@
 # 部署手册
 
-本手册描述个人主站。AI 热点子站使用同仓库的独立 Worker/D1，部署和同步说明见 [apps/aihot/README.md](../apps/aihot/README.md)。
+本手册描述个人主站。AI 新鲜事子站使用同仓库的独立 Worker/D1，部署和同步说明见 [apps/aihot/README.md](../apps/aihot/README.md)。
 
 ## 发布目标
 

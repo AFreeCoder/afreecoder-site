@@ -54,6 +54,21 @@ header p {
 	color: var(--muted);
 	margin: 12px 0 28px;
 }
+.brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+}
+.brand-mark {
+	display: block;
+	width: 64px;
+	height: 64px;
+	object-fit: contain;
+	flex-shrink: 0;
+}
+.brand span {
+	white-space: nowrap;
+}
 .toolbar {
 	display: flex;
 	gap: 12px;
@@ -193,7 +208,14 @@ footer {
 		padding-top: 32px;
 	}
 	h1 {
-		font-size: 34px;
+		font-size: clamp(26px, 7.5vw, 34px);
+	}
+	.brand {
+		gap: 10px;
+	}
+	.brand-mark {
+		width: 48px;
+		height: 48px;
 	}
 	article {
 		grid-template-columns: 1fr;

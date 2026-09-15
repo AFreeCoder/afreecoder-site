@@ -6,8 +6,8 @@ import { PRODUCTS } from '../lib/content';
 import { cloudflareContext } from '../lib/context';
 
 export const meta: MetaFunction = () => [
-	{ title: 'AI 信息流 · AFreeCoder' },
-	{ name: 'description', content: 'OpenAI、ChatGPT、Codex、Claude 与 Claude Code 动态。完整中文信息、公开来源与时间流。' },
+	{ title: 'AI 新鲜事 · AFreeCoder' },
+	{ name: 'description', content: 'AI 新鲜事，看看 AI 又有什么新变化。关注 OpenAI、ChatGPT、Codex、Claude 与 Claude Code，提供完整中文动态与公开来源。' },
 	{ tagName: 'link', rel: 'canonical', href: 'https://aihot.afreecoder.dev/' },
 ];
 export async function loader({ request, context }: LoaderFunctionArgs) {
