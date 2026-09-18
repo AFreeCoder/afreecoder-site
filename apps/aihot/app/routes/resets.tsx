@@ -1,6 +1,6 @@
 import { Link, data, useLoaderData, useNavigation, useRevalidator, type LoaderFunctionArgs, type MetaFunction } from 'react-router';
 import { useEffect, useState } from 'react';
-import { Flame, ArrowUpRight, ArrowRight, Check, ChevronDown, Clock3, Radio, Ticket, RefreshCw, Info } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Check, ChevronDown, Clock3, Radio, Ticket, RefreshCw, Info } from 'lucide-react';
 import { cloudflareContext } from '../lib/context';
 import { listResetEvents, siteState } from '../lib/db.server';
 import { formatSync, timeParts } from '../lib/content';
@@ -41,7 +41,7 @@ function SourceLink({ record }: { record: ResetRecord }) {
 }
 function CreditLine({ record }: { record: ResetRecord }) {
 	return <div className="credit-line">
-		<div className={`credit-quantity${record.credit_count ? '' : ' unknown'}`} aria-label={record.credit_count ? `每人 ${record.credit_count} 张重置卡` : '数量未明确'}>{record.credit_count ? <><Flame size={30} aria-hidden="true" /><b>+{record.credit_count}</b></> : <span>待定</span>}</div>
+		<div className={`credit-quantity${record.credit_count ? '' : ' unknown'}`} aria-label={record.credit_count ? `每人 ${record.credit_count} 张重置卡` : '数量未明确'}>{record.credit_count ? <b>+{record.credit_count}</b> : <span>待定</span>}</div>
 		<time className="credit-date" dateTime={record.announced_at}><span>{dayLabel(record.day)}</span><small>{record.clock === '仅日期' ? record.day.slice(0, 4) : record.clock}</small></time>
 		<div className="credit-copy"><strong>{record.audience ?? '适用范围见原帖'}</strong><div className="credit-details"><span>{creditStage(record)}</span><SourceLink record={record} /></div></div>
 	</div>;
