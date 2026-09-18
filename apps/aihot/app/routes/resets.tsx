@@ -1,6 +1,6 @@
 import { Link, data, useLoaderData, useNavigation, useRevalidator, type LoaderFunctionArgs, type MetaFunction } from 'react-router';
 import { useEffect, useState } from 'react';
-import { ArrowDown, ArrowUpRight, ArrowRight, Check, ChevronDown, Clock3, Radio, Ticket, RefreshCw, Info } from 'lucide-react';
+import { Flame, ArrowUpRight, ArrowRight, Check, ChevronDown, Clock3, Radio, Ticket, RefreshCw, Info } from 'lucide-react';
 import { cloudflareContext } from '../lib/context';
 import { listResetEvents, siteState } from '../lib/db.server';
 import { formatSync, timeParts } from '../lib/content';
@@ -41,8 +41,9 @@ function SourceLink({ record }: { record: ResetRecord }) {
 }
 function CreditLine({ record }: { record: ResetRecord }) {
 	return <div className="credit-line">
-		<div className="credit-quantity">{record.credit_count ? <><b>+{record.credit_count}</b><span>张 / 人</span></> : <span>数量未明确</span>}</div>
-		<div><strong>{record.audience ?? '适用范围见原帖'}</strong><p>{stamp(record)} · {creditStage(record)}</p><SourceLink record={record} /></div>
+		<div className={`credit-quantity${record.credit_count ? '' : ' unknown'}`} aria-label={record.credit_count ? `每人 ${record.credit_count} 张重置卡` : '数量未明确'}>{record.credit_count ? <><Flame size={30} aria-hidden="true" /><b>+{record.credit_count}</b></> : <span>待定</span>}</div>
+		<time className="credit-date" dateTime={record.announced_at}><span>{dayLabel(record.day)}</span><small>{record.clock === '仅日期' ? record.day.slice(0, 4) : record.clock}</small></time>
+		<div className="credit-copy"><strong>{record.audience ?? '适用范围见原帖'}</strong><div className="credit-details"><span>{creditStage(record)}</span><SourceLink record={record} /></div></div>
 	</div>;
 }
 function EventRow({ records }: { records: ResetRecord[] }) {
@@ -85,7 +86,7 @@ export default function Resets() {
 	}, [state.revision, state.last_synced_at, revalidator.revalidate]);
 	const href = (d = days, f = filter) => `/codex-resets?days=${d}&type=${f}`;
 	const heading = outlook === 'announced' ? (signal?.expected_at ? `${dayLabel(timeParts(signal.expected_at).day)} ${timeParts(signal.expected_at).clock}` : '已有重置预告') : outlook === 'overdue' ? '仍在等待完成确认' : outlook === 'hint' ? '有新动向，时间未定' : '暂无明确预告';
-	const badge = outlook === 'announced' ? '官方已预告' : outlook === 'overdue' ? '预告窗口已过' : outlook === 'hint' ? '尚非明确预告' : '等待官方消息';
+	const badge = outlook === 'announced' ? '官方已预告' : outlook === 'overdue' ? '预告窗口已过' : outlook === 'hint' ? '尚非明确预告' : '持续监控中';
 	return <>
 		<header className="watch-heading"><div><div className="watch-eyebrow">CODEX / RESET WATCH</div><h1 className="page-title">Codex 重置监控</h1><p>额度重置预告、重置卡发放与最新进展</p></div><div className="watch-timezone">北京时间 · UTC+8<br /><span>公开公告持续整理</span></div></header>
 		<main className="reset-watch" aria-busy={navigation.state !== 'idle' || revalidator.state !== 'idle'}>
@@ -94,12 +95,12 @@ export default function Resets() {
 			<div className="watch-grid">
 				<div className="reset-summary">
 				<section className="outlook-card" aria-label="下一次额度重置预告">
-					<div className="card-eyebrow"><span><Radio size={16} aria-hidden="true" />下一次额度重置预告</span><span className="outlook-badge">{badge}</span></div>
+					<div className="card-eyebrow"><span><Radio size={16} aria-hidden="true" />下一次额度重置预告</span><span className={`outlook-badge${!signal ? ' monitoring' : ''}`}>{badge}</span></div>
 					<h2>{heading}</h2>
-					<p className="outlook-description">{signal ? signal.summary : '已收录的公开消息中，暂未发现下一次重置的明确时间。有新的预告或完成确认后，会在这里更新。'}</p>
+					<p className="outlook-description">{signal ? signal.summary : '重置时间待公布，有新消息即更新。'}</p>
 					{signal?.expected_note && <p className="expected-note">原帖时间说明：{signal.expected_note}</p>}
 					{signal?.audience && <p className="expected-note">适用范围：{signal.audience}</p>}
-					<div className="outlook-links">{signal ? <><SourceLink record={signal} /><span>{stamp(signal)} 发布</span></> : <a href="#reset-updates">查看历史记录<ArrowDown size={14} aria-hidden="true" /></a>}</div>
+					{signal && <div className="outlook-links"><SourceLink record={signal} /><span>{stamp(signal)} 发布</span></div>}
 				</section>
 				<section className="latest-reset" aria-label="最近一次重置">
 					<div className="card-eyebrow"><span><Clock3 size={16} aria-hidden="true" />最近一次重置</span>{latest && <span className="status completed"><Check size={12} aria-hidden="true" />已确认重置</span>}</div>
@@ -113,7 +114,7 @@ export default function Resets() {
 				<section className="credit-card" aria-label="近期重置卡">
 					<div className="credit-heading"><h2><Ticket size={18} aria-hidden="true" />近期重置卡</h2><nav className="period-tabs" aria-label="近期范围">{[7, 30].map((d) => <Link key={d} preventScrollReset to={href(d)} aria-current={days === d ? 'true' : undefined}>近 {d} 天</Link>)}</nav></div>
 					{credits.length ? <><p className="credit-lead">已收录 <b>{credits.length}</b> 次发卡公告</p><div className="credit-list">{credits.slice(0, 3).map((record) => <CreditLine record={record} key={record.id} />)}</div>{credits.length > 3 && <Link className="more-credits" to={`${href(days, 'credit')}#reset-updates`}>查看本期全部发卡<ArrowRight size={13} /></Link>}</> : <><div className="no-credits"><Ticket size={28} strokeWidth={1.2} aria-hidden="true" /><h3>近 {days} 天暂无新发卡记录</h3><p>发卡消息收录后会在这里显示。</p></div>{lastCredit && <div className="last-credit"><span>最近一次发卡消息</span><CreditLine record={lastCredit} /></div>}</>}
-					<p className="credit-footnote">按公告列出每名符合条件用户的张数；个人余额与到账情况请在 Codex 内查看。</p>
+					<p className="credit-footnote">数量为每名符合条件用户获发张数，到账以 Codex 为准。</p>
 				</section>
 			</div>
 			<div className="watch-meta"><span><Clock3 size={13} aria-hidden="true" />最近数据同步：{formatSync(state.last_synced_at)}</span><a href="https://chatgpt.com/codex/cloud/settings/analytics#usage" target="_blank" rel="noopener noreferrer">查看我的 Codex 用量<ArrowUpRight size={13} aria-hidden="true" /></a></div>
