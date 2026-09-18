@@ -16,7 +16,7 @@ export function Sidebar({ scheme, stats }: Props) {
     <aside className="app-sidebar">
       <Link href="/" aria-label={siteConfig.name} className="sidebar-avatar">
         <Image
-          src="https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/d9e4a82551ddb98f330af6322da3d958e67dc607ed06c1b621759eaa19634d25.png?x-oss-process=image/resize,w_496/quality,q_80/format,webp"
+          src="https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/1d380054f73f7bc99a082f04ec19dcf3b09ec9fb2cafac08eca464aa862ab190.png?x-oss-process=image/resize,w_496/quality,q_80/format,webp"
           alt={`${siteConfig.name} 头像`}
           width={248}
           height={248}
