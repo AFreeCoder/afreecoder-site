@@ -419,7 +419,9 @@ function parsePosts(xml) {
   const usedLocalFiles = new Set();
   const stats = { local: 0, fallback: 0 };
 
+  // 站点仅保留《MySQL之索引》（2020-06-21）之后发布的文章。
   const posts = parseEntries(xml)
+    .filter((entry) => entry.date > "2020-06-21")
     .map((entry) => {
       const localPost = findLocalPost(entry, localPosts, usedLocalFiles);
       const restoredBody = localPost
