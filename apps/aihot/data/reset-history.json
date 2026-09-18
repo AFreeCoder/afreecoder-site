@@ -1,0 +1,390 @@
+{
+  "verified_at": "2026-09-18",
+  "events": [
+    {
+      "id": "codex-reset-history-2026-08-01",
+      "title": "Tibo 确认 08 月 01 日额度重置",
+      "body": "Tibo 确认已重置 Codex 与 ChatGPT Work 的使用额度。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-08-01T03:32:37.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2083395449814229287"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "completed",
+          "announced_at": "2026-08-01T03:32:37.000Z",
+          "summary": "Tibo 确认已重置 Codex 与 ChatGPT Work 的使用额度。",
+          "source_url": "https://x.com/thsottiaux/status/2083395449814229287"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-08-09",
+      "title": "Tibo 确认 08 月 09 日额度重置",
+      "body": "Tibo 确认已为 ChatGPT Work 和 Codex 的所有付费用户重置使用额度。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-08-08T20:29:22.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2086188036493344823"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "completed",
+          "announced_at": "2026-08-08T20:29:22.000Z",
+          "summary": "Tibo 确认已为 ChatGPT Work 和 Codex 的所有付费用户重置使用额度。",
+          "source_url": "https://x.com/thsottiaux/status/2086188036493344823",
+          "audience": "ChatGPT Work 与 Codex 的付费用户"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-08-11",
+      "title": "Tibo 确认付费用户额度重置",
+      "body": "Tibo 预告将在周一再进行一次额度重置。\n\nTibo 确认 ChatGPT Work 与 Codex 所有付费用户的使用额度已经重置。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-08-11T00:28:16.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2086189414292865249"
+        },
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2086972933566857393"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "announced",
+          "announced_at": "2026-08-08T20:34:50.000Z",
+          "summary": "Tibo 预告将在周一再进行一次额度重置。",
+          "source_url": "https://x.com/thsottiaux/status/2086189414292865249",
+          "expected_note": "原帖称周一，未据此推算精确时刻。"
+        },
+        {
+          "kind": "completed",
+          "announced_at": "2026-08-11T00:28:16.000Z",
+          "summary": "Tibo 确认 ChatGPT Work 与 Codex 所有付费用户的使用额度已经重置。",
+          "source_url": "https://x.com/thsottiaux/status/2086972933566857393",
+          "audience": "ChatGPT Work 与 Codex 的付费用户"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-08-13",
+      "title": "Tibo 预告约一小时内进行额度重置",
+      "body": "Tibo 预告新一轮额度重置将于约一小时内生效；本次补录尚未找到对应的完成确认。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-08-13T01:01:37.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2087706104814023111"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "announced",
+          "announced_at": "2026-08-13T01:01:37.000Z",
+          "summary": "Tibo 预告新一轮额度重置将于约一小时内生效；本次补录尚未找到对应的完成确认。",
+          "source_url": "https://x.com/thsottiaux/status/2087706104814023111",
+          "expected_note": "原帖称约一小时内。"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-08-22",
+      "title": "Tibo 确认可留存的重置卡已发放",
+      "body": "Tibo 宣布为 Codex 和 ChatGPT Work 用户发放一张可自行选择使用时间的重置卡。\n\n后续公告明确本次重置卡面向 ChatGPT Work 与 Codex 的付费用户。\n\nTibo 确认本轮可留存的重置卡已发放。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-08-22T00:50:36.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2090766694897619318"
+        },
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2090947196107764189"
+        },
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2090964822422949999"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "credit",
+          "announced_at": "2026-08-21T11:43:19.000Z",
+          "summary": "Tibo 宣布为 Codex 和 ChatGPT Work 用户发放一张可自行选择使用时间的重置卡。",
+          "source_url": "https://x.com/thsottiaux/status/2090766694897619318",
+          "credit_count": 1,
+          "credit_status": "announced"
+        },
+        {
+          "kind": "credit",
+          "announced_at": "2026-08-21T23:40:34.000Z",
+          "summary": "后续公告明确本次重置卡面向 ChatGPT Work 与 Codex 的付费用户。",
+          "source_url": "https://x.com/thsottiaux/status/2090947196107764189",
+          "credit_count": 1,
+          "credit_status": "announced",
+          "audience": "ChatGPT Work 与 Codex 的付费用户"
+        },
+        {
+          "kind": "credit",
+          "announced_at": "2026-08-22T00:50:36.000Z",
+          "summary": "Tibo 确认本轮可留存的重置卡已发放。",
+          "source_url": "https://x.com/thsottiaux/status/2090964822422949999",
+          "credit_count": 1,
+          "credit_status": "distributed",
+          "audience": "ChatGPT Work 与 Codex 的付费用户"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-08-24",
+      "title": "Tibo 确认额度重置，补充 Business 推送进度",
+      "body": "Tibo 表示在修复额度消耗问题的同时，将为所有付费订阅重置额度。\n\nTibo 确认额度重置已推送至账户。后续回复说明 Business 账户仍在陆续推送，不能据此认定所有套餐同时完成。\n\nTibo 补充本轮包含 Business 账户，当时仍在推送，预计约五分钟内完成。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-08-24T02:09:04.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2091407991736332689"
+        },
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2091688655828246890"
+        },
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2091709346371838240"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "announced",
+          "announced_at": "2026-08-23T06:11:36.000Z",
+          "summary": "Tibo 表示在修复额度消耗问题的同时，将为所有付费订阅重置额度。",
+          "source_url": "https://x.com/thsottiaux/status/2091407991736332689",
+          "audience": "付费订阅用户"
+        },
+        {
+          "kind": "completed",
+          "announced_at": "2026-08-24T00:46:51.000Z",
+          "summary": "Tibo 确认额度重置已推送至账户。后续回复说明 Business 账户仍在陆续推送，不能据此认定所有套餐同时完成。",
+          "source_url": "https://x.com/thsottiaux/status/2091688655828246890"
+        },
+        {
+          "kind": "announced",
+          "announced_at": "2026-08-24T02:09:04.000Z",
+          "summary": "Tibo 补充本轮包含 Business 账户，当时仍在推送，预计约五分钟内完成。",
+          "source_url": "https://x.com/thsottiaux/status/2091709346371838240",
+          "audience": "Business 用户",
+          "expected_note": "原帖称约五分钟内完成。"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-08-28",
+      "title": "Tibo 确认 08 月 28 日额度重置",
+      "body": "Tibo 宣布为 ChatGPT Work 和 Codex 用户提供新一轮使用额度。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-08-27T16:35:05.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2093014447833116908"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "completed",
+          "announced_at": "2026-08-27T16:35:05.000Z",
+          "summary": "Tibo 宣布为 ChatGPT Work 和 Codex 用户提供新一轮使用额度。",
+          "source_url": "https://x.com/thsottiaux/status/2093014447833116908",
+          "audience": "ChatGPT Work 与 Codex 用户"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-08-30",
+      "title": "Tibo 宣布付费用户额度重置与用量修复",
+      "body": "Tibo 宣布正在为 Codex 和 ChatGPT Work 付费用户重置额度，并说明多项用量消耗修复。\n\nTibo 补充本轮预计在其所称下午 2:30 PST 生效；未收录独立完成确认。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-08-29T20:43:53.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2093801758665715784"
+        },
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2093801838504186008"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "announced",
+          "announced_at": "2026-08-29T20:43:34.000Z",
+          "summary": "Tibo 宣布正在为 Codex 和 ChatGPT Work 付费用户重置额度，并说明多项用量消耗修复。",
+          "source_url": "https://x.com/thsottiaux/status/2093801758665715784",
+          "audience": "ChatGPT Work 与 Codex 的付费用户"
+        },
+        {
+          "kind": "announced",
+          "announced_at": "2026-08-29T20:43:53.000Z",
+          "summary": "Tibo 补充本轮预计在其所称下午 2:30 PST 生效；未收录独立完成确认。",
+          "source_url": "https://x.com/thsottiaux/status/2093801838504186008",
+          "audience": "ChatGPT Work 与 Codex 的付费用户",
+          "expected_note": "原文为 2:30pm PST，保留原文，不推算精确时刻。"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-08-31",
+      "title": "Tibo 确认所有付费订阅额度重置",
+      "body": "Tibo 预告 Codex 和 ChatGPT Work 将进行额度重置。\n\nTibo 确认已为 ChatGPT Work 和 Codex 的所有付费订阅重置使用额度。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-08-31T02:34:27.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2094144275957350900"
+        },
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2094252447271366730"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "announced",
+          "announced_at": "2026-08-30T19:24:37.000Z",
+          "summary": "Tibo 预告 Codex 和 ChatGPT Work 将进行额度重置。",
+          "source_url": "https://x.com/thsottiaux/status/2094144275957350900",
+          "expected_note": "原文称 6pm PST。"
+        },
+        {
+          "kind": "completed",
+          "announced_at": "2026-08-31T02:34:27.000Z",
+          "summary": "Tibo 确认已为 ChatGPT Work 和 Codex 的所有付费订阅重置使用额度。",
+          "source_url": "https://x.com/thsottiaux/status/2094252447271366730",
+          "audience": "ChatGPT Work 与 Codex 的付费用户"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-09-04",
+      "title": "Tibo 宣布向尚未获得 Astra 访问权限的付费用户补发重置卡",
+      "body": "Tibo 宣布从当天起，付费套餐每有一天无法访问 Astra 就补一张可留存的重置卡；首张预计约三小时后发放。此处仅记录首轮一张，不按天推算实际已发数量。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-09-03T23:12:09.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2095651088502591861"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "credit",
+          "announced_at": "2026-09-03T23:12:09.000Z",
+          "summary": "Tibo 宣布从当天起，付费套餐每有一天无法访问 Astra 就补一张可留存的重置卡；首张预计约三小时后发放。此处仅记录首轮一张，不按天推算实际已发数量。",
+          "source_url": "https://x.com/thsottiaux/status/2095651088502591861",
+          "audience": "尚未获得 Astra 访问权限的付费 ChatGPT 用户",
+          "credit_count": 1,
+          "credit_status": "announced"
+        }
+      ]
+    },
+    {
+      "id": "codex-reset-history-2026-09-05",
+      "title": "Tibo 宣布向 Plus、Pro 和 Business 用户发放重置卡",
+      "body": "Tibo 最初宣布向当天尚未获得 Astra 访问权限的部分 Plus 和 Business 用户补发一张重置卡。\n\nTibo 随后将当天发放范围扩大至所有 Plus、Pro 和 Business 用户，称当天结束前发放；太平洋时间晚上八点前创建或升级账户也可获得。同一轮范围更新，不计为额外再发一张。",
+      "products": [
+        "Codex",
+        "ChatGPT"
+      ],
+      "category": "产品更新",
+      "published_at": "2026-09-05T00:39:25.000Z",
+      "sources": [
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2095979536043401428"
+        },
+        {
+          "label": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2096035437299237298"
+        }
+      ],
+      "reset_updates": [
+        {
+          "kind": "credit",
+          "announced_at": "2026-09-04T20:57:17.000Z",
+          "summary": "Tibo 最初宣布向当天尚未获得 Astra 访问权限的部分 Plus 和 Business 用户补发一张重置卡。",
+          "source_url": "https://x.com/thsottiaux/status/2095979536043401428",
+          "audience": "当时尚未获得 Astra 访问权限的 Plus、Business 用户",
+          "credit_count": 1,
+          "credit_status": "announced"
+        },
+        {
+          "kind": "credit",
+          "announced_at": "2026-09-05T00:39:25.000Z",
+          "summary": "Tibo 随后将当天发放范围扩大至所有 Plus、Pro 和 Business 用户，称当天结束前发放；太平洋时间晚上八点前创建或升级账户也可获得。同一轮范围更新，不计为额外再发一张。",
+          "source_url": "https://x.com/thsottiaux/status/2096035437299237298",
+          "audience": "Plus、Pro、Business 用户",
+          "credit_count": 1,
+          "credit_status": "announced"
+        }
+      ]
+    }
+  ]
+}

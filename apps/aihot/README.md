@@ -93,3 +93,32 @@ pnpm sync --input /absolute/path/to/flow/store.json \
 发布前记录上一 Worker 版本；修改已有远程数据库前用 D1 export 留存备份。本次迁移仅新增表，不包含删除。回滚代码使用对应 Worker 历史版本，不会回滚 D1 数据；内容错误通过同 ID 修订或显式撤下处理。生产验收以实际域名页面、API、数据回执和部署版本为准。
 
 首批线上导入 220 条已整理事件，随后重复同步为 0 条。正式同步状态位于 `~/.local/share/ai-news-collect/website/state.json`，密钥由同目录权限为 600 的文件提供。初始 D1 SQL 备份保存在该目录的 `backups` 下；它与同步状态均不进入 Git。
+
+## Codex 重置监控
+
+`/codex-resets` 与原有 AI 热点动态共享左侧导航，仍在本子站独立部署。首屏回答下一次重置是否有明确消息、近期每名符合条件用户获得几张重置卡；发卡统计默认近 7 天，可切换近 30 天。下方历史记录独立展示全部时间范围内最近 30 件事件，可按额度重置或重置卡筛选，不受发卡统计周期限制。没有明确公告时显示未知，不用历史间隔预测日期。个人账户的周期重置时间和卡片余额仍以 Codex 内显示为准。
+
+监控复用已发布新闻。普通关键词命中仅显示“相关公告”；经原帖核实后，在采集事件中补充可选 `reset_updates` 数组，同步脚本只投影下列公开字段：
+
+```json
+{
+  "reset_updates": [{
+    "kind": "credit",
+    "announced_at": "2026-09-09T18:23:34Z",
+    "summary": "受影响时段使用过重置的用户将获补一次重置。",
+    "source_url": "https://x.com/thsottiaux/status/2097752790177370535",
+    "audience": "受影响时段使用过重置卡的用户",
+    "credit_count": 1,
+    "credit_status": "announced"
+  }]
+}
+```
+
+- `kind` 支持 `announced`（预告）、`completed`（确认完成）、`hint`（暗示）、`cancelled`（撤回预告）、`credit`（发卡）、`incident`（异常）。`announced_at` 使用该条原帖时间，不能拿前一条预告时间当完成时间。
+- `source_url` 必须出现在同一新闻的公开 `sources` 中。`audience` 说明适用范围；不要把定向补偿写成全员发放。
+- 预告可带 `expected_at`（明确且带时区的时间）或 `expected_note`（原文时间窗口）。逾期但未确认时显示“等待完成确认”，不自动算已重置。
+- 发卡可带 `credit_count`（每位符合条件用户的张数）和 `credit_status`（`announced` / `distributed`）。同一轮预告和完成记录保持同一事件 ID，避免重复计数；不同人群的张数不相加。
+- 未升级的采集端不传该字段时保留库中已核实记录；显式传 `[]` 清除记录。删除来源链接或撤下新闻后，对应记录不再展示。
+- `0003_reset_history.sql` 将三条既有新闻的核实记录写入 D1，并补录 11 件 8 月至 9 月的历史事件，共 19 条新增原帖进展。公开补录材料位于 `data/reset-history.json`。`app/lib/resets.ts` 中的三条兼容注解仅在数据库未提供结构化记录、且原新闻与来源仍存在时启用。新消息需要继续核实并产出结构化字段；本应用不直接抓取 X，也不将“相关公告”自动升级成确认。
+
+上线需先应用 `0002_reset_updates.sql`（仅新增可空列）。`pnpm deploy` 先导出 D1 到发布环境的 `.wrangler/backups/`，再执行远程迁移；备份或迁移失败即停止发布。临时构建环境的备份文件需从构建环境另行留存，D1 还会在迁移前自动生成恢复点。迁移成功后旧 Worker 仍兼容该列。首次升级前按原流程备份 D1，并同步更新外部采集任务安装的 `scripts/sync.mjs` 副本。本地验收不访问远程数据库。

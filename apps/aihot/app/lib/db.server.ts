@@ -12,12 +12,13 @@ interface Row {
 	sort_key: string;
 	sources_json: string;
 	content_updated_at: string;
+	reset_updates_json: string | null;
 }
 export interface SiteState {
 	revision: number;
 	last_synced_at: string | null;
 }
-const COLUMNS = 'id,title,body,products_json,category,published_at,day,clock,sort_key,sources_json,content_updated_at';
+const COLUMNS = 'id,title,body,products_json,category,published_at,day,clock,sort_key,sources_json,content_updated_at,reset_updates_json';
 const unpack = (r: Row): NewsEvent => ({
 	id: r.id,
 	title: r.title,
@@ -30,6 +31,7 @@ const unpack = (r: Row): NewsEvent => ({
 	sort_key: r.sort_key,
 	sources: JSON.parse(r.sources_json),
 	content_updated_at: r.content_updated_at,
+	...(r.reset_updates_json === null ? {} : { reset_updates: JSON.parse(r.reset_updates_json) }),
 });
 
 export function upsert(db: D1Database, event: PublicEvent, fingerprint: string, version: string, now: string) {
@@ -37,10 +39,11 @@ export function upsert(db: D1Database, event: PublicEvent, fingerprint: string, 
 	return db
 		.prepare(
 			`INSERT INTO events (${COLUMNS},content_hash,source_version,active)
-    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,1)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,1)
     ON CONFLICT(id) DO UPDATE SET title=excluded.title, body=excluded.body,
       products_json=excluded.products_json, category=excluded.category, published_at=excluded.published_at,
       day=excluded.day, clock=excluded.clock, sort_key=excluded.sort_key, sources_json=excluded.sources_json,
+      reset_updates_json=excluded.reset_updates_json,
       content_updated_at=CASE WHEN events.content_hash != excluded.content_hash OR events.active=0 THEN excluded.content_updated_at ELSE events.content_updated_at END,
       content_hash=excluded.content_hash, source_version=excluded.source_version, active=1
     WHERE excluded.source_version >= events.source_version`,
@@ -57,6 +60,7 @@ export function upsert(db: D1Database, event: PublicEvent, fingerprint: string, 
 			t.sort_key,
 			JSON.stringify(event.sources),
 			now,
+			event.reset_updates === undefined ? null : JSON.stringify(event.reset_updates),
 			fingerprint,
 			version,
 		);
@@ -74,6 +78,15 @@ export async function siteState(db: D1Database): Promise<SiteState> {
 export async function getEvent(db: D1Database, id: string) {
 	const row = await db.prepare(`SELECT ${COLUMNS} FROM events WHERE id=? AND active=1`).bind(id).first<Row>();
 	return row ? unpack(row) : null;
+}
+
+export async function listResetEvents(db: D1Database) {
+	// 专用读取，不受热点首页的筛选、分页影响；限制候选数以控制响应体。
+	const rows = await db.prepare(`SELECT ${COLUMNS} FROM events
+		WHERE active=1 AND id IN (SELECT event_id FROM event_products WHERE product='Codex')
+		AND (reset_updates_json IS NOT NULL OR title LIKE '%重置%' OR body LIKE '%重置%' OR title LIKE '%reset%' OR body LIKE '%reset%')
+		ORDER BY sort_key DESC,id DESC LIMIT 501`).all<Row>();
+	return { events: rows.results.slice(0, 500).map(unpack), limited: rows.results.length > 500 };
 }
 
 export interface Filters {

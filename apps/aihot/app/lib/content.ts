@@ -1,3 +1,5 @@
+import type { ResetUpdate } from './resets';
+
 export const PRODUCTS = ['OpenAI', 'Codex', 'ChatGPT', 'Anthropic', 'Claude', 'Claude Code'] as const;
 export const TIMEZONE = 'Asia/Singapore';
 export const PAGE_SIZE = 20;
@@ -10,6 +12,7 @@ export interface PublicEvent {
 	category: string;
 	published_at: string;
 	sources: { label: string; url: string }[];
+	reset_updates?: ResetUpdate[];
 }
 
 export interface NewsEvent extends PublicEvent {
@@ -69,6 +72,37 @@ export function publicEvent(value: unknown): PublicEvent {
 			return { label: text(source.label, '来源名称', 120), url: url.href };
 		})
 		.sort((a, b) => a.url.localeCompare(b.url));
+	let reset_updates: ResetUpdate[] | undefined;
+	if (v.reset_updates !== undefined) {
+		if (!products.includes('Codex') || !Array.isArray(v.reset_updates) || v.reset_updates.length > 20)
+			throw new Error('重置记录仅适用于 Codex，每条信息最多 20 条');
+		reset_updates = v.reset_updates.map((item) => {
+			const update = record(item);
+			if (!['completed', 'announced', 'hint', 'cancelled', 'credit', 'incident'].includes(String(update.kind))) throw new Error('重置记录类型无效');
+			const source_url = text(update.source_url, '重置原帖', 2048);
+			if (!sources.some((s) => s.url === source_url)) throw new Error('重置原帖必须在信息来源中');
+			if (update.credit_count !== undefined && (update.kind !== 'credit' || !Number.isInteger(update.credit_count) || Number(update.credit_count) < 1 || Number(update.credit_count) > 100))
+				throw new Error('发卡数量必须为 1–100 的整数，且只用于发卡记录');
+			if (update.credit_status !== undefined && (update.kind !== 'credit' || !['announced', 'distributed'].includes(String(update.credit_status)))) throw new Error('发卡进展无效');
+			let expected_at: string | undefined;
+			if (update.expected_at !== undefined) {
+				if (update.kind !== 'announced') throw new Error('只有明确预告能设置预计时间');
+				expected_at = timeParts(text(update.expected_at, '预计时间', 60)).published_at;
+				if (validDay(expected_at)) throw new Error('预计时间需要明确时区；模糊窗口请用 expected_note');
+			}
+			return {
+				kind: update.kind as ResetUpdate['kind'],
+				announced_at: timeParts(text(update.announced_at, '公告时间', 60)).published_at,
+				summary: text(update.summary, '重置说明', 1200),
+				source_url,
+				...(update.audience === undefined ? {} : { audience: text(update.audience, '适用人群', 240) }),
+				...(expected_at === undefined ? {} : { expected_at }),
+				...(update.expected_note === undefined ? {} : { expected_note: text(update.expected_note, '预计时间说明', 240) }),
+				...(update.credit_count === undefined ? {} : { credit_count: Number(update.credit_count) }),
+				...(update.credit_status === undefined ? {} : { credit_status: update.credit_status as 'announced' | 'distributed' }),
+			};
+		});
+	}
 	return {
 		id: validId(v.id),
 		title: text(v.title, '标题', 240),
@@ -77,6 +111,7 @@ export function publicEvent(value: unknown): PublicEvent {
 		category: text(v.category, '类别', 80),
 		published_at: timeParts(text(v.published_at, '发布时间', 60)).published_at,
 		sources,
+		...(reset_updates === undefined ? {} : { reset_updates }),
 	};
 }
 

@@ -1,5 +1,6 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useRouteError } from 'react-router';
 import './style.css';
+import { Sidebar } from './sidebar';
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (
@@ -23,7 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	);
 }
 export default function App() {
-	return <Outlet />;
+	return <><a className="skip-link" href="#page-content">跳至主要内容</a><Sidebar /><div className="page-shell" id="page-content" tabIndex={-1}><Outlet /></div></>;
 }
 export function ErrorBoundary() {
 	const error = useRouteError();

@@ -26,6 +26,11 @@ const events = items.map((e) => ({
 	category: e.category,
 	published_at: e.published_at,
 	sources: e.sources?.map((s) => ({ label: s.label, url: s.url })),
+	...(e.reset_updates === undefined ? {} : { reset_updates: e.reset_updates.map((r) => ({
+		kind: r.kind, announced_at: r.announced_at, summary: r.summary, source_url: r.source_url,
+		audience: r.audience, expected_at: r.expected_at, expected_note: r.expected_note,
+		credit_count: r.credit_count, credit_status: r.credit_status,
+	})) }),
 }));
 if (new Set(events.map((e) => e.id)).size !== events.length) throw new Error('输入有重复事件 ID');
 const withdraw = values.withdraw

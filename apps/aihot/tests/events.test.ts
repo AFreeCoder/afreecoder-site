@@ -1,7 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
 import { readFile } from 'node:fs/promises';
-import { getEvent, listEvents, siteState } from '../app/lib/db.server';
+import { getEvent, listEvents, listResetEvents, siteState } from '../app/lib/db.server';
+import { resetRecords } from '../app/lib/resets';
 import { publicEvent, timeParts } from '../app/lib/content';
 import { publish } from '../app/lib/publish.server';
 
@@ -44,6 +45,7 @@ beforeAll(async () => {
 	// 保持 trigger 整体，D1 exec 的多语句处理与生产迁移一致。
 	const statements = sql.match(/CREATE TRIGGER[\s\S]*?END;|(?:CREATE|INSERT)[\s\S]*?;/g) ?? [];
 	for (const statement of statements) await db.prepare(statement).run();
+	await db.prepare('ALTER TABLE events ADD COLUMN reset_updates_json TEXT').run();
 });
 afterAll(async () => {
 	await mf?.dispose();
@@ -109,6 +111,27 @@ describe.sequential('事件发布与真实本地 D1 查询', () => {
 		await send([event(1)], stamp(9));
 		expect(await getEvent(db, 'event-1')).toBeNull();
 		expect((await siteState(db)).revision).toBe(revision);
+	});
+	it('新重置记录进入独立栏目；修订不丢失标注，显式撤下同步退出日历', async () => {
+		const item = { ...event(70), title: 'Codex 额度公告', reset_updates: [{ kind: 'completed', announced_at: '2026-09-14T18:00:00Z', summary: '本轮重置已完成。', source_url: 'https://example.com/news' }] };
+		expect((await send([item], stamp(11))).status).toBe(200);
+		let records = resetRecords((await listResetEvents(db)).events);
+		expect(records.find((r) => r.event_id === item.id)?.day).toBe('2026-09-15');
+		const revision = (await siteState(db)).revision;
+		await send([{ ...event(70), title: item.title }], stamp(12));
+		expect((await getEvent(db, item.id))?.reset_updates).toEqual([{ ...item.reset_updates[0], announced_at: '2026-09-14T18:00:00.000Z' }]);
+		expect((await siteState(db)).revision).toBe(revision);
+		await send([{ ...item, reset_updates: [] }], stamp(13));
+		expect(resetRecords((await listResetEvents(db)).events).some((r) => r.event_id === item.id)).toBe(false);
+		await send([item], stamp(14));
+		await send([], stamp(15), [item.id]);
+		records = resetRecords((await listResetEvents(db)).events);
+		expect(records.some((r) => r.event_id === item.id)).toBe(false);
+	});
+	it('重置元数据的来源必须可回溯；非法记录整批拒绝', async () => {
+		const bad = { ...event(80), reset_updates: [{ kind: 'completed', announced_at: '2026-09-14', summary: '完成', source_url: 'https://other.example.com' }] };
+		expect((await send([bad], stamp(16))).status).toBe(400);
+		expect(await getEvent(db, bad.id)).toBeNull();
 	});
 });
 

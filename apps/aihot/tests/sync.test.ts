@@ -62,6 +62,7 @@ it('同步保留失败批次，重试后跳过重复，撤下不会被普通同�
 					published_at: '2026-09-14',
 					sources: [{ label: '来源', url: 'https://example.com', materials: ['/private/material'] }],
 					private_path: '/private/source',
+					reset_updates: [{ kind: 'completed', announced_at: '2026-09-14', summary: '完成确认', source_url: 'https://example.com', private_path: '/private/reset-evidence' }],
 				},
 			],
 		}),
@@ -76,6 +77,7 @@ it('同步保留失败批次，重试后跳过重复，撤下不会被普通同�
 	await expect(run()).rejects.toThrow();
 	const failed = payloads[0];
 	expect(JSON.stringify(failed)).not.toContain('/private/');
+	expect(JSON.stringify(failed)).toContain('"reset_updates"');
 	expect(JSON.parse(await readFile(state, 'utf8')).pending).not.toBeNull();
 	await run();
 	expect(payloads[1]).toEqual(failed);

@@ -4,19 +4,8 @@ import { formatSync, type NewsEvent } from './lib/content';
 export function Masthead() {
 	return (
 		<>
-			<div className="eyebrow">
-				AI NEWS{' '}
-				<a className="home-link" href="https://afreecoder.dev">
-					← AFreeCoder
-				</a>
-			</div>
-			<h1>
-				<Link className="brand" to="/">
-					<img className="brand-mark" src="/brand/ai-news-bird.png" alt="" width="64" height="64" />
-					<span>AI 新鲜事</span>
-				</Link>
-			</h1>
-			<p>看看 AI 又有什么新变化</p>
+			<h1 className="page-title">AI 热点动态</h1>
+			<p>看看 AI 又有什么新变化 · OpenAI、Anthropic 及产品动态</p>
 		</>
 	);
 }

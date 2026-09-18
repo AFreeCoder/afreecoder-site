@@ -1,5 +1,5 @@
 import { hash, publicEvent, record, validId } from './content';
-import { siteState, upsert } from './db.server';
+import { getEvent, siteState, upsert } from './db.server';
 import { timingSafeEqual } from 'node:crypto';
 
 const MAX_BYTES = 512 * 1024;
@@ -62,8 +62,15 @@ export async function publish(request: Request, db: D1Database, token: string | 
 		const withdraw = removed.map(validId);
 		if (new Set([...events.map((e) => e.id), ...withdraw]).size !== events.length + withdraw.length) throw new Error('批次内信息 ID 重复');
 		const now = new Date().toISOString();
-		const hashes = await Promise.all(events.map(hash));
 		validated = true;
+		// 兼容未升级的采集端：缺省保留已核实的结构化记录，显式 [] 才清除。
+		await Promise.all(events.map(async (event) => {
+			if (event.reset_updates !== undefined) return;
+			const previous = await getEvent(db, event.id);
+			if (previous?.reset_updates !== undefined)
+				event.reset_updates = previous.reset_updates.filter((u) => event.sources.some((s) => s.url === u.source_url));
+		}));
+		const hashes = await Promise.all(events.map(hash));
 		const statements = events.map((event, i) => upsert(db, event, hashes[i], version, now));
 		for (const id of withdraw)
 			statements.push(
