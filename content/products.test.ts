@@ -25,7 +25,12 @@ describe("products content", () => {
       expect(product.role).toBeTruthy();
       expect(product.phase).toBeTruthy();
       expect(product.highlight).toBeTruthy();
-      expect(product.screenshot).toMatch(/^\/product-screenshots\/.+\.png$/);
+      const image = new URL(product.screenshot!);
+      expect(image.protocol).toBe("https:");
+      expect(image.hostname).toBe("tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com");
+      expect(image.searchParams.get("x-oss-process")).toBe(
+        "image/resize,w_1080/quality,q_80/format,webp",
+      );
       expect(product.tags.length).toBeGreaterThanOrEqual(2);
     }
   });

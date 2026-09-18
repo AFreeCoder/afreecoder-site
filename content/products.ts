@@ -4,7 +4,7 @@ export const products: Product[] = [
   {
     name: "APIPool",
     description: "AI API 聚合与转发服务，面向多模型统一调用和运营排查。",
-    screenshot: "/product-screenshots/apipool-card.png",
+    screenshot: "https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/f1ca871b3c915fedaacb5b3ace1a6f79cd1f0b3d77d8430b05681e59652aeefe.png?x-oss-process=image/resize,w_1080/quality,q_80/format,webp",
     role: "SaaS / API 网关",
     phase: "线上运行 · 持续迭代",
     highlight: "把多模型 API、账户池和请求排查收束成一套可维护的服务入口。",
@@ -15,7 +15,7 @@ export const products: Product[] = [
   {
     name: "GPT101",
     description: "围绕 AI 工具、账号和使用流程搭建的服务入口。",
-    screenshot: "/product-screenshots/gpt101-card.png",
+    screenshot: "https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/bf315038e1fd87c688c2d6cd06a6b5d91a8c506ec7294be4d998a3ba732b317c.png?x-oss-process=image/resize,w_1080/quality,q_80/format,webp",
     role: "AI 服务",
     phase: "线上运行 · 稳定运营",
     highlight: "把 AI 工具的购买、使用和售后流程整理成更稳定的自助体验。",
@@ -26,7 +26,7 @@ export const products: Product[] = [
   {
     name: "RemoveAIWatermark",
     description: "AI 图片水印处理工具。",
-    screenshot: "/product-screenshots/removeaiwatermark-card.png",
+    screenshot: "https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/dbf94f779666e06649680aed41d8337c56b7f3ad30aae68e5c2bd063bdf98305.png?x-oss-process=image/resize,w_1080/quality,q_80/format,webp",
     role: "图片工具",
     phase: "公开工具",
     highlight: "面向高频图片处理需求，提供更直接的在线工具入口。",
@@ -37,7 +37,7 @@ export const products: Product[] = [
   {
     name: "WigglyPaint",
     description: "轻量创意绘图工具。",
-    screenshot: "/product-screenshots/wigglypaint-card.png",
+    screenshot: "https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/538da59215d4be01181346a7d13a45e602806ad6674d0321ed06e2ffdb5375c7.png?x-oss-process=image/resize,w_1080/quality,q_80/format,webp",
     role: "创意工具",
     phase: "公开工具",
     highlight: "把随手画、快速表达和轻量创作放在一个更轻松的产品形态里。",

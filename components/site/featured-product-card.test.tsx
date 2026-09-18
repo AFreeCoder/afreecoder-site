@@ -43,6 +43,6 @@ describe("FeaturedProductCard", () => {
     const html = renderToStaticMarkup(
       <FeaturedProductCard product={{ ...sample, link: undefined }} />,
     );
-    expect(html).not.toContain("href=");
+    expect(html).not.toContain("<a ");
   });
 });

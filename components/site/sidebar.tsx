@@ -16,11 +16,12 @@ export function Sidebar({ scheme, stats }: Props) {
     <aside className="app-sidebar">
       <Link href="/" aria-label={siteConfig.name} className="sidebar-avatar">
         <Image
-          src="/avatar.png"
+          src="https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/d9e4a82551ddb98f330af6322da3d958e67dc607ed06c1b621759eaa19634d25.png?x-oss-process=image/resize,w_496/quality,q_80/format,webp"
           alt={`${siteConfig.name} 头像`}
           width={248}
           height={248}
-          priority
+          unoptimized
+          preload
         />
       </Link>
 

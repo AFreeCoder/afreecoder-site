@@ -13,6 +13,7 @@ export function ProductCard({ product }: Props) {
           <Image
             src={product.screenshot}
             alt={`${product.name} 产品截图`}
+            unoptimized
             fill
             sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
             loading="eager"

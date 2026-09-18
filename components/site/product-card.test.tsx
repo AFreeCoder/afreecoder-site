@@ -31,7 +31,7 @@ describe("ProductCard", () => {
       <ProductCard product={{ ...sample, link: undefined }} />,
     );
     expect(html).toContain('class="product-card"');
-    expect(html).not.toContain('href=');
+    expect(html).not.toContain('<a ');
   });
 
   it("caps tags rendered inside the card at 3", () => {
