@@ -30,7 +30,7 @@ export default async function WritingPage() {
           <div className="writing-year-head">{year} · {yearPosts.length} 篇</div>
           <div className="writing-list">
             {yearPosts.map((p, i) => (
-              <WritingRow key={p.slug} post={p} index={i} />
+              <WritingRow key={p.slug} post={p} index={yearPosts.length - i - 1} />
             ))}
           </div>
         </div>
