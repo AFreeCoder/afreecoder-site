@@ -9,7 +9,7 @@ import {
 describe("getAllWriting", () => {
   it("loads the published knowledge-base articles", async () => {
     const posts = await getAllWriting();
-    expect(posts.length).toBeGreaterThanOrEqual(90);
+    expect(posts.length).toBeGreaterThanOrEqual(80);
     expect(posts.length).toBeLessThanOrEqual(110);
     expect(posts.map((post) => post.title)).toContain("财务自由实证#26——高层火灾如何逃生？");
   });
@@ -21,6 +21,15 @@ describe("getAllWriting", () => {
     expect(posts2026).toHaveLength(26);
     expect(posts2026.map((post) => post.title)).toContain("从 0 开发一个能赚钱的产品，需求怎么找？");
     expect(posts2026.map((post) => post.title)).toContain("一个任务烧掉 5 亿 token：GPT-5.6-Sol 失控复盘");
+  });
+
+  it("excludes the removed archive and preserves the next article", async () => {
+    const posts = await getAllWriting();
+    expect(posts.every((post) => post.date > "2020-06-21")).toBe(true);
+    expect(posts.at(-1)?.slug).toBe("Go-Modules-md");
+    expect(await getWritingBySlug("mysql%E4%B9%8B%E7%B4%A2%E5%BC%95")).toBeNull();
+    expect(await getWritingBySlug("mysql之索引")).toBeNull();
+    expect((await getWritingBySlug("Go-Modules-md"))?.body).toContain("Go");
   });
 
   it("returns posts sorted by date desc", async () => {
