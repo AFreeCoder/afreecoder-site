@@ -406,15 +406,31 @@ a {
   .credit-date { font-size: 10px; }
 }
 
-/* 额度重置与发卡各自使用等宽的预告/最近记录双层卡片。 */
-.watch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; align-items: stretch; }
-.watch-grid > .reset-summary { display: grid; grid-template-rows: subgrid; grid-row: span 2; row-gap: 0; min-width: 0; }
-.reset-summary .outlook-card, .reset-summary .latest-reset { display: flex; flex-direction: column; }
-.reset-summary .latest-reset-source { margin-top: auto; padding-top: 6px; }
-.reset-summary .outlook-links { justify-content: space-between; margin-top: auto; padding-top: 14px; }
+/* 等宽栏目标题与紧凑的预告/最近记录。 */
+.watch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto auto; gap: 0 22px; align-items: stretch; }
+.watch-column { display: grid; grid-template-rows: subgrid; grid-row: span 3; min-width: 0; }
+.watch-column-title { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 600; margin: 0 0 12px; }
+.watch-column-title svg { color: var(--accent); }
+.watch-column > .reset-summary { display: grid; grid-template-rows: subgrid; grid-row: span 2; row-gap: 0; min-width: 0; }
+.reset-summary .outlook-card, .reset-summary .latest-reset { display: flex; flex-direction: column; padding: 14px 20px; }
+.reset-summary .outlook-card h2, .reset-summary .latest-reset h2 { font-size: 26px; line-height: 1.3; margin: 9px 0 7px; }
+.reset-summary .latest-reset-time { margin: 9px 0 7px; }
+.reset-summary .latest-reset-time h2 { margin: 0; }
+.reset-summary .outlook-description, .reset-summary .latest-reset > p { font-size: 13px; line-height: 1.65; margin: 0; }
+.reset-summary .latest-reset-source { margin-top: 10px; padding-top: 0; }
+.reset-summary .outlook-links { justify-content: space-between; margin: 10px 0 0; padding: 0; }
 .outlook-links > div { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
 .outlook-links a { display: inline-flex; align-items: center; gap: 4px; }
-.reset-summary .expected-note { margin: 8px 0 0; }
+.reset-summary .expected-note { margin: 5px 0 0; line-height: 1.6; }
 .outlook-badge.suspected { background: #fff3db; color: #946015; }
 .outlook-badge.confirmed { background: #e8f2e5; color: #497b54; }
-@media (max-width: 950px) { .watch-grid { grid-template-columns: 1fr; grid-template-rows: none; } .watch-grid > .reset-summary { grid-template-rows: auto auto; grid-row: auto; } }
+@media (max-width: 950px) {
+  .watch-grid { grid-template-columns: 1fr; grid-template-rows: none; gap: 20px; }
+  .watch-column { display: block; grid-row: auto; }
+  .watch-column > .reset-summary { grid-template-rows: auto auto; grid-row: auto; }
+}
+@media (max-width: 700px) {
+  .reset-summary .outlook-card, .reset-summary .latest-reset { padding: 14px 16px; }
+  .watch-column-title { font-size: 16px; margin-bottom: 9px; }
+  .reset-summary .outlook-card h2, .reset-summary .latest-reset h2 { font-size: 24px; }
+}

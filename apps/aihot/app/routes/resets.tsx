@@ -100,6 +100,8 @@ export default function Resets() {
 			{changed && <button className="new-content refresh-button" onClick={() => void revalidator.revalidate()}><RefreshCw size={15} aria-hidden="true" />有新的重置动向，点击更新</button>}
 			{(stale || checkFailed) && <p className="watch-warning" role="status"><Info size={15} aria-hidden="true" />{checkFailed ? '暂时无法检查更新，以下保留已同步记录。' : state.last_synced_at ? '数据同步暂有延迟，以下为上次同步的公开记录。' : '公开记录尚未同步，暂时无法判断最新进展。'}</p>}
 			<div className="watch-grid">
+				<section className="watch-column" aria-labelledby="quota-column-title">
+				<h2 className="watch-column-title" id="quota-column-title"><Radio size={18} aria-hidden="true" />额度重置</h2>
 				<div className="reset-summary">
 				<Forecast signal={signal} outlook={outlook} />
 				<section className="latest-reset" aria-label="最近一次额度重置">
@@ -111,6 +113,9 @@ export default function Resets() {
 					</> : <><h2>暂无确认记录</h2><p>尚未收录额度重置完成的公开确认。</p></>}
 				</section>
 				</div>
+				</section>
+				<section className="watch-column" aria-labelledby="credit-column-title">
+				<h2 className="watch-column-title" id="credit-column-title"><Ticket size={18} aria-hidden="true" />重置卡发放</h2>
 				<div className="reset-summary">
 					<Forecast signal={creditSignal} outlook={creditOutlook} credit />
 					<section className="latest-reset" aria-label="最近一次重置卡发放">
@@ -118,11 +123,11 @@ export default function Resets() {
 						{lastCredit ? <>
 							<div className="latest-reset-time"><h2><time dateTime={lastCredit.announced_at}>{stamp(lastCredit)}</time></h2></div>
 							<p>{lastCredit.credit_count ? `每人 ${lastCredit.credit_count} 张 · ` : ''}{lastCredit.audience ?? lastCredit.summary}</p>
-							<p className="expected-note">{lastCredit.credit_status === 'distributed' ? '已获公开发放确认，到账以账户实际显示为准。' : '上方为公告时间，尚未确认到账。'}</p>
-							<div className="latest-reset-source"><span>以账户实际到账为准</span><a href={lastCredit.source.url} target="_blank" rel="noopener noreferrer">查看发放原帖<ArrowUpRight size={14} aria-hidden="true" /></a></div>
+							<div className="latest-reset-source"><span>{lastCredit.credit_status === 'distributed' ? '以账户实际到账为准' : '公告时间 · 到账待确认'}</span><a href={lastCredit.source.url} target="_blank" rel="noopener noreferrer">查看发放原帖<ArrowUpRight size={14} aria-hidden="true" /></a></div>
 						</> : <><h2>暂无发放记录</h2><p>尚未收录重置卡发放公告。</p></>}
 					</section>
 				</div>
+				</section>
 			</div>
 			<div className="watch-meta"><span><Clock3 size={13} aria-hidden="true" />最近数据同步：{formatSync(state.last_synced_at)}</span><a href="https://chatgpt.com/codex/cloud/settings/analytics#usage" target="_blank" rel="noopener noreferrer">查看我的 Codex 用量<ArrowUpRight size={13} aria-hidden="true" /></a></div>
 			<section className="updates-section" id="reset-updates" aria-label="历史记录">
