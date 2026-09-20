@@ -1,0 +1,13 @@
+{
+  "event_id": "tibo-astra-weekly-ships-next-week-preview-2026-09-12",
+  "reset_updates": [{
+    "kind": "credit",
+    "credit_status": "hint",
+    "announced_at": "2026-09-19T16:48:38Z",
+    "expected_date": "2026-09-22",
+    "summary": "Tibo 对用户索要重置卡的请求回复“OK fine”。",
+    "expected_note": "根据回复中的“周二”推测，发卡日期待确认。",
+    "source_url": "https://x.com/thsottiaux/status/2101352781219258527",
+    "context_url": "https://x.com/udiWertheimer/status/2101093319501664368"
+  }]
+}

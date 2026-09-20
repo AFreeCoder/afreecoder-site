@@ -342,7 +342,7 @@ a {
 .skip-link:focus { top: 12px; }
 .reset-watch, .watch-heading, .watch-footer { --ink: #24272e; --muted: #737882; --line: #e2e4e8; --accent: #4e596c; }
 .watch-heading{display:flex;justify-content:space-between;gap:24px;align-items:center}.watch-eyebrow{color:var(--accent);font-size:10px;font-weight:650;letter-spacing:.17em;margin-bottom:9px}.watch-heading .page-title{font-size:30px;font-weight:650}.page-shell>.watch-heading p{margin:8px 0 28px;font-size:14px}.watch-timezone{font-size:12px;color:var(--muted);text-align:right}.watch-timezone span{font-size:11px;color:#858a93}
-.watch-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(320px,1fr);gap:22px;align-items:start}
+.watch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:stretch}
 .outlook-card{border:1px solid #e2e4e8;border-radius:14px;background:#ffffff;padding:28px 32px 0;min-height:310px;display:flex;flex-direction:column}.card-eyebrow{display:flex;gap:16px;align-items:center;justify-content:space-between;font-size:13px;color:var(--accent)}.card-eyebrow>span:first-child{display:flex;gap:8px;align-items:center;font-weight:550}.outlook-badge{background:#f0f1f3;padding:3px 9px;border-radius:5px;font-size:10px;white-space:nowrap}.outlook-card h2{font-size:clamp(28px,2.7vw,40px);font-weight:600;line-height:1.4;letter-spacing:-.04em;margin:32px 0 14px;color:#24272e}.outlook-description{max-width:560px;font-size:14px;color:#686d76;line-height:1.85;margin:0 0 16px}.expected-note{margin:0 0 10px;font-size:12px;color:#686d76}.outlook-links{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;margin-bottom:26px;align-items:center}.outlook-links>span{color:var(--muted);font-size:11px}
 .outlook-links a,.event-links a,.credit-line a,.watch-meta a,.watch-empty a,.event-evidence a,.more-credits{display:inline-flex;align-items:center;gap:5px;text-decoration:none}.outlook-links a:hover,.event-links a:hover,.credit-line a:hover,.watch-meta a:hover,.event-evidence a:hover{text-decoration:underline}
 .last-confirmed{margin-top:auto;border-top:1px solid #e8e9ec;padding:17px 0;display:flex;align-items:center;gap:13px;flex-wrap:wrap;font-size:12px}.last-confirmed>span{display:inline-flex;align-items:center;gap:5px;color:#737882}.last-confirmed time{font-weight:600;color:#343841;font-variant-numeric:tabular-nums}.last-confirmed small{color:#858a93;font-size:11px}.last-confirmed a{margin-left:auto;display:inline-flex}
@@ -405,3 +405,16 @@ a {
   .credit-quantity { min-height: 28px; }
   .credit-date { font-size: 10px; }
 }
+
+/* 额度重置与发卡各自使用等宽的预告/最近记录双层卡片。 */
+.watch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; align-items: stretch; }
+.watch-grid > .reset-summary { display: grid; grid-template-rows: subgrid; grid-row: span 2; row-gap: 0; min-width: 0; }
+.reset-summary .outlook-card, .reset-summary .latest-reset { display: flex; flex-direction: column; }
+.reset-summary .latest-reset-source { margin-top: auto; padding-top: 6px; }
+.reset-summary .outlook-links { justify-content: space-between; margin-top: auto; padding-top: 14px; }
+.outlook-links > div { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.outlook-links a { display: inline-flex; align-items: center; gap: 4px; }
+.reset-summary .expected-note { margin: 8px 0 0; }
+.outlook-badge.suspected { background: #fff3db; color: #946015; }
+.outlook-badge.confirmed { background: #e8f2e5; color: #497b54; }
+@media (max-width: 950px) { .watch-grid { grid-template-columns: 1fr; grid-template-rows: none; } .watch-grid > .reset-summary { grid-template-rows: auto auto; grid-row: auto; } }

@@ -28,7 +28,7 @@ const events = items.map((e) => ({
 	sources: e.sources?.map((s) => ({ label: s.label, url: s.url })),
 	...(e.reset_updates === undefined ? {} : { reset_updates: e.reset_updates.map((r) => ({
 		kind: r.kind, announced_at: r.announced_at, summary: r.summary, source_url: r.source_url,
-		audience: r.audience, expected_at: r.expected_at, expected_note: r.expected_note,
+		audience: r.audience, expected_at: r.expected_at, expected_date: r.expected_date, expected_note: r.expected_note, context_url: r.context_url,
 		credit_count: r.credit_count, credit_status: r.credit_status,
 	})) }),
 }));

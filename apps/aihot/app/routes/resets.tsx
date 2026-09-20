@@ -1,6 +1,6 @@
 import { Link, data, useLoaderData, useNavigation, useRevalidator, type LoaderFunctionArgs, type MetaFunction } from 'react-router';
 import { useEffect, useState } from 'react';
-import { ArrowUpRight, ArrowRight, Check, ChevronDown, Clock3, Radio, Ticket, RefreshCw, Info } from 'lucide-react';
+import { ArrowUpRight, Check, ChevronDown, Clock3, Radio, Ticket, RefreshCw, Info } from 'lucide-react';
 import { cloudflareContext } from '../lib/context';
 import { listResetEvents, siteState } from '../lib/db.server';
 import { formatSync, timeParts } from '../lib/content';
@@ -35,24 +35,33 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 
 const dayLabel = (day: string) => `${Number(day.slice(5, 7))} 月 ${Number(day.slice(8))} 日`;
 const stamp = (r: ResetRecord) => `${dayLabel(r.day)}${r.clock === '仅日期' ? '' : ` ${r.clock}`}`;
-const creditStage = (r: ResetRecord) => r.credit_status === 'distributed' ? '已确认发放' : r.credit_status === 'announced' ? '宣布发放' : '发放进展待核实';
+const creditStage = (r: ResetRecord) => r.credit_status === 'hint' ? '疑似' : r.credit_status === 'cancelled' ? '已撤回' : r.credit_status === 'distributed' ? '已确认发放' : r.credit_status === 'announced' ? '宣布发放' : '发放进展待核实';
 function SourceLink({ record }: { record: ResetRecord }) {
 	return <a href={record.source.url} target="_blank" rel="noopener noreferrer">{record.source.label} 原帖<ArrowUpRight size={13} aria-hidden="true" /></a>;
 }
-function CreditLine({ record }: { record: ResetRecord }) {
-	return <div className="credit-line">
-		<div className={`credit-quantity${record.credit_count ? '' : ' unknown'}`} aria-label={record.credit_count ? `每人 ${record.credit_count} 张重置卡` : '数量未明确'}>{record.credit_count ? <b>+{record.credit_count}</b> : <span>待定</span>}</div>
-		<time className="credit-date" dateTime={record.announced_at}><span>{dayLabel(record.day)}</span><small>{record.clock === '仅日期' ? record.day.slice(0, 4) : record.clock}</small></time>
-		<div className="credit-copy"><strong>{record.audience ?? '适用范围见原帖'}</strong><div className="credit-details"><span>{creditStage(record)}</span><SourceLink record={record} /></div></div>
-	</div>;
+function Forecast({ signal, outlook, credit = false }: { signal: ResetRecord | null; outlook: string; credit?: boolean }) {
+	const title = credit ? '下一次重置卡发放预告' : '下一次额度重置预告';
+	const hint = signal?.kind === 'hint' || signal?.credit_status === 'hint';
+	const date = signal?.expected_date ?? (signal?.expected_at ? timeParts(signal.expected_at).day : null);
+	const heading = date ? dayLabel(date) : signal ? '时间待确认' : '时间待公布';
+	const Icon = credit ? Ticket : Radio;
+	return <section className="outlook-card" aria-label={title}>
+		<div className="card-eyebrow"><span><Icon size={16} aria-hidden="true" />{title}</span><span className={`outlook-badge ${!signal ? 'monitoring' : hint ? 'suspected' : 'confirmed'}`}>{!signal ? '持续监控中' : hint ? '疑似' : '明确'}</span></div>
+		<h2>{date ? <time dateTime={date}>{heading}</time> : heading}</h2>
+		<p className="outlook-description">{signal?.summary ?? (credit ? '暂未发现新的重置卡发放预告。' : '暂未发现新的额度重置预告。')}</p>
+		{signal?.expected_note && <p className="expected-note">{signal.expected_note}</p>}
+		{outlook === 'overdue' && <p className="expected-note">预告日期已过，仍待{credit ? '发放' : '完成'}确认。</p>}
+		{signal?.audience && <p className="expected-note">适用范围：{signal.audience}</p>}
+		{signal && <div className="outlook-links"><span>{stamp(signal)} 发布</span><div><SourceLink record={signal} />{signal.context_url && <a href={signal.context_url} target="_blank" rel="noopener noreferrer">查看上文<ArrowUpRight size={13} aria-hidden="true" /></a>}</div></div>}
+	</section>;
 }
 function EventRow({ records }: { records: ResetRecord[] }) {
 	const latest = records[0];
 	const count = records.filter((r) => r.kind === 'credit').length;
 	return <section className="monitor-event" id={latest.event_id}>
 		<div className="event-date"><span>{dayLabel(latest.day)}</span><small>{latest.clock === '仅日期' ? latest.day.slice(0, 4) : latest.clock}</small></div>
-		<div className="event-copy"><div className="event-kicker"><span className={`status ${latest.kind}`}>{latest.kind === 'completed' && <Check size={12} aria-hidden="true" />}{latest.kind === 'credit' ? creditStage(latest) : RESET_LABELS[latest.kind]}</span>{latest.audience && <span>{latest.audience}</span>}</div>
-			<h3>{latest.kind === 'credit' && latest.credit_count ? `每名符合条件用户 ${latest.credit_count} 张重置卡` : latest.kind === 'completed' ? '本轮额度重置已确认完成' : latest.title}</h3>
+		<div className="event-copy"><div className="event-kicker"><span className={`status ${latest.credit_status === 'hint' ? 'hint' : latest.kind}`}>{latest.kind === 'completed' && <Check size={12} aria-hidden="true" />}{latest.kind === 'credit' ? creditStage(latest) : RESET_LABELS[latest.kind]}</span>{latest.audience && <span>{latest.audience}</span>}</div>
+			<h3>{latest.kind === 'credit' && latest.credit_status === 'hint' ? '重置卡发放线索' : latest.kind === 'credit' && latest.credit_count ? `每名符合条件用户 ${latest.credit_count} 张重置卡` : latest.kind === 'completed' ? '本轮额度重置已确认完成' : latest.title}</h3>
 			<p>{latest.summary.length > 260 ? `${latest.summary.slice(0, 260)}…` : latest.summary}</p>
 			<div className="event-links"><SourceLink record={latest} /><Link to={`/events/${latest.event_id}`}>完整动态<ArrowUpRight size={13} aria-hidden="true" /></Link></div>
 			{records.length > 1 && <details className="event-evidence"><summary>查看本次 {records.length} 条进展<ChevronDown size={13} aria-hidden="true" /></summary><ol>{[...records].reverse().map((record) => <li key={record.id}><div><time dateTime={record.announced_at}>{record.day} {record.clock}</time><span className={`status ${record.kind}`}>{record.kind === 'credit' ? creditStage(record) : RESET_LABELS[record.kind]}</span></div><p>{record.summary}</p><SourceLink record={record} /></li>)}</ol>{count > 1 && <p>同一次发放的进展合并记录，不重复累计张数。</p>}</details>}
@@ -62,7 +71,7 @@ function EventRow({ records }: { records: ResetRecord[] }) {
 
 export default function Resets() {
 	const result = useLoaderData<typeof loader>();
-	const { days, filter, latest, signal, outlook, credits, lastCredit, historyGroups, state, stale, age } = result;
+	const { days, filter, latest, signal, outlook, creditSignal, creditOutlook, lastCredit, historyGroups, state, stale, age } = result;
 	const navigation = useNavigation();
 	const revalidator = useRevalidator();
 	const [changed, setChanged] = useState(false);
@@ -85,8 +94,6 @@ export default function Resets() {
 		return () => { clearInterval(timer); controller.abort(); };
 	}, [state.revision, state.last_synced_at, revalidator.revalidate]);
 	const href = (d = days, f = filter) => `/codex-resets?days=${d}&type=${f}`;
-	const heading = outlook === 'announced' ? (signal?.expected_at ? `${dayLabel(timeParts(signal.expected_at).day)} ${timeParts(signal.expected_at).clock}` : '已有重置预告') : outlook === 'overdue' ? '仍在等待完成确认' : outlook === 'hint' ? '有新动向，时间未定' : '暂无明确预告';
-	const badge = outlook === 'announced' ? '官方已预告' : outlook === 'overdue' ? '预告窗口已过' : outlook === 'hint' ? '尚非明确预告' : '持续监控中';
 	return <>
 		<header className="watch-heading"><div><div className="watch-eyebrow">CODEX / RESET WATCH</div><h1 className="page-title">Codex 重置监控</h1><p>额度重置预告、重置卡发放与最新进展</p></div><div className="watch-timezone">北京时间 · UTC+8<br /><span>公开公告持续整理</span></div></header>
 		<main className="reset-watch" aria-busy={navigation.state !== 'idle' || revalidator.state !== 'idle'}>
@@ -94,16 +101,9 @@ export default function Resets() {
 			{(stale || checkFailed) && <p className="watch-warning" role="status"><Info size={15} aria-hidden="true" />{checkFailed ? '暂时无法检查更新，以下保留已同步记录。' : state.last_synced_at ? '数据同步暂有延迟，以下为上次同步的公开记录。' : '公开记录尚未同步，暂时无法判断最新进展。'}</p>}
 			<div className="watch-grid">
 				<div className="reset-summary">
-				<section className="outlook-card" aria-label="下一次额度重置预告">
-					<div className="card-eyebrow"><span><Radio size={16} aria-hidden="true" />下一次额度重置预告</span><span className={`outlook-badge${!signal ? ' monitoring' : ''}`}>{badge}</span></div>
-					<h2>{heading}</h2>
-					<p className="outlook-description">{signal ? signal.summary : '重置时间待公布，有新消息即更新。'}</p>
-					{signal?.expected_note && <p className="expected-note">原帖时间说明：{signal.expected_note}</p>}
-					{signal?.audience && <p className="expected-note">适用范围：{signal.audience}</p>}
-					{signal && <div className="outlook-links"><SourceLink record={signal} /><span>{stamp(signal)} 发布</span></div>}
-				</section>
-				<section className="latest-reset" aria-label="最近一次重置">
-					<div className="card-eyebrow"><span><Clock3 size={16} aria-hidden="true" />最近一次重置</span>{latest && <span className="status completed"><Check size={12} aria-hidden="true" />已确认重置</span>}</div>
+				<Forecast signal={signal} outlook={outlook} />
+				<section className="latest-reset" aria-label="最近一次额度重置">
+					<div className="card-eyebrow"><span><Clock3 size={16} aria-hidden="true" />最近一次额度重置</span>{latest && <span className="status completed"><Check size={12} aria-hidden="true" />已确认重置</span>}</div>
 					{latest ? <>
 						<div className="latest-reset-time"><h2><time dateTime={latest.announced_at}>{stamp(latest)}</time></h2><span>{age === 0 ? '今天' : `${age} 天前`}</span></div>
 						<p>{latest.summary}</p>
@@ -111,11 +111,18 @@ export default function Resets() {
 					</> : <><h2>暂无确认记录</h2><p>尚未收录额度重置完成的公开确认。</p></>}
 				</section>
 				</div>
-				<section className="credit-card" aria-label="近期重置卡">
-					<div className="credit-heading"><h2><Ticket size={18} aria-hidden="true" />近期重置卡</h2><nav className="period-tabs" aria-label="近期范围">{[7, 30].map((d) => <Link key={d} preventScrollReset to={href(d)} aria-current={days === d ? 'true' : undefined}>近 {d} 天</Link>)}</nav></div>
-					{credits.length ? <><p className="credit-lead">已收录 <b>{credits.length}</b> 次发卡公告</p><div className="credit-list">{credits.slice(0, 3).map((record) => <CreditLine record={record} key={record.id} />)}</div>{credits.length > 3 && <Link className="more-credits" to={`${href(days, 'credit')}#reset-updates`}>查看本期全部发卡<ArrowRight size={13} /></Link>}</> : <><div className="no-credits"><Ticket size={28} strokeWidth={1.2} aria-hidden="true" /><h3>近 {days} 天暂无新发卡记录</h3><p>发卡消息收录后会在这里显示。</p></div>{lastCredit && <div className="last-credit"><span>最近一次发卡消息</span><CreditLine record={lastCredit} /></div>}</>}
-					<p className="credit-footnote">数量为每名符合条件用户获发张数，到账以 Codex 为准。</p>
-				</section>
+				<div className="reset-summary">
+					<Forecast signal={creditSignal} outlook={creditOutlook} credit />
+					<section className="latest-reset" aria-label="最近一次重置卡发放">
+						<div className="card-eyebrow"><span><Clock3 size={16} aria-hidden="true" />最近一次重置卡发放</span>{lastCredit && <span className="status credit">{creditStage(lastCredit)}</span>}</div>
+						{lastCredit ? <>
+							<div className="latest-reset-time"><h2><time dateTime={lastCredit.announced_at}>{stamp(lastCredit)}</time></h2></div>
+							<p>{lastCredit.credit_count ? `每人 ${lastCredit.credit_count} 张 · ` : ''}{lastCredit.audience ?? lastCredit.summary}</p>
+							<p className="expected-note">{lastCredit.credit_status === 'distributed' ? '已获公开发放确认，到账以账户实际显示为准。' : '上方为公告时间，尚未确认到账。'}</p>
+							<div className="latest-reset-source"><span>以账户实际到账为准</span><a href={lastCredit.source.url} target="_blank" rel="noopener noreferrer">查看发放原帖<ArrowUpRight size={14} aria-hidden="true" /></a></div>
+						</> : <><h2>暂无发放记录</h2><p>尚未收录重置卡发放公告。</p></>}
+					</section>
+				</div>
 			</div>
 			<div className="watch-meta"><span><Clock3 size={13} aria-hidden="true" />最近数据同步：{formatSync(state.last_synced_at)}</span><a href="https://chatgpt.com/codex/cloud/settings/analytics#usage" target="_blank" rel="noopener noreferrer">查看我的 Codex 用量<ArrowUpRight size={13} aria-hidden="true" /></a></div>
 			<section className="updates-section" id="reset-updates" aria-label="历史记录">

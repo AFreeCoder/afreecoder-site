@@ -17,9 +17,11 @@ export interface ResetUpdate {
 	source_url: string;
 	audience?: string;
 	expected_at?: string;
+	expected_date?: string;
 	expected_note?: string;
+	context_url?: string;
 	credit_count?: number;
-	credit_status?: 'announced' | 'distributed';
+	credit_status?: 'hint' | 'announced' | 'distributed' | 'cancelled';
 }
 export interface ResetRecord extends Omit<ResetUpdate, 'kind' | 'source_url'> {
 	id: string;
@@ -58,7 +60,7 @@ export function resetRecords(events: NewsEvent[]): ResetRecord[] {
 			const source = event.sources.find((s) => s.url === update.source_url);
 			if (!source) return [];
 			const { day, clock, published_at } = timeParts(update.announced_at);
-			return [{ ...update, announced_at: published_at, id: `${event.id}-${i}`, event_id: event.id, title: event.title, day, clock, source }];
+			return [{ ...update, context_url: event.sources.some((s) => s.url === update.context_url) ? update.context_url : undefined, announced_at: published_at, id: `${event.id}-${i}`, event_id: event.id, title: event.title, day, clock, source }];
 		});
 		// 关键词只召回待核实线索，不把一般产品消息或否定句提升为重置预告。
 		if (!/重置|\breset(?:s)?\b/i.test(`${event.title} ${event.body}`)) return [];
@@ -91,15 +93,23 @@ export function resetOverview(records: ResetRecord[], now: string, days: number)
 		(r.kind === 'announced' || r.kind === 'hint') && !closed.has(r.event_id) &&
 		(!latest || timeParts(r.announced_at).sort_key > timeParts(latest.announced_at).sort_key),
 	) ?? null;
-	let outlook: 'unknown' | 'hint' | 'announced' | 'overdue' = 'unknown';
-	if (signal) {
-		outlook = signal.kind === 'hint' ? 'hint' : 'announced';
-		if (signal.kind === 'announced' && signal.expected_at && Date.parse(signal.expected_at) <= Date.parse(now)) outlook = 'overdue';
-	}
+	const outlook = forecastState(signal, now);
 	// 一次发卡的预告与到账确认仅计一轮，以最新进展为准。
 	const allCredits = visible.filter((r, i, all) => r.kind === 'credit' && !all.slice(0, i).some((x) => x.kind === 'credit' && x.event_id === r.event_id));
-	const credits = allCredits.filter((r) => r.day >= since);
-	return { latest, signal, outlook, since, recent, credits, lastCredit: allCredits[0] ?? null, visible };
+	// 疑似、撤回及尚未到预定日期的公告不冒充最近一次发放。
+	const pastCredits = allCredits.filter((r) => r.credit_status !== 'hint' && r.credit_status !== 'cancelled' &&
+		(r.credit_status === 'distributed' || (!r.expected_date || r.expected_date <= today) && (!r.expected_at || Date.parse(r.expected_at) <= Date.parse(now))));
+	const credits = pastCredits.filter((r) => r.day >= since);
+	const lastCredit = pastCredits[0] ?? null;
+	const creditSignal = allCredits.find((r) => (r.credit_status === 'hint' || r.credit_status === 'announced') &&
+		(!lastCredit || timeParts(r.announced_at).sort_key > timeParts(lastCredit.announced_at).sort_key || (r.event_id === lastCredit.event_id && !!(r.expected_at || r.expected_date)))) ?? null;
+	return { latest, signal, outlook, creditSignal, creditOutlook: forecastState(creditSignal, now), since, recent, credits, lastCredit, visible };
+}
+
+export function forecastState(signal: ResetRecord | null, now: string): 'unknown' | 'hint' | 'announced' | 'overdue' {
+	if (!signal) return 'unknown';
+	if ((signal.expected_date && signal.expected_date < timeParts(now).day) || (signal.expected_at && Date.parse(signal.expected_at) <= Date.parse(now))) return 'overdue';
+	return signal.kind === 'hint' || signal.credit_status === 'hint' ? 'hint' : 'announced';
 }
 
 export function groupResetRecords(records: ResetRecord[]) {

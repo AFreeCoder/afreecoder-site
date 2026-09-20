@@ -83,10 +83,21 @@ export function publicEvent(value: unknown): PublicEvent {
 			if (!sources.some((s) => s.url === source_url)) throw new Error('重置原帖必须在信息来源中');
 			if (update.credit_count !== undefined && (update.kind !== 'credit' || !Number.isInteger(update.credit_count) || Number(update.credit_count) < 1 || Number(update.credit_count) > 100))
 				throw new Error('发卡数量必须为 1–100 的整数，且只用于发卡记录');
-			if (update.credit_status !== undefined && (update.kind !== 'credit' || !['announced', 'distributed'].includes(String(update.credit_status)))) throw new Error('发卡进展无效');
+			if (update.credit_status !== undefined && (update.kind !== 'credit' || !['hint', 'announced', 'distributed', 'cancelled'].includes(String(update.credit_status)))) throw new Error('发卡进展无效');
+			let expected_date: string | undefined;
+			if (update.expected_date !== undefined) {
+				expected_date = text(update.expected_date, '预计日期', 10);
+				if (!validDay(expected_date) || !['announced', 'hint', 'credit'].includes(String(update.kind))) throw new Error('预计日期仅用于预告，且须为有效日期');
+				if (update.expected_at !== undefined) throw new Error('预计日期和精确时间不可同时设置');
+			}
+			let context_url: string | undefined;
+			if (update.context_url !== undefined) {
+				context_url = text(update.context_url, '上文链接', 2048);
+				if (!sources.some((s) => s.url === context_url)) throw new Error('上文链接必须在信息来源中');
+			}
 			let expected_at: string | undefined;
 			if (update.expected_at !== undefined) {
-				if (update.kind !== 'announced') throw new Error('只有明确预告能设置预计时间');
+				if (update.kind !== 'announced' && !(update.kind === 'credit' && update.credit_status === 'announced')) throw new Error('只有明确预告能设置预计时间');
 				expected_at = timeParts(text(update.expected_at, '预计时间', 60)).published_at;
 				if (validDay(expected_at)) throw new Error('预计时间需要明确时区；模糊窗口请用 expected_note');
 			}
@@ -97,9 +108,11 @@ export function publicEvent(value: unknown): PublicEvent {
 				source_url,
 				...(update.audience === undefined ? {} : { audience: text(update.audience, '适用人群', 240) }),
 				...(expected_at === undefined ? {} : { expected_at }),
+				...(expected_date === undefined ? {} : { expected_date }),
+				...(context_url === undefined ? {} : { context_url }),
 				...(update.expected_note === undefined ? {} : { expected_note: text(update.expected_note, '预计时间说明', 240) }),
 				...(update.credit_count === undefined ? {} : { credit_count: Number(update.credit_count) }),
-				...(update.credit_status === undefined ? {} : { credit_status: update.credit_status as 'announced' | 'distributed' }),
+				...(update.credit_status === undefined ? {} : { credit_status: update.credit_status as ResetUpdate['credit_status'] }),
 			};
 		});
 	}
