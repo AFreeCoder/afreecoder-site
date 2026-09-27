@@ -5,7 +5,7 @@ import type { WritingMeta } from "@/lib/types";
 
 export const metadata = {
   title: "文章",
-  description: "AFreeCoder 写作存档",
+  description: "AFreeCoder 文章存档",
 };
 
 function groupByYear(posts: WritingMeta[]): Array<[number, WritingMeta[]]> {
@@ -24,7 +24,7 @@ export default async function WritingPage() {
 
   return (
     <section className="section">
-      <SectionHead title="写作" />
+      <SectionHead title="文章" />
       {grouped.map(([year, yearPosts]) => (
         <div key={year}>
           <div className="writing-year-head">{year} · {yearPosts.length} 篇</div>

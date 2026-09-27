@@ -8,7 +8,8 @@ const EXCERPT_LIMIT = 80;
 
 function excerptOf(summary: string | undefined): string | null {
   if (!summary) return null;
-  const text = summary.trim();
+  // 摘要由去掉 Markdown 标记的正文截取，**加粗** 会在中文标点前留下空格（「编者按 ：」），展示前去掉
+  const text = summary.trim().replace(/\s+(?=[，。：；！？、）」』】》])/g, "");
   return text.length > EXCERPT_LIMIT ? `${text.slice(0, EXCERPT_LIMIT)}…` : text;
 }
 

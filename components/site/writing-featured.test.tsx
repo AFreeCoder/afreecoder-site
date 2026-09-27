@@ -29,6 +29,13 @@ describe("WritingFeatured", () => {
     expect(html).not.toContain("字".repeat(81));
   });
 
+  it("drops spaces left before CJK punctuation by stripped bold markers", () => {
+    const html = renderToStaticMarkup(
+      <WritingFeatured post={{ ...post, summary: "编者按 ：本文是译文 。" }} />,
+    );
+    expect(html).toContain("编者按：本文是译文。");
+  });
+
   it("omits excerpt when summary missing", () => {
     const html = renderToStaticMarkup(
       <WritingFeatured post={{ ...post, summary: undefined }} />,

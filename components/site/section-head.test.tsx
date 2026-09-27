@@ -27,7 +27,7 @@ describe("SectionHead", () => {
 
   it("renders mono index with tone class when num is provided", () => {
     const html = renderToStaticMarkup(
-      <SectionHead title="写作" num="02" tone="accent-2" />,
+      <SectionHead title="文章" num="02" tone="accent-2" />,
     );
     expect(html).toContain("section-head-num--accent-2");
     expect(html).toContain("02");

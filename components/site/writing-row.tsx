@@ -4,14 +4,20 @@ import { formatDate } from "@/lib/format-date";
 
 type Props = {
   post: WritingMeta;
-  index: number;
+  /** 年度序号（文章页）；不传时只显示标题和日期（首页列表） */
+  index?: number;
 };
 
 export function WritingRow({ post, index }: Props) {
-  const num = String(index + 1).padStart(2, "0");
+  const numbered = index !== undefined;
   return (
-    <Link href={`/writing/${post.slug}`} className="writing-row">
-      <span className="writing-row-num">{num}</span>
+    <Link
+      href={`/writing/${post.slug}`}
+      className={numbered ? "writing-row" : "writing-row writing-row--plain"}
+    >
+      {numbered && (
+        <span className="writing-row-num">{String(index + 1).padStart(2, "0")}</span>
+      )}
       <span className="writing-row-title">{post.title}</span>
       <span className="writing-row-date">{formatDate(post.date)}</span>
     </Link>
