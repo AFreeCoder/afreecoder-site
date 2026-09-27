@@ -54,6 +54,25 @@ describe("Mdx", () => {
     expect(html).not.toContain("shiki");
   });
 
+  it("renders inline markup nested inside emphasis and link text", () => {
+    const html = renderToStaticMarkup(
+      <Mdx
+        source={[
+          "*（详见[往期文章](https://example.com/a)）*",
+          "",
+          "[**《从 0 到上线》**](https://example.com/b)",
+          "",
+          "*编者注：`AGENTS.md` 是规则文件。*",
+        ].join("\n")}
+      />,
+    );
+    expect(html).toContain('<em>（详见<a href="https://example.com/a"');
+    expect(html).toContain("<strong>《从 0 到上线》</strong></a>");
+    expect(html).toContain("<em>编者注：<code>AGENTS.md</code> 是规则文件。</em>");
+    expect(html).not.toContain("**");
+    expect(html).not.toContain("`");
+  });
+
   it("assigns toc-matching ids to h2-h4 headings", () => {
     const source = "## 第一章 概述\n\n### 细节 A\n\n#### 更深\n\n# 一级不带 id";
     const html = renderToStaticMarkup(<Mdx source={source} />);

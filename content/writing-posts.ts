@@ -11,6 +11,97 @@ export type WritingSource = WritingFrontmatter & {
 // Run `pnpm sync:writing` after refreshing the GitHub Pages repository.
 export const writingPosts: WritingSource[] = [
   {
+    "title": "【译】重新思考面向 GPT-6 Astra 的 Skill 与 Prompt",
+    "date": "2026-09-15",
+    "slug": "%E3%80%90%E8%AF%91%E3%80%91%E9%87%8D%E6%96%B0%E6%80%9D%E8%80%83%E9%9D%A2%E5%90%91%20GPT-6%20Astra%20%E7%9A%84%20Skill%20%E4%B8%8E%20Prompt",
+    "summary": "编者按 ：本文是 OpenAI 员工 Eric Provencher 发布在官方开发者平台的一篇文章。网上关于 Skill 和 Prompt 优化的技巧多如牛毛，绝大部分都未经过严格评测，所以把官方这篇文章贴出来，供大家参考。 原文作者 ：Eric Provencher 原文链接",
+    "original_url": "https://afreecoder.dev/writing/%E3%80%90%E8%AF%91%E3%80%91%E9%87%8D%E6%96%B0%E6%80%9D%E8%80%83%E9%9D%A2%E5%90%91%20GPT-6%20Astra%20%E7%9A%84%20Skill%20%E4%B8%8E%20Prompt",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 5,
+    "bodyFile": "%E3%80%90%E8%AF%91%E3%80%91%E9%87%8D%E6%96%B0%E6%80%9D%E8%80%83%E9%9D%A2%E5%90%91%20GPT-6%20Astra%20%E7%9A%84%20Skill%20%E4%B8%8E%20Prompt.md"
+  },
+  {
+    "title": "从 0 到上线：设计加开发，如何半天搞定？",
+    "date": "2026-09-13",
+    "slug": "%E4%BB%8E%200%20%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9A%E8%AE%BE%E8%AE%A1%E5%8A%A0%E5%BC%80%E5%8F%91%EF%BC%8C%E5%A6%82%E4%BD%95%E5%8D%8A%E5%A4%A9%E6%90%9E%E5%AE%9A%EF%BC%9F",
+    "summary": "本篇是系列文章 的第 3 篇，主要介绍有了产品需求文档和方案设计文档后，如何快速完成初版的开发。 前一篇文章 介绍了有想法之后，如何站在巨人的肩膀上，快速完成一个及格线以上的产品需求文档和方案设计文档。 接下来介绍有了产品需求文档和方案设计文档后，如何借助 Codex 快速完成产",
+    "original_url": "https://afreecoder.dev/writing/%E4%BB%8E%200%20%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9A%E8%AE%BE%E8%AE%A1%E5%8A%A0%E5%BC%80%E5%8F%91%EF%BC%8C%E5%A6%82%E4%BD%95%E5%8D%8A%E5%A4%A9%E6%90%9E%E5%AE%9A%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 3,
+    "bodyFile": "%E4%BB%8E%200%20%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9A%E8%AE%BE%E8%AE%A1%E5%8A%A0%E5%BC%80%E5%8F%91%EF%BC%8C%E5%A6%82%E4%BD%95%E5%8D%8A%E5%A4%A9%E6%90%9E%E5%AE%9A%EF%BC%9F.md"
+  },
+  {
+    "title": "从 0 到上线：别急着写代码，先去 GitHub 找轮子",
+    "date": "2026-09-10",
+    "slug": "%E4%BB%8E%200%20%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9A%E5%88%AB%E6%80%A5%E7%9D%80%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%85%88%E5%8E%BB%20GitHub%20%E6%89%BE%E8%BD%AE%E5%AD%90",
+    "summary": "在上一篇文章 中，我介绍了几种挖掘需求的方法，比如从搜索中挖掘需求、从排行榜中挖掘需求、从日常工作中挖掘需求等。 有了需求，就可以借助 AI 开始快速开发产品了。那是不是就把需求扔给 AI，让它从 0 开始建一个文件夹，新建第一个文件，写第一行代码呢？ 当然不是。如果这么做，最后",
+    "original_url": "https://afreecoder.dev/writing/%E4%BB%8E%200%20%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9A%E5%88%AB%E6%80%A5%E7%9D%80%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%85%88%E5%8E%BB%20GitHub%20%E6%89%BE%E8%BD%AE%E5%AD%90",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 4,
+    "bodyFile": "%E4%BB%8E%200%20%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9A%E5%88%AB%E6%80%A5%E7%9D%80%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%85%88%E5%8E%BB%20GitHub%20%E6%89%BE%E8%BD%AE%E5%AD%90.md"
+  },
+  {
+    "title": "把三年的健康数据交给 GPT-6 Astra 后，我当晚跑了 5 公里",
+    "date": "2026-09-07",
+    "slug": "%E6%8A%8A%E4%B8%89%E5%B9%B4%E7%9A%84%E5%81%A5%E5%BA%B7%E6%95%B0%E6%8D%AE%E4%BA%A4%E7%BB%99%20GPT-6%20Astra%20%E5%90%8E%EF%BC%8C%E6%88%91%E5%BD%93%E6%99%9A%E8%B7%91%E4%BA%86%205%20%E5%85%AC%E9%87%8C",
+    "summary": "这几年一直坚持戴手环、手表，说是为了运动，倒是攒下了近三年的健康数据。这两天突发奇想，把全部数据让 GPT 6 Astra 完整地分析了一遍。 如何导出自己的运动健康数据？ 我的手机、手表用的都是小米，可以通过小米自带的【小米运动健康】APP导出全部数据。 （如果用的是苹果、华为",
+    "original_url": "https://afreecoder.dev/writing/%E6%8A%8A%E4%B8%89%E5%B9%B4%E7%9A%84%E5%81%A5%E5%BA%B7%E6%95%B0%E6%8D%AE%E4%BA%A4%E7%BB%99%20GPT-6%20Astra%20%E5%90%8E%EF%BC%8C%E6%88%91%E5%BD%93%E6%99%9A%E8%B7%91%E4%BA%86%205%20%E5%85%AC%E9%87%8C",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 2,
+    "bodyFile": "%E6%8A%8A%E4%B8%89%E5%B9%B4%E7%9A%84%E5%81%A5%E5%BA%B7%E6%95%B0%E6%8D%AE%E4%BA%A4%E7%BB%99%20GPT-6%20Astra%20%E5%90%8E%EF%BC%8C%E6%88%91%E5%BD%93%E6%99%9A%E8%B7%91%E4%BA%86%205%20%E5%85%AC%E9%87%8C.md"
+  },
+  {
+    "title": "GPT-6 Astra 发布，可能对你有什么帮助？",
+    "date": "2026-09-04",
+    "slug": "GPT-6%20Astra%20%E5%8F%91%E5%B8%83%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%AF%B9%E4%BD%A0%E6%9C%89%E4%BB%80%E4%B9%88%E5%B8%AE%E5%8A%A9%EF%BC%9F",
+    "summary": "昨天晚上，GPT 6 Astra 发布，一夜之间，到处都是 AGI 到来 的文章。 这两天本来在写 的系列文章，在这个大热点下，从一个普通用户的视角，看下即将上线的 GPT 6 Astra，对你、对我，到底有什么帮助。 一、每天一张额度重置卡 这是当下对你最有帮助的一个。 GPT",
+    "original_url": "https://afreecoder.dev/writing/GPT-6%20Astra%20%E5%8F%91%E5%B8%83%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%AF%B9%E4%BD%A0%E6%9C%89%E4%BB%80%E4%B9%88%E5%B8%AE%E5%8A%A9%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 3,
+    "bodyFile": "GPT-6%20Astra%20%E5%8F%91%E5%B8%83%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%AF%B9%E4%BD%A0%E6%9C%89%E4%BB%80%E4%B9%88%E5%B8%AE%E5%8A%A9%EF%BC%9F.md"
+  },
+  {
+    "title": "Codex 节省 token 的 8 个技巧",
+    "date": "2026-09-02",
+    "slug": "Codex%20%E8%8A%82%E7%9C%81%20token%20%E7%9A%84%208%20%E4%B8%AA%E6%8A%80%E5%B7%A7",
+    "summary": "今天有个朋友问我，为什么 Codex 的额度用得这么快，才 2 天就用完了？他是 Pro 会员（100 美元/月）。 跟他沟通了一下，发现他开着极速模式，思考等级默认拉到最高，还频繁用生图功能。难怪消耗那么快。 所以今天就分享几种节省 token 的小技巧。 （如果你还分不清 C",
+    "original_url": "https://afreecoder.dev/writing/Codex%20%E8%8A%82%E7%9C%81%20token%20%E7%9A%84%208%20%E4%B8%AA%E6%8A%80%E5%B7%A7",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 6,
+    "bodyFile": "Codex%20%E8%8A%82%E7%9C%81%20token%20%E7%9A%84%208%20%E4%B8%AA%E6%8A%80%E5%B7%A7.md"
+  },
+  {
+    "title": "一文讲清楚 ChatGPT、Codex 中的额度到底是多少？有什么区别？",
+    "date": "2026-08-31",
+    "slug": "%E4%B8%80%E6%96%87%E8%AE%B2%E6%B8%85%E6%A5%9A%20ChatGPT%E3%80%81Codex%20%E4%B8%AD%E7%9A%84%E9%A2%9D%E5%BA%A6%E5%88%B0%E5%BA%95%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F",
+    "summary": "这两天 OpenAI 官方在 Codex 中恢复了 Plus 会员的 5 小时限额，我发了个朋友圈同步了下这个消息，结果不少人来问这个是啥意思。 再加上平时越来越多的人开始从 ChatGPT 转向 Codex，经常遇到提示说额度已达上限，需要升级或等待下个周期重置，十分困惑。 今",
+    "original_url": "https://afreecoder.dev/writing/%E4%B8%80%E6%96%87%E8%AE%B2%E6%B8%85%E6%A5%9A%20ChatGPT%E3%80%81Codex%20%E4%B8%AD%E7%9A%84%E9%A2%9D%E5%BA%A6%E5%88%B0%E5%BA%95%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 10,
+    "bodyFile": "%E4%B8%80%E6%96%87%E8%AE%B2%E6%B8%85%E6%A5%9A%20ChatGPT%E3%80%81Codex%20%E4%B8%AD%E7%9A%84%E9%A2%9D%E5%BA%A6%E5%88%B0%E5%BA%95%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F.md"
+  },
+  {
     "title": "从 0 开发一个能赚钱的产品，需求怎么找？",
     "date": "2026-08-28",
     "slug": "%E4%BB%8E%200%20%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%83%BD%E8%B5%9A%E9%92%B1%E7%9A%84%E4%BA%A7%E5%93%81%EF%BC%8C%E9%9C%80%E6%B1%82%E6%80%8E%E4%B9%88%E6%89%BE%EF%BC%9F",

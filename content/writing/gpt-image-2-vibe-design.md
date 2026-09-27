@@ -56,7 +56,10 @@ ChatGPT Plus 会员
 为小米 17这个产品生成苹果风格的中文卡片宣传图
 ```
 
-附件图片:![](https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/3a9f0d250f56a5a45eb7acbc528e8f904c2e55c2c0b22099ea64ce253b1b97ce.png)
+附件图片:
+
+![](https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/3a9f0d250f56a5a45eb7acbc528e8f904c2e55c2c0b22099ea64ce253b1b97ce.png)
+
 生成图片：
 
 ![](https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/79fa2d100667b2d4036dc0ad040cc50b7cd79775790756a7ceda24f6033fa263.png)

@@ -194,10 +194,11 @@ function renderInline(text: string): ReactNode[] {
     if (match.index > cursor) nodes.push(text.slice(cursor, match.index));
     const token = match[0];
 
+    // 粗体、斜体和链接文字内部可能还有行内标记（斜体里的链接、链接里的粗体等），递归渲染；代码保持原样
     if (token.startsWith("**")) {
-      nodes.push(<strong key={nodes.length}>{token.slice(2, -2)}</strong>);
+      nodes.push(<strong key={nodes.length}>{renderInline(token.slice(2, -2))}</strong>);
     } else if (token.startsWith("*")) {
-      nodes.push(<em key={nodes.length}>{token.slice(1, -1)}</em>);
+      nodes.push(<em key={nodes.length}>{renderInline(token.slice(1, -1))}</em>);
     } else if (token.startsWith("`")) {
       nodes.push(<code key={nodes.length}>{token.slice(1, -1)}</code>);
     } else {
@@ -211,7 +212,7 @@ function renderInline(text: string): ReactNode[] {
             target={external ? "_blank" : undefined}
             rel={external ? "noreferrer" : undefined}
           >
-            {link[1]}
+            {renderInline(link[1])}
           </a>,
         );
       }
