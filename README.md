@@ -67,7 +67,13 @@ Cloudflare Workers 运行时**没有文件系统**，请求期代码不能用 `n
 - Writing meta 索引：`content/writing-posts.ts`（生成，勿手改）
 - Writing 正文模块：`content/writing-bodies.ts`（生成，勿手改）
 
-新文章在公众号 / 知乎首发后，用 my-toolbox 文章发布助手的「发布到个人博客」同步：它先把图片传到 OSS，再写入 `content/writing/`、`writing-posts.ts` 和 `writing-bodies.ts`。正文里不能残留 Obsidian 嵌入（`![[…]]`），图片必须独占一行，`lib/writing.test.ts` 会检查。
+新文章在公众号 / 知乎首发后同步到站点。以后预计由开发中的 Obsidian 发布插件完成，目前可用 my-toolbox 文章发布助手的「发布到个人博客」。不管用哪个工具，写入约定相同：
+
+- 图片先传 OSS，正文只用绝对地址；每张图独占一行，不能残留 Obsidian 嵌入（`![[…]]`）；站点不渲染视频。
+- 新建 `content/writing/<slug>.md`，frontmatter 含 `title`、`date`（YYYY-MM-DD，取实际发布日）、`slug`（默认 `encodeURIComponent(title)`）、`original_url`（`https://afreecoder.dev/writing/<slug>`）、`platforms`、`bodyFormat: markdown`。
+- 在 `content/writing-posts.ts` 加一条索引并按日期倒序：`summary` 取去掉 Markdown 标记后的正文前 140 字，`readingTime` 为纯文本字数 / 500（至少 1）；然后跑 `pnpm gen:bodies` 重新生成 `writing-bodies.ts`。
+- 渲染器支持 `#`–`####` 标题、`-` / `1.` 列表、引用、代码块、表格、分隔线，以及行内粗体、斜体、代码和链接；段落内的单换行会合并成一行。`lib/writing.test.ts` 会检查图片和 Obsidian 语法。
+- push `main` 即自动部署。
 
 历史文章通过 `pnpm sync:writing` 生成：脚本以本地笔记库 `40_outbox/published` 里的 Markdown 为正文源，再用 `AFreeCoder/AFreeCoder.github.io` 的 `local-search.xml` 对齐历史 slug、发布日期、原文 URL 和 OSS 图片链接。能匹配到本地 Markdown 的文章会保留本地正文，只替换图片地址；匹配不到的旧文章会从 GitHub Pages HTML 兜底还原为 Markdown。同步完成后会自动重新生成 `writing-bodies.ts`。
 
