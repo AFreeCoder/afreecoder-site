@@ -11,6 +11,19 @@ export type WritingSource = WritingFrontmatter & {
 // Run `pnpm sync:writing` after refreshing the GitHub Pages repository.
 export const writingPosts: WritingSource[] = [
   {
+    "title": "“付费社群”是割韭菜吗？",
+    "date": "2026-09-29",
+    "slug": "%E2%80%9C%E4%BB%98%E8%B4%B9%E7%A4%BE%E7%BE%A4%E2%80%9D%E6%98%AF%E5%89%B2%E9%9F%AD%E8%8F%9C%E5%90%97%EF%BC%9F",
+    "summary": "起因是在 V2EX 上刷到一个帖子，讨论 SEO 出海领域特别火的哥飞社群是不是割韭菜： 一种典型的观点是：“既然出海做网站能赚钱，为什么不多做几个网站，反而要靠卖课、卖社群赚钱？所以这就是割韭菜。” 这个观点看上去很有道理，但也很好反驳： 1）没有人会嫌钱多；2）收入多元化，现",
+    "original_url": "https://afreecoder.dev/writing/%E2%80%9C%E4%BB%98%E8%B4%B9%E7%A4%BE%E7%BE%A4%E2%80%9D%E6%98%AF%E5%89%B2%E9%9F%AD%E8%8F%9C%E5%90%97%EF%BC%9F",
+    "platforms": [
+      "AFreeCoder.dev"
+    ],
+    "bodyFormat": "markdown",
+    "readingTime": 4,
+    "bodyFile": "%E2%80%9C%E4%BB%98%E8%B4%B9%E7%A4%BE%E7%BE%A4%E2%80%9D%E6%98%AF%E5%89%B2%E9%9F%AD%E8%8F%9C%E5%90%97%EF%BC%9F.md"
+  },
+  {
     "title": "【译】重新思考面向 GPT-6 Astra 的 Skill 与 Prompt",
     "date": "2026-09-15",
     "slug": "%E3%80%90%E8%AF%91%E3%80%91%E9%87%8D%E6%96%B0%E6%80%9D%E8%80%83%E9%9D%A2%E5%90%91%20GPT-6%20Astra%20%E7%9A%84%20Skill%20%E4%B8%8E%20Prompt",

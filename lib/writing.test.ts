@@ -18,11 +18,11 @@ describe("getAllWriting", () => {
     const posts = await getAllWriting();
     const posts2026 = posts.filter((post) => post.date.startsWith("2026-"));
 
-    expect(posts2026).toHaveLength(33);
+    expect(posts2026).toHaveLength(34);
     expect(posts2026.map((post) => post.title)).toContain("从 0 开发一个能赚钱的产品，需求怎么找？");
     expect(posts2026.map((post) => post.title)).toContain("一个任务烧掉 5 亿 token：GPT-5.6-Sol 失控复盘");
     expect(posts2026.map((post) => post.title)).toContain("从 0 到上线：设计加开发，如何半天搞定？");
-    expect(posts[0].title).toBe("【译】重新思考面向 GPT-6 Astra 的 Skill 与 Prompt");
+    expect(posts[0].title).toBe("“付费社群”是割韭菜吗？");
   });
 
   it("excludes the removed archive and preserves the next article", async () => {
