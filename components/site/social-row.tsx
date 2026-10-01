@@ -1,4 +1,5 @@
 import type { SocialIconKey, SocialLink } from "@/lib/site-config";
+import { WechatFollow } from "./wechat-follow";
 
 type Props = {
   socials: readonly SocialLink[];
@@ -8,6 +9,16 @@ export function SocialRow({ socials }: Props) {
   return (
     <div className="social-row" role="list" aria-label="社交链接">
       {socials.map((s) => {
+        if (s.icon === "wechat") {
+          return (
+            <WechatFollow
+              key={s.href}
+              label={s.label}
+              account={s.account ?? s.label}
+              qr={s.href}
+            />
+          );
+        }
         const isExternal = /^https?:\/\//.test(s.href);
         return (
           <a
@@ -27,8 +38,14 @@ export function SocialRow({ socials }: Props) {
   );
 }
 
-function SocialIcon({ icon }: { icon: SocialIconKey }) {
+function SocialIcon({ icon }: { icon: Exclude<SocialIconKey, "wechat"> }) {
   switch (icon) {
+    case "zhihu":
+      return (
+        <span className="social-glyph" aria-hidden="true">
+          知
+        </span>
+      );
     case "github":
       return (
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

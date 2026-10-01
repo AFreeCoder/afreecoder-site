@@ -8,6 +8,8 @@ export type Product = {
   tags: string[];
   link?: string;
   status: "active" | "archived";
+  /** 出现在首页产品栏（产品页仍列出全部在运营产品） */
+  homepage?: boolean;
 };
 
 export type WritingFrontmatter = {

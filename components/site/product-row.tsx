@@ -10,7 +10,7 @@ type Props = {
 
 const THUMB_WIDTH = 320;
 
-/** 首页缩略图只有 128px 宽，把 OSS 图片处理参数里的缩放宽度换小，避免下载 1080px 原图 */
+/** 首页缩略图只有 152px 宽，把 OSS 图片处理参数里的缩放宽度换小，避免下载 1080px 原图 */
 function thumbnailOf(src: string): string {
   return src.replace(
     /(x-oss-process=image\/resize,w_)\d+/,
@@ -28,7 +28,7 @@ export function ProductRow({ product, featured = false }: Props) {
             alt=""
             unoptimized
             fill
-            sizes="128px"
+            sizes="152px"
             loading="eager"
             className="product-row-image"
           />

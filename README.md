@@ -67,6 +67,8 @@ Cloudflare Workers 运行时**没有文件系统**，请求期代码不能用 `n
 - Writing meta 索引：`content/writing-posts.ts`（生成，勿手改）
 - Writing 正文模块：`content/writing-bodies.ts`（生成，勿手改）
 
+新文章在公众号 / 知乎首发后，用 my-toolbox 文章发布助手的「发布到个人博客」同步：它先把图片传到 OSS，再写入 `content/writing/`、`writing-posts.ts` 和 `writing-bodies.ts`。正文里不能残留 Obsidian 嵌入（`![[…]]`），图片必须独占一行，`lib/writing.test.ts` 会检查。
+
 历史文章通过 `pnpm sync:writing` 生成：脚本以本地笔记库 `40_outbox/published` 里的 Markdown 为正文源，再用 `AFreeCoder/AFreeCoder.github.io` 的 `local-search.xml` 对齐历史 slug、发布日期、原文 URL 和 OSS 图片链接。能匹配到本地 Markdown 的文章会保留本地正文，只替换图片地址；匹配不到的旧文章会从 GitHub Pages HTML 兜底还原为 Markdown。同步完成后会自动重新生成 `writing-bodies.ts`。
 
 ## 代码高亮

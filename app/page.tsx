@@ -6,12 +6,12 @@ import { WritingRow } from "@/components/site/writing-row";
 import { HomeHero } from "@/components/site/home-hero";
 import { WritingFeatured } from "@/components/site/writing-featured";
 
-// 最新一篇之外再列几篇，让文章栏与四个产品行的高度大致齐平
-const HOME_POST_ROWS = 6;
+// 最新一篇之外再列几篇，让文章栏与三个产品行的高度大致齐平
+const HOME_POST_ROWS = 4;
 
 export default async function HomePage() {
   const posts = await getAllWriting();
-  const active = products.filter((p) => p.status === "active");
+  const active = products.filter((p) => p.status === "active" && p.homepage);
   const [latestPost, ...restPosts] = posts;
 
   return (

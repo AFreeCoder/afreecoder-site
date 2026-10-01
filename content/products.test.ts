@@ -4,17 +4,25 @@ import { products } from "./products";
 describe("products content", () => {
   it("uses the current public product lineup", () => {
     expect(products.map((product) => product.name)).toEqual([
-      "APIPool",
       "GPT101",
+      "APIPool",
+      "锦章",
       "RemoveAIWatermark",
       "WigglyPaint",
     ]);
     expect(products.map((product) => product.link)).toEqual([
-      "https://apipool.dev",
       "https://gpt101.org",
+      "https://app.apipool.dev",
+      "https://jinzhang.ink",
       "https://removeaiwatermark.org",
       "https://wigglypaint.co",
     ]);
+  });
+
+  it("features GPT101, APIPool and 锦章 on the homepage", () => {
+    expect(
+      products.filter((product) => product.homepage).map((product) => product.link),
+    ).toEqual(["https://gpt101.org", "https://app.apipool.dev", "https://jinzhang.ink"]);
   });
 
   it("active products include presentation metadata for richer cards", () => {

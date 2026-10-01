@@ -1,9 +1,12 @@
-export type SocialIconKey = "github" | "x" | "email" | "rss";
+export type SocialIconKey = "wechat" | "zhihu" | "github" | "x" | "email" | "rss";
 
 export type SocialLink = {
   icon: SocialIconKey;
   label: string;
+  /** 公众号没有网页主页，这里放二维码图片地址 */
   href: string;
+  /** 公众号名称，扫码弹层里展示 */
+  account?: string;
 };
 
 export type NavItem = {
@@ -22,12 +25,19 @@ export const siteConfig = {
   },
   now: {
     building: "APIPool",
-    link: "https://apipool.dev",
+    link: "https://app.apipool.dev",
     note: "对产品合作与交流开放",
   },
   socials: [
+    {
+      icon: "wechat",
+      label: "微信公众号",
+      account: "码农的自由之路",
+      href: "https://tjjsjwhj-blog.oss-cn-beijing.aliyuncs.com/article-publish-assistant/a088281940d27e9323ae4cffe034b1218e0399e8b49ef4bb5da3b92570f8c4f5.jpg",
+    },
+    { icon: "zhihu",  label: "知乎",   href: "https://www.zhihu.com/people/afreecoder" },
+    { icon: "x",      label: "X / Twitter", href: "https://x.com/afreecoder" },
     { icon: "github", label: "GitHub", href: "https://github.com/AFreeCoder" },
-    { icon: "x",      label: "X / Twitter", href: "https://x.com/" },
     { icon: "email",  label: "Email", href: "mailto:hello@afreecoder.dev" },
     { icon: "rss",    label: "RSS",   href: "/rss.xml" },
   ] as SocialLink[],
