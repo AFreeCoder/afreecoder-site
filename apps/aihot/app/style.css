@@ -411,7 +411,10 @@ a {
 .watch-column { display: grid; grid-template-rows: subgrid; grid-row: span 3; min-width: 0; }
 .watch-column-title { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 600; margin: 0 0 12px; }
 .watch-column-title svg { color: var(--accent); }
+.watch-column-title .outlook-badge { margin-left: auto; }
 .watch-column > .reset-summary { display: grid; grid-template-rows: subgrid; grid-row: span 2; row-gap: 0; min-width: 0; }
+.reset-summary .latest-reset { grid-row: 2; }
+.reset-summary .latest-reset:first-child { border-top: 0; }
 .reset-summary .outlook-card, .reset-summary .latest-reset { display: flex; flex-direction: column; padding: 14px 20px; }
 .reset-summary .outlook-card h2, .reset-summary .latest-reset h2 { font-size: 26px; line-height: 1.3; margin: 9px 0 7px; }
 .reset-summary .latest-reset-time { margin: 9px 0 7px; }

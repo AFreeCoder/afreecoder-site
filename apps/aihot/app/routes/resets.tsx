@@ -40,15 +40,16 @@ function SourceLink({ record }: { record: ResetRecord }) {
 	return <a href={record.source.url} target="_blank" rel="noopener noreferrer">{record.source.label} 原帖<ArrowUpRight size={13} aria-hidden="true" /></a>;
 }
 function Forecast({ signal, outlook, credit = false }: { signal: ResetRecord | null; outlook: string; credit?: boolean }) {
+	if (!signal) return null;
 	const title = credit ? '下一次重置卡发放预告' : '下一次额度重置预告';
 	const hint = signal?.kind === 'hint' || signal?.credit_status === 'hint';
 	const date = signal?.expected_date ?? (signal?.expected_at ? timeParts(signal.expected_at).day : null);
-	const heading = date ? dayLabel(date) : signal ? '时间待确认' : '时间待公布';
+	const heading = date ? dayLabel(date) : '时间待确认';
 	const Icon = credit ? Ticket : Radio;
 	return <section className="outlook-card" aria-label={title}>
-		<div className="card-eyebrow"><span><Icon size={16} aria-hidden="true" />{title}</span><span className={`outlook-badge ${!signal ? 'monitoring' : hint ? 'suspected' : 'confirmed'}`}>{!signal ? '持续监控中' : hint ? '疑似' : '明确'}</span></div>
+		<div className="card-eyebrow"><span><Icon size={16} aria-hidden="true" />{title}</span><span className={`outlook-badge ${hint ? 'suspected' : 'confirmed'}`}>{hint ? '疑似' : '明确'}</span></div>
 		<h2>{date ? <time dateTime={date}>{heading}</time> : heading}</h2>
-		<p className="outlook-description">{signal?.summary ?? (credit ? '暂未发现新的重置卡发放预告。' : '暂未发现新的额度重置预告。')}</p>
+		<p className="outlook-description">{signal.summary}</p>
 		{signal?.expected_note && <p className="expected-note">{signal.expected_note}</p>}
 		{outlook === 'overdue' && <p className="expected-note">预告日期已过，仍待{credit ? '发放' : '完成'}确认。</p>}
 		{signal?.audience && <p className="expected-note">适用范围：{signal.audience}</p>}
@@ -101,7 +102,7 @@ export default function Resets() {
 			{(stale || checkFailed) && <p className="watch-warning" role="status"><Info size={15} aria-hidden="true" />{checkFailed ? '暂时无法检查更新，以下保留已同步记录。' : state.last_synced_at ? '数据同步暂有延迟，以下为上次同步的公开记录。' : '公开记录尚未同步，暂时无法判断最新进展。'}</p>}
 			<div className="watch-grid">
 				<section className="watch-column" aria-labelledby="quota-column-title">
-				<h2 className="watch-column-title" id="quota-column-title"><Radio size={18} aria-hidden="true" />额度重置</h2>
+				<h2 className="watch-column-title" id="quota-column-title"><Radio size={18} aria-hidden="true" />额度重置{!signal && <span className="outlook-badge monitoring">持续监控中</span>}</h2>
 				<div className="reset-summary">
 				<Forecast signal={signal} outlook={outlook} />
 				<section className="latest-reset" aria-label="最近一次额度重置">
@@ -115,7 +116,7 @@ export default function Resets() {
 				</div>
 				</section>
 				<section className="watch-column" aria-labelledby="credit-column-title">
-				<h2 className="watch-column-title" id="credit-column-title"><Ticket size={18} aria-hidden="true" />重置卡发放</h2>
+					<h2 className="watch-column-title" id="credit-column-title"><Ticket size={18} aria-hidden="true" />重置卡发放{!creditSignal && <span className="outlook-badge monitoring">持续监控中</span>}</h2>
 				<div className="reset-summary">
 					<Forecast signal={creditSignal} outlook={creditOutlook} credit />
 					<section className="latest-reset" aria-label="最近一次重置卡发放">
