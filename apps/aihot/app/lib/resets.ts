@@ -2,6 +2,7 @@ import { timeParts, type NewsEvent } from './content';
 
 export const RESET_LABELS = {
 	completed: '已确认重置',
+	observed: '已有用户到账',
 	announced: '重置预告',
 	hint: '相关暗示',
 	cancelled: '预告已撤回',
@@ -85,13 +86,12 @@ export function resetOverview(records: ResetRecord[], now: string, days: number)
 	const today = timeParts(now).day;
 	// 非真实的未来公告不进入当前状态；仅有日期的记录按北京时间归日。
 	const visible = records.filter((r) => r.clock === '仅日期' ? r.day <= today : Date.parse(r.announced_at) <= Date.parse(now));
-	const latest = visible.find((r) => r.kind === 'completed') ?? null;
+	const latest = visible.find((r) => r.kind === 'completed' || r.kind === 'observed') ?? null;
 	const since = recentSince(now, days);
 	const recent = visible.filter((r) => r.day >= since);
-	const closed = new Set(visible.filter((r) => r.kind === 'completed' || r.kind === 'cancelled').map((r) => r.event_id));
+	const closed = new Set(visible.filter((r) => r.kind === 'completed' || r.kind === 'observed' || r.kind === 'cancelled').map((r) => r.event_id));
 	const signal = visible.find((r) =>
-		(r.kind === 'announced' || r.kind === 'hint') && !closed.has(r.event_id) &&
-		(!latest || timeParts(r.announced_at).sort_key > timeParts(latest.announced_at).sort_key),
+		(r.kind === 'announced' || r.kind === 'hint') && !closed.has(r.event_id),
 	) ?? null;
 	const outlook = forecastState(signal, now);
 	// 一次发卡的预告与到账确认仅计一轮，以最新进展为准。

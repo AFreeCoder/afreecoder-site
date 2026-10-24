@@ -20,7 +20,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 	const [{ events, limited }, state] = await Promise.all([listResetEvents(context.get(cloudflareContext).env.DB), siteState(context.get(cloudflareContext).env.DB)]);
 	const now = new Date().toISOString();
 	const overview = resetOverview(resetRecords(events), now, Number(period));
-	const matches = (r: ResetRecord) => filter === 'all' || (filter === 'credit' ? r.kind === 'credit' : ['completed', 'announced', 'hint', 'cancelled'].includes(r.kind));
+	const matches = (r: ResetRecord) => filter === 'all' || (filter === 'credit' ? r.kind === 'credit' : ['completed', 'observed', 'announced', 'hint', 'cancelled'].includes(r.kind));
 	// 摘要与记录同源；单次事件中的旧预告仍可展开，避免把一次重置拆成两次。
 	const allGroups = groupResetRecords(overview.visible);
 	const historyGroups = allGroups.filter((group) => group.some(matches));
@@ -106,11 +106,11 @@ export default function Resets() {
 				<div className="reset-summary">
 				<Forecast signal={signal} outlook={outlook} />
 				<section className="latest-reset" aria-label="最近一次额度重置">
-					<div className="card-eyebrow"><span><Clock3 size={16} aria-hidden="true" />最近一次额度重置</span>{latest && <span className="status completed"><Check size={12} aria-hidden="true" />已确认重置</span>}</div>
+					<div className="card-eyebrow"><span><Clock3 size={16} aria-hidden="true" />最近一次额度重置</span>{latest && <span className={`status ${latest.kind}`}>{latest.kind === 'completed' && <Check size={12} aria-hidden="true" />}{RESET_LABELS[latest.kind]}</span>}</div>
 					{latest ? <>
 						<div className="latest-reset-time"><h2><time dateTime={latest.announced_at}>{stamp(latest)}</time></h2><span>{age === 0 ? '今天' : `${age} 天前`}</span></div>
 						<p>{latest.summary}</p>
-						<div className="latest-reset-source"><span>{latest.audience || '以原帖说明的适用范围为准'}</span><a href={latest.source.url} target="_blank" rel="noopener noreferrer">查看确认原帖<ArrowUpRight size={14} aria-hidden="true" /></a></div>
+						<div className="latest-reset-source"><span>{latest.audience || '以原帖说明的适用范围为准'}</span><a href={latest.source.url} target="_blank" rel="noopener noreferrer">查看证据原帖<ArrowUpRight size={14} aria-hidden="true" /></a></div>
 					</> : <><h2>暂无确认记录</h2><p>尚未收录额度重置完成的公开确认。</p></>}
 				</section>
 				</div>
@@ -136,7 +136,7 @@ export default function Resets() {
 				<div className="event-list" key={filter}>{historyGroups.length ? historyGroups.map((records) => <EventRow key={records[0].event_id} records={records} />) : <div className="watch-empty"><Radio size={24} strokeWidth={1.2} aria-hidden="true" /><h3>暂无{filter === 'credit' ? '重置卡' : filter === 'reset' ? '额度重置' : '相关'}记录</h3><p>已核实的公开记录会在这里持续补充。</p></div>}</div>
 				{result.moreRecords && <p className="history-limit">当前展示最近 30 件已收录事件。</p>}
 			</section>
-			<details className="watch-method"><summary><Info size={14} aria-hidden="true" />信息来源与统计口径<ChevronDown size={13} aria-hidden="true" /></summary><p>本站跟进公开公告，不读取个人账户。重置卡发放与直接恢复额度分开记录；预告和完成确认合并为同一次事件。个人周期恢复时间以账户用量页为准。</p><p>公告时间统一换算为北京时间。仅有日期时不补造时分；未明确时区的预告保留原文说明，不推算精确时刻。关键词命中的消息标为「相关公告」，不会自动认定已经重置。</p><p>数据同步时间表示网站收到新数据的时间，不等于所有来源均已核验。历史仍在补录，暂无记录不代表一定没有发生；本站不据此计算重置概率。</p>{(result.limited || result.moreRecords) && <p>当前仅展示最近 500 条候选信息、当前类型最多 30 件事件，更早记录可能未包含。</p>}</details>
+			<details className="watch-method"><summary><Info size={14} aria-hidden="true" />信息来源与统计口径<ChevronDown size={13} aria-hidden="true" /></summary><p>本站跟进公开公告和用户公开到账反馈，不读取个人账户。用户反馈标为「已有用户到账」，只代表已报告的账户；官方完成确认另行标注。重置卡发放与直接恢复额度分开记录；预告和完成确认合并为同一次事件。个人周期恢复时间以账户用量页为准。</p><p>公告时间统一换算为北京时间。仅有日期时不补造时分；未明确时区的预告保留原文说明，不推算精确时刻。关键词命中的消息标为「相关公告」，不会自动认定已经重置。</p><p>数据同步时间表示网站收到新数据的时间，不等于所有来源均已核验。历史仍在补录，暂无记录不代表一定没有发生；本站不据此计算重置概率。</p>{(result.limited || result.moreRecords) && <p>当前仅展示最近 500 条候选信息、当前类型最多 30 件事件，更早记录可能未包含。</p>}</details>
 		</main>
 		<footer className="watch-footer"><span>AI 新鲜事 · 关注每一次新变化</span><span>非 OpenAI 官方页面 · 以原帖及账户实际显示为准</span></footer>
 	</>;

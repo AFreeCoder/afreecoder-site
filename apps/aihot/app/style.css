@@ -437,3 +437,5 @@ a {
   .watch-column-title { font-size: 16px; margin-bottom: 9px; }
   .reset-summary .outlook-card h2, .reset-summary .latest-reset h2 { font-size: 24px; }
 }
+
+.status.observed { color: #596f91; background: #eaf0f7; }

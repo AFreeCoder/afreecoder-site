@@ -114,7 +114,7 @@ pnpm sync --input /absolute/path/to/flow/store.json \
 }
 ```
 
-- `kind` 支持 `announced`（预告）、`completed`（确认完成）、`hint`（暗示）、`cancelled`（撤回预告）、`credit`（发卡）、`incident`（异常）。`announced_at` 使用该条原帖时间，不能拿前一条预告时间当完成时间。
+- `kind` 支持 `announced`（预告）、`completed`（官方确认完成）、`observed`（已有用户公开反馈到账，必须填写 `audience`）、`hint`（暗示）、`cancelled`（撤回预告）、`credit`（发卡）、`incident`（异常）。`announced_at` 使用该条原帖时间，不能拿前一条预告时间当完成时间。
 - `source_url` 必须出现在同一新闻的公开 `sources` 中。`audience` 说明适用范围；不要把定向补偿写成全员发放。
 - 预告可带 `expected_at`（明确且带时区的时间）、`expected_date`（仅日期，不补造时区或时刻）或 `expected_note`（原文时间窗口及推断说明）。逾期但未确认时显示“等待完成确认”，不自动算已重置。
 - 发卡可带 `credit_count`（每位符合条件用户的张数）和 `credit_status`（`hint` / `announced` / `distributed` / `cancelled`）。同一轮预告和完成记录保持同一事件 ID，避免重复计数；不同人群的张数不相加。
@@ -123,3 +123,5 @@ pnpm sync --input /absolute/path/to/flow/store.json \
 - `0003_reset_history.sql` 将三条既有新闻的核实记录写入 D1，并补录 11 件 8 月至 9 月的历史事件，共 19 条新增原帖进展。公开补录材料位于 `data/reset-history.json`。`app/lib/resets.ts` 中的三条兼容注解仅在数据库未提供结构化记录、且原新闻与来源仍存在时启用。新消息需要继续核实并产出结构化字段；本应用不直接抓取 X，也不将“相关公告”自动升级成确认。
 
 上线需先应用 `0002_reset_updates.sql`（仅新增可空列）。`pnpm deploy` 先导出 D1 到发布环境的 `.wrangler/backups/`，再执行远程迁移；备份或迁移失败即停止发布。临时构建环境的备份文件需从构建环境另行留存，D1 还会在迁移前自动生成恢复点。迁移成功后旧 Worker 仍兼容该列。首次升级前按原流程备份 D1，并同步更新外部采集任务安装的 `scripts/sync.mjs` 副本。本地验收不访问远程数据库。
+
+用户到账反馈与预告保留同一事件 ID；到账反馈关闭本轮预告并进入最近一次重置，标签保持“已有用户到账”，不等同全量完成。不同轮次的到账不能关闭另一轮尚未确认的预告。PST/PDT 歧义若不影响 UTC+8 日期，仍填写 `expected_date` 并在 `expected_note` 说明时刻范围。服务恢复与用量补偿不等同额度重置或重置卡发放。

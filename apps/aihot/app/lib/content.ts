@@ -78,7 +78,8 @@ export function publicEvent(value: unknown): PublicEvent {
 			throw new Error('重置记录仅适用于 Codex，每条信息最多 20 条');
 		reset_updates = v.reset_updates.map((item) => {
 			const update = record(item);
-			if (!['completed', 'announced', 'hint', 'cancelled', 'credit', 'incident'].includes(String(update.kind))) throw new Error('重置记录类型无效');
+			if (!['completed', 'observed', 'announced', 'hint', 'cancelled', 'credit', 'incident'].includes(String(update.kind))) throw new Error('重置记录类型无效');
+			if (update.kind === 'observed') text(update.audience, '到账反馈的适用范围', 240);
 			const source_url = text(update.source_url, '重置原帖', 2048);
 			if (!sources.some((s) => s.url === source_url)) throw new Error('重置原帖必须在信息来源中');
 			if (update.credit_count !== undefined && (update.kind !== 'credit' || !Number.isInteger(update.credit_count) || Number(update.credit_count) < 1 || Number(update.credit_count) > 100))
