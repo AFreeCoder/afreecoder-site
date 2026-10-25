@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"type": "module",
+	"packageManager": "pnpm@10.29.2",
 	"scripts": {
 		"dev": "vite --host 127.0.0.1 --port 5178",
 		"build": "react-router build",

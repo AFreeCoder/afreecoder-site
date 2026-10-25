@@ -16,9 +16,11 @@
 
 ## 本地运行
 
-以下命令均在 `apps/aihot` 目录执行，需要 Node 22.22+（推荐 Node 24）和 pnpm 10。
+以下命令均在 `apps/aihot` 目录执行，需要 Node 22.22+（推荐 Node 24）和 pnpm 10.29.2。`package.json` 的 `packageManager` 字段固定了包管理器版本；使用 Corepack 按项目声明选择版本。
 
 ```bash
+corepack enable
+pnpm --version # 应输出 10.29.2
 pnpm install --frozen-lockfile
 cp .dev.vars.example .dev.vars
 # 将 .dev.vars 中的占位 PUBLISH_TOKEN 替换成随机本地令牌。
@@ -80,19 +82,28 @@ pnpm sync --input /absolute/path/to/flow/store.json \
 | 构建监视路径 | 排除 `apps/aihot/**` | 仅包含 `apps/aihot/**` |
 | 数据 | 现有编译期内容 | 独立 D1 |
 
-上表已在控制台保存。两站生产分支均为 `main`，预览分支构建均关闭；子站构建环境 `NODE_VERSION=24`。主站的有效部署说明见根目录 `docs/deployment.md`，该文档中的“无数据库”仅指主站。
+上表已在控制台保存。两站生产分支均为 `main`，预览分支构建均关闭；子站在 Cloudflare **设置 → 构建 → 变量和机密**中固定以下构建变量：
+
+- `NODE_VERSION=24`
+- `PNPM_VERSION=10.29.2`
+
+`PNPM_VERSION` 必须与本目录 `package.json` 的 `packageManager` 版本一致，升级时一起修改。依赖安装发生在构建命令之前，不能依靠构建脚本临时切换版本；也不要依赖 Cloudflare 构建镜像的默认 pnpm 版本。主站的有效部署说明见根目录 `docs/deployment.md`，该文档中的“无数据库”仅指主站。
+
+构建日志中的工具检测行应包含 `pnpm@10.29.2`。若安装阶段出现 `packages field missing or empty`，先核对实际 pnpm 版本及上述构建变量：本项目的 `pnpm-workspace.yaml` 用于配置 `onlyBuiltDependencies`，旧版 pnpm 9 会因缺少 `packages` 字段拒绝安装。修正版本后重试，并确认类型检查、测试、构建和部署均成功。
 
 重建环境或接管部署时的顺序：
 
 1. 创建 `afreecoder-aihot` D1，将 ID 写入本目录 `wrangler.jsonc`；远程应用 `migrations/0001_events.sql`。已有环境直接复用配置中的 ID，不重复创建。
 2. 为子站配置 `PUBLISH_TOKEN` secret，构建并部署到独立 Worker。绑定 `aihot.afreecoder.dev` custom domain，确认 HTTPS 可用。不要把主站现有域名移到子站。
 3. 使用独立状态文件导入已有事件；验证首批条数、重复同步、筛选分页、详情、来源及未授权发布被拒绝。
-4. 设置两条 Workers Builds 的目录和监视路径，子站使用 Node 24；保留主站原配置。子站数据同步不触发代码重建。
+4. 设置两条 Workers Builds 的目录和监视路径，子站使用 `NODE_VERSION=24`、`PNPM_VERSION=10.29.2`；保留主站原配置。子站数据同步不触发代码重建。
 5. 将同步命令接入既有采集任务，并观察一次后续同步成功。最后发布主站导航入口，避免入口先指向未上线站点。
 
 发布前记录上一 Worker 版本；修改已有远程数据库前用 D1 export 留存备份。本次迁移仅新增表，不包含删除。回滚代码使用对应 Worker 历史版本，不会回滚 D1 数据；内容错误通过同 ID 修订或显式撤下处理。生产验收以实际域名页面、API、数据回执和部署版本为准。
 
 首批线上导入 220 条已整理事件，随后重复同步为 0 条。正式同步状态位于 `~/.local/share/ai-news-collect/website/state.json`，密钥由同目录权限为 600 的文件提供。初始 D1 SQL 备份保存在该目录的 `backups` 下；它与同步状态均不进入 Git。
+
+部署约定变更记录：2026-10-25，项目与 Cloudflare 构建环境统一固定 pnpm 10.29.2。
 
 ## Codex 重置监控
 
