@@ -63,9 +63,8 @@ export function resetRecords(events: NewsEvent[]): ResetRecord[] {
 			const { day, clock, published_at } = timeParts(update.announced_at);
 			return [{ ...update, context_url: event.sources.some((s) => s.url === update.context_url) ? update.context_url : undefined, announced_at: published_at, id: `${event.id}-${i}`, event_id: event.id, title: event.title, day, clock, source }];
 		});
-		// 关键词只召回待核实线索，不把一般产品消息或否定句提升为重置预告。
-		if (!/重置|\breset(?:s)?\b/i.test(`${event.title} ${event.body}`)) return [];
-		return [{ id: event.id, event_id: event.id, title: event.title, summary: event.body, kind: 'related', announced_at: event.published_at, day: event.day, clock: event.clock, source: event.sources[0] }];
+		// 关键词召回留在采集审核中，公开监控只展示核实后的结构化记录。
+		return [];
 	});
 	const unique = new Map<string, ResetRecord>();
 	for (const record of records) {
@@ -82,6 +81,13 @@ export function recentSince(now: string, days: number) {
 	return start.toISOString().slice(0, 10);
 }
 
+// 超过预计日期七天的未结预告保留在历史中，不再冒充下一次预告。
+// 未提供预计日期时从公告日计算；明确的未来日期不受公告年龄影响。
+export function currentForecast(record: ResetRecord, now: string) {
+	const anchor = record.expected_date ?? (record.expected_at ? timeParts(record.expected_at).day : record.day);
+	return anchor >= recentSince(now, 8);
+}
+
 export function resetOverview(records: ResetRecord[], now: string, days: number) {
 	const today = timeParts(now).day;
 	// 非真实的未来公告不进入当前状态；仅有日期的记录按北京时间归日。
@@ -91,7 +97,7 @@ export function resetOverview(records: ResetRecord[], now: string, days: number)
 	const recent = visible.filter((r) => r.day >= since);
 	const closed = new Set(visible.filter((r) => r.kind === 'completed' || r.kind === 'observed' || r.kind === 'cancelled').map((r) => r.event_id));
 	const signal = visible.find((r) =>
-		(r.kind === 'announced' || r.kind === 'hint') && !closed.has(r.event_id),
+		(r.kind === 'announced' || r.kind === 'hint') && !closed.has(r.event_id) && currentForecast(r, now),
 	) ?? null;
 	const outlook = forecastState(signal, now);
 	// 一次发卡的预告与到账确认仅计一轮，以最新进展为准。

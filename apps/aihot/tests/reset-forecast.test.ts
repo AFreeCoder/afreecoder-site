@@ -57,3 +57,29 @@ it('日期/上文公开字段校验，不接受非法日期或未收录链接', 
   expect(() => publicEvent(event([{ ...hint, expected_at: '2026-09-22T00:00:00Z' }]))).toThrow();
   expect(() => publicEvent({ ...event([hint]), reset_updates: [{ ...hint, context_url: 'https://example.com/unlisted' }] })).toThrow();
 });
+
+
+it('8 月历史预告不占据下一次卡片，仍保留历史和 10 月完成记录', () => {
+  const old = event([{ kind: 'announced', announced_at: '2026-08-29T20:43:53Z', summary: '历史预告', source_url: source }], 'aug30');
+  const done = event([{ kind: 'completed', announced_at: '2026-10-28T06:29:00Z', summary: '本轮完成', source_url: 'https://example.com/done' }], 'oct28');
+  const result = resetOverview(resetRecords([old, done]), '2026-11-12T04:00:00Z', 7);
+  expect(result.signal).toBeNull();
+  expect(result.latest?.event_id).toBe('oct28');
+  expect(result.visible.map(r => r.event_id)).toContain('aug30');
+});
+
+it('预告七天宽限按 UTC+8 日期计算，统计周期不改变预告有效期', () => {
+  const records = resetRecords([event([{ kind: 'announced', announced_at: '2026-10-01', expected_at: '2026-11-04T17:00:00Z', summary: '预计 11 月 5 日', source_url: source }])]);
+  expect(resetOverview(records, '2026-11-12T15:59:59Z', 7).outlook).toBe('overdue');
+  expect(resetOverview(records, '2026-11-12T16:00:00Z', 30).signal).toBeNull();
+});
+
+it('提前很久发布但日期仍在未来的预告继续展示', () => {
+  const records = resetRecords([event([{ kind: 'announced', announced_at: '2026-08-30', expected_date: '2026-11-20', summary: '明确未来日期', source_url: source }])]);
+  expect(resetOverview(records, '2026-11-12T04:00:00Z', 7).signal?.expected_date).toBe('2026-11-20');
+});
+
+it('产品更新、否定句、会话 reset 和没有来源的关键词命中不进入历史', () => {
+  const items = ['Codex 模型升级，下次重置后生效', '尚未重置额度', 'reset session', '重置快捷键'].map((title, i) => ({ ...event([], `general-${i}`), title, reset_updates: undefined }));
+  expect(resetRecords(items)).toEqual([]);
+});

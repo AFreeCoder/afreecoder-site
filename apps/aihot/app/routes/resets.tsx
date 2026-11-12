@@ -40,8 +40,12 @@ function SourceLink({ record }: { record: ResetRecord }) {
 	return <a href={record.source.url} target="_blank" rel="noopener noreferrer">{record.source.label} 原帖<ArrowUpRight size={13} aria-hidden="true" /></a>;
 }
 function Forecast({ signal, outlook, credit = false }: { signal: ResetRecord | null; outlook: string; credit?: boolean }) {
-	if (!signal) return null;
 	const title = credit ? '下一次重置卡发放预告' : '下一次额度重置预告';
+	if (!signal) return <section className="outlook-card" aria-label={title}>
+		<div className="card-eyebrow"><span>{credit ? <Ticket size={16} aria-hidden="true" /> : <Radio size={16} aria-hidden="true" />}{title}</span><span className="outlook-badge monitoring">持续关注</span></div>
+		<h2>暂无新的{credit ? '发卡' : '重置'}预告</h2>
+		<p className="outlook-description">{credit ? '尚未收录新的重置卡发放安排。有明确消息后，这里会更新发放时间和适用范围。' : '下一轮额度重置时间尚未公布。有明确消息后，这里会更新预告和最新进展。'}</p>
+	</section>;
 	const hint = signal?.kind === 'hint' || signal?.credit_status === 'hint';
 	const date = signal?.expected_date ?? (signal?.expected_at ? timeParts(signal.expected_at).day : null);
 	const heading = date ? dayLabel(date) : '时间待确认';
@@ -136,7 +140,7 @@ export default function Resets() {
 				<div className="event-list" key={filter}>{historyGroups.length ? historyGroups.map((records) => <EventRow key={records[0].event_id} records={records} />) : <div className="watch-empty"><Radio size={24} strokeWidth={1.2} aria-hidden="true" /><h3>暂无{filter === 'credit' ? '重置卡' : filter === 'reset' ? '额度重置' : '相关'}记录</h3><p>已核实的公开记录会在这里持续补充。</p></div>}</div>
 				{result.moreRecords && <p className="history-limit">当前展示最近 30 件已收录事件。</p>}
 			</section>
-			<details className="watch-method"><summary><Info size={14} aria-hidden="true" />信息来源与统计口径<ChevronDown size={13} aria-hidden="true" /></summary><p>本站跟进公开公告和用户公开到账反馈，不读取个人账户。用户反馈标为「已有用户到账」，只代表已报告的账户；官方完成确认另行标注。重置卡发放与直接恢复额度分开记录；预告和完成确认合并为同一次事件。个人周期恢复时间以账户用量页为准。</p><p>公告时间统一换算为北京时间。仅有日期时不补造时分；未明确时区的预告保留原文说明，不推算精确时刻。关键词命中的消息标为「相关公告」，不会自动认定已经重置。</p><p>数据同步时间表示网站收到新数据的时间，不等于所有来源均已核验。历史仍在补录，暂无记录不代表一定没有发生；本站不据此计算重置概率。</p>{(result.limited || result.moreRecords) && <p>当前仅展示最近 500 条候选信息、当前类型最多 30 件事件，更早记录可能未包含。</p>}</details>
+			<details className="watch-method"><summary><Info size={14} aria-hidden="true" />信息来源与统计口径<ChevronDown size={13} aria-hidden="true" /></summary><p>本站跟进公开公告和用户公开到账反馈，不读取个人账户。官方未注明仅针对部分用户的重置公告，按全量范围记录；同轮到账证据用于更新完成状态。仅有个人到账反馈而无法关联公告时，标为「已有用户到账」。重置卡发放与直接恢复额度分开记录；预告和完成确认合并为同一次事件。个人周期恢复时间以账户用量页为准。</p><p>公告时间统一换算为北京时间。仅有日期时不补造时分；未明确时区的预告保留原文说明，不推算精确时刻。仅提及“重置”的普通产品消息不进入监控。预告超过预计日期七天后保留在历史记录中；未给预计日期时，从公告日计算。</p><p>数据同步时间表示网站收到新数据的时间，不等于所有来源均已核验。历史仍在补录，暂无记录不代表一定没有发生；本站不据此计算重置概率。</p>{(result.limited || result.moreRecords) && <p>当前仅展示最近 500 条候选信息、当前类型最多 30 件事件，更早记录可能未包含。</p>}</details>
 		</main>
 		<footer className="watch-footer"><span>AI 新鲜事 · 关注每一次新变化</span><span>非 OpenAI 官方页面 · 以原帖及账户实际显示为准</span></footer>
 	</>;

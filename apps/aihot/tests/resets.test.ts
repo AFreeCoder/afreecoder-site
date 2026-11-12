@@ -17,8 +17,7 @@ describe('重置证据与近期状态', () => {
 	});
 	it('新消息仅包含重置关键词不能变成完成确认，其他产品不会混入', () => {
 		const records = resetRecords([event({ id: 'new-reset', title: 'Codex 尚未重置' }), event({ id: 'claude-reset', products: ['Claude'] })]);
-		expect(records).toHaveLength(1);
-		expect(records[0].kind).toBe('related');
+		expect(records).toEqual([]);
 	});
 	it('撤掉确认来源或显式排除后，历史确认不再展示', () => {
 		expect(resetRecords([event({ sources: [] })])).toEqual([]);
